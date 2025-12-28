@@ -59,43 +59,112 @@ export default function* ({ search, paginate }: Lume.Data) {
   (function() {
     const postList = document.getElementById("post-list");
     const sentinel = document.getElementById("infinite-scroll-sentinel");
-    const nextLink = document.getElementById("next-page-link");
+    let nextLink = document.getElementById("next-page-link");
+    const STORAGE_KEY = "blog_infinite_scroll_state";
 
-    if (sentinel && nextLink) {
-      const observer = new IntersectionObserver(async (entries) => {
-        if (entries[0].isIntersecting) {
-          const url = nextLink.href;
-          if (!url) return;
+    // 状態の取得
+    const getState = () => {
+      try {
+        const state = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+        return (state && state.path === window.location.pathname) ? state : null;
+      } catch {
+        return null;
+      }
+    };
+    
+    // 状態の保存
+    const saveState = (urls) => {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
+        path: window.location.pathname,
+        urls: urls
+      }));
+    };
 
-          sentinel.style.visibility = "visible";
-          
+    // 初期状態のロード
+    const state = getState();
+    let loadedUrls = state ? state.urls : [];
+
+    // もしパスが変わっていたらクリア
+    if (!state) {
+      sessionStorage.removeItem(STORAGE_KEY);
+    }
+
+    // HTMLから記事を抽出して追加する関数
+    const appendPosts = (html) => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+      const newPosts = doc.querySelectorAll("#post-list .post-item");
+      newPosts.forEach(post => postList.appendChild(post));
+      
+      const newNextLink = doc.getElementById("next-page-link");
+      if (newNextLink && nextLink) {
+        nextLink.href = newNextLink.href;
+        return newNextLink.href; // 次のURLがある場合
+      } else {
+        nextLink = null;
+        if (sentinel) sentinel.remove();
+        return null;
+      }
+    };
+
+    // 初期化と復元処理
+    const init = async () => {
+      // 復元処理
+      if (loadedUrls.length > 0 && nextLink) {
+        if (sentinel) sentinel.style.visibility = "visible";
+        
+        // 順番に読み込んでDOMを復元
+        for (const url of loadedUrls) {
           try {
             const response = await fetch(url);
             const html = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, "text/html");
-            
-            const newPosts = doc.querySelectorAll("#post-list .post-item");
-            newPosts.forEach(post => postList.appendChild(post));
-            
-            const newNextLink = doc.getElementById("next-page-link");
-            if (newNextLink) {
-              nextLink.href = newNextLink.href;
-              sentinel.style.visibility = "hidden";
-            } else {
-              sentinel.remove();
-              observer.disconnect();
-            }
+            appendPosts(html);
           } catch (e) {
-            console.error("Failed to load next page:", e);
+            console.error("Failed to restore page:", url, e);
           }
         }
-      }, {
-        rootMargin: "400px",
-      });
+        
+        if (sentinel && nextLink) sentinel.style.visibility = "hidden";
+      }
 
-      observer.observe(sentinel);
-    }
+      // IntersectionObserver の設定
+      if (sentinel && nextLink) {
+        const observer = new IntersectionObserver(async (entries) => {
+          if (entries[0].isIntersecting) {
+            const url = nextLink.href;
+            if (!url) return;
+
+            sentinel.style.visibility = "visible";
+            
+            try {
+              const response = await fetch(url);
+              const html = await response.text();
+              
+              // 読み込み成功したらリストに追加して保存
+              loadedUrls.push(url);
+              saveState(loadedUrls);
+              
+              const hasMore = appendPosts(html);
+              
+              if (!hasMore) {
+                observer.disconnect();
+              } else {
+                sentinel.style.visibility = "hidden";
+              }
+            } catch (e) {
+              console.error("Failed to load next page:", e);
+              sentinel.style.visibility = "hidden";
+            }
+          }
+        }, {
+          rootMargin: "400px",
+        });
+
+        observer.observe(sentinel);
+      }
+    };
+
+    init();
   })();
 </script>
       `,
