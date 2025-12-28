@@ -134,7 +134,7 @@ a:hover {
 
 .post-content pre {
   background: var(--accents-1);
-  padding: 0.5rem 0.5rem;
+  padding: 1rem 1.25rem;
   border-radius: var(--radius);
   border: 1px solid var(--accents-2);
   overflow-x: auto;
@@ -181,7 +181,97 @@ footer {
   font-size: 0.9rem;
 }
 
-/* 記事本文内のスタイル */
+/* Zenn-like alerts and remote code blocks */
+.message {
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  margin: 1.5rem 0;
+  border-left: 5px solid #0070f3;
+  background: var(--accents-1);
+}
+
+.details {
+  border: 1px solid var(--accents-2);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin: 1.5rem 0;
+}
+
+/* Remote Code Container */
+.remote-code-container {
+  border: 1px solid var(--accents-2);
+  border-radius: var(--radius);
+  margin: 2rem 0;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.remote-code-header {
+  background: var(--accents-1);
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--accents-2);
+}
+
+.remote-code-header a {
+  font-size: 0.8rem;
+  color: var(--accents-7);
+  text-decoration: none;
+}
+
+.remote-code-body {
+  display: flex;
+  align-items: stretch;
+  background: var(--accents-1);
+}
+
+.line-numbers {
+  padding: 16px 0 !important;
+  min-width: 3.5rem;
+  text-align: right;
+  user-select: none;
+  color: #888;
+  font-size: 14px;
+  line-height: 22px;
+  font-family: var(--font-mono);
+  border-right: 1px solid var(--accents-2);
+}
+
+.line-numbers div {
+  padding: 0 8px;
+}
+
+.code-content {
+  flex: 1;
+  overflow-x: auto;
+  /* 共通のパディングをここで設定 */
+  padding: 16px 0 !important;
+}
+
+.code-content pre {
+  margin: 0 !important;
+  padding: 0 16px !important; /* 横方向のパディングのみ */
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.code-content pre code {
+  font-size: 14px !important;
+  line-height: 22px !important;
+  font-family: var(--font-mono) !important;
+  display: block;
+  padding: 0 16px !important;
+  white-space: pre !important; /* 絶対にインデントを守る */
+  word-spacing: normal;
+  word-break: normal;
+}
+
+/* Pagefind UI customization */
+#search {
+  --pagefind-ui-primary: var(--link-color);
+}
+
+/* Post Content Styles */
 .post-content h2 {
   border-bottom: 1px solid var(--accents-2);
   padding-bottom: 0.5rem;
@@ -190,5 +280,15 @@ footer {
 
 .post-content img {
   max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 2rem auto;
   border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+  .post-content img {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  }
 }

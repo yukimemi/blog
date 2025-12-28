@@ -9,9 +9,7 @@ import feed from "lume/plugins/feed.ts";
 import postcss from "lume/plugins/postcss.ts";
 import paginate from "lume/plugins/paginate.ts";
 import pagefind from "lume/plugins/pagefind.ts";
-
-// ハイライト言語のインポート (もし必要なら)
-// import fish from "npm:highlight.js/lib/languages/fish";
+import container from "npm:markdown-it-container";
 
 const site = lume({
   src: "./src",
@@ -20,11 +18,7 @@ const site = lume({
 site
   .use(attributes())
   .use(date())
-  .use(code_highlight({
-    // 言語が不明な場合にエラーを吐かせないようにしたいが、
-    // Lumeのデフォルトプラグインでは直接的な「無視」オプションが限られているため、
-    // 使用する言語を限定するか、あるいは Highlight.js のインスタンスをいじる必要がある。
-  }))
+  .use(code_highlight())
   .use(extract_date())
   .use(base_path())
   .use(check_urls({
@@ -51,7 +45,118 @@ site
     },
   }));
 
+site.hooks.addMarkdownItPlugin(container, "message");
+site.hooks.addMarkdownItPlugin(container, "details");
+
 site.copy("static");
 site.copy("styles.css");
+
+// 1. GitHub リンクの情報を収集し、プレースホルダーに変える (preprocess)
+const githubCache = new Map();
+
+site.preprocess([".md"], async (pages) => {
+  for (const page of pages) {
+    if (typeof page.data.content !== "string") continue;
+
+    const githubRegex = /https:\/\/github\.com\/([\w.-]+)\/([\w.-]+)\/blob\/([\w.-]+)\/([\w./-]+)#L(\d+)(?:-L(\d+))?/g;
+    const matches = Array.from(page.data.content.matchAll(githubRegex));
+    
+    for (const match of githubMatches(page.data.content)) {
+      const [fullUrl, user, repo, ref, path, startLine, endLine] = match;
+      const rawUrl = `https://raw.githubusercontent.com/${user}/${repo}/${ref}/${path}`;
+      
+      try {
+        const response = await fetch(rawUrl);
+        if (response.ok) {
+          let text = await response.text();
+          text = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+          const lines = text.split("\n");
+          const start = parseInt(startLine) - 1;
+          const end = endLine ? parseInt(endLine) : parseInt(startLine);
+          const snippetLines = lines.slice(start, end);
+          const lang = path.split(".").pop() || "text";
+          
+          const id = `github-${crypto.randomUUID()}`;
+          githubCache.set(id, {
+            fullUrl,
+            path,
+            startLine,
+            endLine,
+            lang,
+            code: snippetLines.join("\n")
+          });
+
+          // Lume の Markdown パーサーに邪魔されないように HTML タグで置換
+          page.data.content = page.data.content.replace(fullUrl, `<div class="github-embed-placeholder" data-id="${id}"></div>`);
+        }
+      } catch (e) {
+        console.error(`Failed to fetch GitHub link: ${fullUrl}`, e);
+      }
+    }
+  }
+});
+
+// ヘルパー関数: 正規表現のイテレータを返す
+function* githubMatches(content: string) {
+  const githubRegex = /https:\/\/github\.com\/([\w.-]+)\/([\w.-]+)\/blob\/([\w.-]+)\/([\w./-]+)#L(\d+)(?:-L(\d+))?/g;
+  let match;
+  while ((match = githubRegex.exec(content)) !== null) {
+    yield match;
+  }
+}
+
+// 2. HTML 生成後にプレースホルダーを最終的な構造に変換する (process)
+site.process([".html"], (pages) => {
+  const escapeHtml = (text: string) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  for (const page of pages) {
+    if (!page.document) continue;
+
+    // A. GitHub プレースホルダーの置換
+    page.document.querySelectorAll(".github-embed-placeholder").forEach((placeholder) => {
+      const id = placeholder.getAttribute("data-id");
+      const info = githubCache.get(id);
+      if (!info) return;
+
+      const lineNumbersHtml = info.code.split("\n").map((_, i) => `<div>${parseInt(info.startLine) + i}</div>`).join("");
+      const codeEscaped = escapeHtml(info.code);
+
+      const wrapper = page.document.createElement("div");
+      wrapper.className = "remote-code-container";
+      wrapper.innerHTML = `
+        <div class="remote-code-header"><a href="${info.fullUrl}">${info.path} (L${info.startLine}${info.endLine ? "-L" + info.endLine : ""})</a></div>
+        <div class="remote-code-body">
+          <div class="line-numbers">${lineNumbersHtml}</div>
+          <div class="code-content"><pre><code class="language-${info.lang} highlight">${codeEscaped}</code></pre></div>
+        </div>`;
+      
+      placeholder.replaceWith(wrapper);
+    });
+
+    // B. 通常のコードブロックへの行番号付与
+    page.document.querySelectorAll(".post-content pre").forEach((pre) => {
+      if (pre.closest(".remote-code-container")) return;
+      const codeEl = pre.querySelector("code");
+      if (!codeEl) return;
+
+      const htmlContent = codeEl.innerHTML;
+      const textContent = codeEl.textContent || "";
+      const lines = textContent.replace(/\r\n/g, "\n").replace(/\r/g, "\n").replace(/^\n+|\n+$/g, "").split("\n");
+      const lineNumbersHtml = lines.map((_, i) => `<div>${i + 1}</div>`).join("");
+      const langMatch = codeEl.className.match(/language-(\w+)/);
+      const lang = langMatch ? langMatch[1] : "text";
+
+      const wrapper = page.document.createElement("div");
+      wrapper.className = "remote-code-container";
+      wrapper.innerHTML = `
+        <div class="remote-code-header"><span>${lang}</span></div>
+        <div class="remote-code-body">
+          <div class="line-numbers">${lineNumbersHtml}</div>
+          <div class="code-content"><pre><code class="language-${lang} hljs">${htmlContent}</code></pre></div>
+        </div>`;
+      pre.replaceWith(wrapper);
+    });
+  }
+});
 
 export default site;

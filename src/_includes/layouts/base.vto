@@ -28,8 +28,14 @@
 
   <footer>
     <div class="container">
-      <p>&copy; 2025 Yukimemi's Blog. Built with <a href="https://lume.land">Lume</a>.</p>
+      <p>&copy; 2025 yukimemi's Blog. Built with <a href="https://lume.land">Lume</a>.</p>
     </div>
   </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>
+    document.querySelectorAll('code.highlight').forEach((el) => {
+      hljs.highlightElement(el);
+    });
+  </script>
 </body>
 </html>
