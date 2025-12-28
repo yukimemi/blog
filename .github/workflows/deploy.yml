@@ -31,3 +31,4 @@ jobs:
         with:
           project: yukimemi-blog
           root: _site
+          entrypoint: jsr:@std/http/file-server
