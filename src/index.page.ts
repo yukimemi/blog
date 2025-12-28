@@ -30,7 +30,7 @@ export default function* ({ search, paginate }: Lume.Data) {
       <li class="post-item">
         <h3><a href="${post.url}">${post.title}</a></h3>
         <div class="post-meta">
-          <time datetime="${post.date?.toISOString()}">${post.date?.toLocaleDateString()}</time>
+          <time datetime="${post.date?.toISOString()}">${post.date?.toLocaleDateString("ja-JP")}</time>
         </div>
         <p>${post.description || ""}</p>
       </li>
