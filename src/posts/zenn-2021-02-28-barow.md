@@ -110,7 +110,7 @@ let g:barow = {
       \ }
 ```
 
-![barow](https://github.com/yukimemi/zenn-dev/blob/master/articles/img/2021-02-28_barow.png?raw=true)
+![barow](/static/images/2021-02-28_barow.png)
 
 うん、シンプルだし、ちょっと気分転換にはいいかも！
 

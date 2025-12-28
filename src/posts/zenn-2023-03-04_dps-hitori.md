@@ -19,7 +19,7 @@ zenn_type: tech
 
 https://github.com/yukimemi/dps-hitori
 
-![denops-hitori](https://github.com/yukimemi/zenn-dev/blob/master/articles/img/dps-hitori_001.gif?raw=true)
+![denops-hitori](/static/images/dps-hitori_001.gif)
 
 <!-- more -->
 

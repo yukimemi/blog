@@ -148,7 +148,7 @@ end
 
 これで、かんたんに `theme` 変更ができる。
 
-![alacritty](/static/alacritty-theme-change.gif)
+![alacritty](/static/images/alacritty-theme-change.gif)
 
 [Terminalizer](https://terminalizer.com/) で録ったやつやから変わってないように見えるけど、実際は変わってるの・・・
 

@@ -109,7 +109,7 @@ let g:barow = {
       \ }
 ```
 
-![barow](/static/2021-02-28_barow.png)
+![barow](/static/images/2021-02-28_barow.png)
 
 うん、シンプルだし、ちょっと気分転換にはいいかも！
 

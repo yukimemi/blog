@@ -23,7 +23,7 @@ Terminal の表示は全画面表示で、半透明。
 同じような設定が、 [Hyper™](https://hyper.is/) でもできた。
 こんな感じ。
 
-![hyper](/static/hyper.png)
+![hyper](/static/images/hyper.png)
 
 
 使用している plugin

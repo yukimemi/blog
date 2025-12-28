@@ -20,7 +20,7 @@ vim には、見やすい定番のインデントプラグインとして、
 というプラグイン が、 [オススメなVimのプラグイン紹介 - RailsとRubyとVimのブログ](http://alpaca.tc/blog/vim/plugins-best-of-vim-1.html)
 で紹介されていたので、乗り換えた。
 
-![image](/static/20140119_002810.png)
+![image](/static/images/20140119_002810.png)
 
 <!-- more -->
 
@@ -43,7 +43,7 @@ set list listchars=tab:\¦\
 
 こうすると、スペースの場合とほぼ同じように表示される。
 
-![image](/static/20140119_135554.png)
+![image](/static/images/20140119_135554.png)
 
 ただ、一つ目のインデントからも表示されるのが不満。2行目からのみ表示されるように出来ないものか・・・。
 

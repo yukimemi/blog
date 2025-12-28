@@ -105,11 +105,11 @@ Deno.test("add test", () => {
 
 `mod_test.ts` を開いて、 `Deno.test("getTrue")` の付近にカーソルがある状態で `<space>tn` を押下すると、以下のように `getTrue` のみのテストが実行される。
 
-![TestNearest](https://github.com/yukimemi/zenn-dev/blob/master/articles/img/2021-04-25_TestNearest.png?raw=true)
+![TestNearest](/static/images/2021-04-25_TestNearest.png)
 
 `<space>tf` を押下すると、以下のように `mod_test.ts` のすべてのテストが実行される。
 
-![TestFile](https://github.com/yukimemi/zenn-dev/blob/master/articles/img/2021-04-25_TestFile.png?raw=true)
+![TestFile](/static/images/2021-04-25_TestFile.png)
 
 べんり。
 

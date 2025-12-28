@@ -52,7 +52,7 @@ mayuはroot権限で実行する必要があり、systemd経由で自動起動�
 
 それから、fcitxの設定で、「入力メソッドをオンに」を「Hangul」(かなキー)、入力メソッドをオフ」に「Hangulhanja」(英数キー)を割り当てる。
 
-![fcitx-setting](/static/fcitx-setting_min.png)
+![fcitx-setting](/static/images/fcitx-setting_min.png)
 
 ### Mayu設定
 
