@@ -27,7 +27,7 @@ jobs:
         run: deno task build
 
       - name: Deploy to Deno Deploy
-        uses: denoland/deployctl@v1.13.1
+        uses: denoland/deployctl@1.13.1
         with:
           project: yukimemi-blog
           root: _site
