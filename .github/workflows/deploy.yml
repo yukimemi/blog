@@ -11,15 +11,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write # GitHub OIDC のために必要
+      id-token: write
       contents: read
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.1
 
       - name: Install Deno
-        uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@v2.0.3
         with:
           deno-version: v2.x
 
@@ -27,9 +27,7 @@ jobs:
         run: deno task build
 
       - name: Deploy to Deno Deploy
-        uses: denoland/deployctl@v1
+        uses: denoland/deployctl@v1.13.1
         with:
-          project: yukimemi-blog # Deno Deploy のプロジェクト名に合わせて変更してください
-          entrypoint: https://deno.land/x/lume/cli.ts
-          import-map: deno.json
+          project: yukimemi-blog
           root: _site
