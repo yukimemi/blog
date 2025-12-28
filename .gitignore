@@ -1,0 +1,11 @@
+node_modules/
+_site/
+.DS_Store
+_import/
+_import_from_zenn/
+broken-links.txt
+debug_import.ts
+fix_links.ts
+fix_dates.ts
+import_zola.ts
+import_zenn.ts

@@ -1,0 +1,14 @@
+---
+layout: layouts/base.vto
+title: Tags
+---
+
+<h1>Tags</h1>
+
+<ul>
+  {{ for tag of search.values("tags") }}
+  <li>
+    <a href="/tags/{{ tag }}/" class="tag">{{ tag }}</a>
+  </li>
+  {{ /for }}
+</ul>
