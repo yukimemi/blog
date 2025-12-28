@@ -108,9 +108,14 @@ a:hover {
   margin-bottom: 3rem;
 }
 
-.post-item h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.8rem;
+.post-item h3 a {
+  color: var(--fg);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.post-item h3 a:hover {
+  color: var(--link-color);
 }
 
 .post-item time {
