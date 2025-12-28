@@ -23,7 +23,7 @@ layout.html というファイルと page.html というファイルを作る。
 layout.html は全体？ page.html
 は記事一つ一つみたいな感じがする。たぶん。
 
-```sh
+```bash
 $ vim _templates/layout.html
 ```
 <!-- more -->
@@ -45,7 +45,7 @@ layout.html では、extrahead というブロックを使うことで、既存�
 
 次に page.html
 
-```sh
+```bash
 $ vim _templates/page.html
 ```
 
@@ -88,7 +88,7 @@ page.html にコードを記述する。
 [前回](http://yukimemi.bitbucket.org/blog/html/2013/06/13/change_theme.html)
 の記事で自分の theme を 作っていたら、それに追記する。
 
-```sh
+```bash
 $ vim _themes/mytheme/static/modern5.css_t
 ```
 

@@ -28,7 +28,7 @@ type: post
 
 インストール方法は homebrew cask で一発。
 
-```sh
+```bash
 $ brew cask install tickeys
 ```
 

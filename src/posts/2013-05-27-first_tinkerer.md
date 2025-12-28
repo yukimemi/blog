@@ -33,7 +33,7 @@ bitbucket で、 \<ユーザー名\>.bitbucket.org
 を作成して Tinkerer をインストールした。 python のインストールには
 pythonz を使用している。
 
-```sh
+```bash
 $ pythonz install 2.7.4
 $ mkvirtualenv -p /Users/yukimemi/.pythonz/pythons/CPython-2.7.4/bin/python --distribute 2.7.4
 $ workon 2.7.4
@@ -45,14 +45,14 @@ $ pip install Tinkerer
 
 bitbucketでgit repositoryを作成したら、それを clone する。
 
-```sh
+```bash
 $ git clone ssh://git@bitbucket.org/yukimemi/yukimemi.bitbucket.org.git
 $ cd yukimemi.bitbucket.org
 ```
 
 clone した後は、 Tinkerer でブログを初期化する。
 
-```sh
+```bash
 $ tinker -s
 ```
 
@@ -94,7 +94,7 @@ disqus_shortname = 'yukimemi'
 
 ブログの作成は以下のコマンドで
 
-```sh
+```bash
 $ tinker -p "First Tinkerer"
 ```
 

@@ -10,6 +10,9 @@ import postcss from "lume/plugins/postcss.ts";
 import paginate from "lume/plugins/paginate.ts";
 import pagefind from "lume/plugins/pagefind.ts";
 
+// ハイライト言語のインポート (もし必要なら)
+// import fish from "npm:highlight.js/lib/languages/fish";
+
 const site = lume({
   src: "./src",
 });
@@ -17,7 +20,11 @@ const site = lume({
 site
   .use(attributes())
   .use(date())
-  .use(code_highlight())
+  .use(code_highlight({
+    // 言語が不明な場合にエラーを吐かせないようにしたいが、
+    // Lumeのデフォルトプラグインでは直接的な「無視」オプションが限られているため、
+    // 使用する言語を限定するか、あるいは Highlight.js のインスタンスをいじる必要がある。
+  }))
   .use(extract_date())
   .use(base_path())
   .use(check_urls({

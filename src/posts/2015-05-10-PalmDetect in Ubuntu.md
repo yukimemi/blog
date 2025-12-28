@@ -19,14 +19,14 @@ MacBook AirにUbuntu 15.04をインストールした。
 
 以下のファイルを作成する。
 
-```sh
+```bash
 $ vim ~/.config/autostart/synclient.desktop
 ```
 <!-- more -->
 
 内容は以下の通り
 
-```sh
+```bash
 [Desktop Entry]
 Type=Application
 Exec=synclient PalmDetect=1

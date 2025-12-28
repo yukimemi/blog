@@ -16,7 +16,7 @@ tmux で attach する場合、事前に attach されていた
 
 zsh で自動 attach するには、 .zshrc にこんな感じで書いてる。
 
-```sh
+```bash
 if [ -z $TMUX ]; then
   tmux attach -d || tmux
 fi

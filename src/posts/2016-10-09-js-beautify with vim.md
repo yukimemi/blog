@@ -48,7 +48,7 @@ hook_add = '''
 
 上記設定で、かつ、 `js-beautify` を別途インストールする。
 
-```sh
+```bash
 $ npm i -g js-beautify
 ```
 

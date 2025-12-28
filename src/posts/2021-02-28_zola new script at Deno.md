@@ -21,7 +21,7 @@ type: post
 
 [Deno](https://deno.land/) のインストールは公式にあるように、 curl で簡単に。
 
-```sh
+```bash
 curl -fsSL https://deno.land/x/install/install.sh | sh
 ```
 
@@ -44,7 +44,7 @@ path=(
 
 新規スクリプトとして、 `zola-new` を作成してみる。
 
-```sh
+```bash
 vim zola-new.ts
 ```
 
@@ -91,20 +91,20 @@ tags = []
 
 これをコンパイルする。
 
-```sh
+```bash
 deno compile --unstable --allow-write zola-new.ts
 ```
 
 `zola-new` ファイルができているので、これを `PATH` の通った場所にコピー。
 
-```sh
+```bash
 cp zola-new ~/.deno/bin/
 ```
 
 これで、 `zola-new` コマンドが使えるようになる。
 こんな感じ。
 
-```sh
+```bash
 ❯ zola-new
 Enter new post title: New post !!
 New post !!
@@ -115,7 +115,7 @@ Create new post: 'content/2021-02-28_New post !!.md'
 
 ちなみに、上記スクリプトは github に push してるので、以下のように URL からもインストールできるみたい。
 
-```sh
+```bash
 deno install --allow-write https://raw.githubusercontent.com/yukimemi/deno-scripts/master/zola-new.ts
 ```
 

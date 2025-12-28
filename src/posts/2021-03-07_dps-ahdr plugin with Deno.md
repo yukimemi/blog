@@ -71,7 +71,7 @@ Write-Host "Hello world !"
 
 - regadd.bat
 
-```dosbatch
+```text
 reg add HKLM\Environment /v myvar /t reg_sz /d "Hello!"
 ```
 
@@ -87,7 +87,7 @@ reg add HKLM\Environment /v myvar /t reg_sz /d "Hello!"
 
 - regadd_a.bat
 
-```dosbatch
+```text
 @openfiles > nul 2>&1
 @if %errorlevel% equ 0 goto :ALREADY_ADMIN_PRIVILEGE
 @powershell.exe -Command Start-Process '%~f0' %* -verb runas

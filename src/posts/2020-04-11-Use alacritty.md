@@ -20,7 +20,7 @@ type: post
 
 インストールは `homebrew` でかんたん。
 
-```sh
+```bash
 brew cask install alacritty
 ```
 
@@ -79,7 +79,7 @@ shell:
 
 - ~/.config/fish/functions/\_\_filter_command.fish
 
-```fish
+```bash
 function __filter_command
   if type -q sk
     sk
@@ -102,7 +102,7 @@ end
 
 - ~/.config/fish/functions/\_\_echo.fish
 
-```fish
+```bash
 function __echo
   if test (count $argv) -gt 1
     echo "
@@ -116,7 +116,7 @@ end
 
 - ~/.config/fish/functions/alacritty-toggle-alacritty-theme.fish
 
-```fish
+```bash
 function alacritty-toggle-alacritty-theme
   if not test -d ~/.eendroroy-alacritty-theme
     git clone https://github.com/eendroroy/alacritty-theme.git ~/.eendroroy-alacritty-theme
@@ -132,7 +132,7 @@ end
 
 - ~/.config/fish/functions/alacritty-toggle-base16-alacritty.fish
 
-```fish
+```bash
 function alacritty-toggle-base16-alacritty
   if not test -d ~/.aaron-williamson-alacritty-theme
     git clone https://github.com/aaron-williamson/base16-alacritty.git ~/.aaron-williamson-alacritty-theme

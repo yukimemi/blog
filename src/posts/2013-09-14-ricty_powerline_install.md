@@ -24,7 +24,7 @@ type: post
 のパッチ当てをまた簡単に出来るようにスクリプトとしてまとめた。
 
 <!-- more -->
-```sh
+```bash
 #!/bin/sh
 
 brew tap sanemat/font

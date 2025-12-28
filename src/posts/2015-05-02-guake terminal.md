@@ -13,7 +13,7 @@ type: post
 
 macでiTerm2を使っていたので、同じように使えるterminalがないか探していたところ、あんまこれ！ってのが見つからなかったので、昔使ってたguakeを入れた。けっこう普通につかえて便利。
 
-```sh
+```bash
 $ sudo apt-get install guake
 ```
 <!-- more -->
@@ -42,7 +42,7 @@ $ sudo apt-get install guake
 
 Ricty for Powerlineのインストールは以下の通り。
 
-```sh
+```bash
 #!/bin/bash
 mkdir -p ~/tmp
 mkdir -p ~/.fonts
@@ -79,21 +79,21 @@ fc-cache -vf
 これでかなり良くなる。
 あとは、色を設定する。iTerm2でもテーマがあったように、guakeでも、ネットにテーマを作ってくださっているありがたい方がいらっしゃるので、使用させてもらう。
 
-```sh
+```bash
 $ ghq get https://github.com/coolwanglu/guake-colors-solarized.git
 $ ghq get https://github.com/erroneousboat/guake-colors-monokai.git
 ```
 有名なsolarizedとmonokaiのテーマ。
 適用は、どちらもシェルスクリプトを実行するだけ。
 
-```sh
+```bash
 $ cd guake-colors-solarized
 $ ./set_dark.sh
 ```
 
 もしくは、
 
-```sh
+```bash
 $ cd guake-colors-monokai
 $ ./setup.sh
 ```
@@ -102,7 +102,7 @@ $ ./setup.sh
 
 あとは、なぜかtmuxが256-color表示出来ていなかった。これは、オプションを指定して起動すればいいみたい。
 
-```sh
+```bash
 $ tmux -2
 ```
 

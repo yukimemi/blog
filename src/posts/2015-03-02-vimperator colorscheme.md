@@ -17,13 +17,13 @@ vimperatorでcolorschemeを使う方法。
 
 ### リポジトリクローン
 `ghq` については、[この記事](/posts/All You Need Is Peco/)で。
-```sh
+```bash
 $ ghq get https://github.com/vimpr/vimperator-colors.git
 ```
 <!-- more -->
 
 ### シンボリックリンク
-```sh
+```bash
 $ ln -sfn ~/.ghq/src/github.com/vimpr/vimperator-colors ~/.vimperator/colors
 ```
 

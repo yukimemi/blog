@@ -18,7 +18,7 @@ roots でも同じことがしたかったので、コマンドを作ってみ�
 +++
 
 <!-- more -->
-```sh
+```bash
 #!/bin/bash
 
 # posts dir
@@ -46,7 +46,7 @@ EOT
 
 これを `pn` というファイル名でpathの通った場所に保存すると、
 
-```sh
+```bash
 $ pn
 title = "hogehoge"
 ```

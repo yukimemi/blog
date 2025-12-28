@@ -24,7 +24,7 @@ type: post
 
 なので、以下の設定を `fish_user_key_bindings.fish` に実施した。
 
-```fish
+```bash
 function fish_user_key_bindings
 
     # Additional bind for fish_vi_key_bindings.

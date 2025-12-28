@@ -82,13 +82,13 @@ return {
 
 - `nvim` を起動する場合
 
-```sh
+```bash
 deno install --allow-net --allow-run --allow-read --name hitori https://raw.githubusercontent.com/yukimemi/dps-hitori/main/cmd/hitori.ts
 ```
 
 - `nvim-qt` を起動する場合
 
-```sh
+```bash
 deno install --allow-net --allow-run --allow-read --name hitori https://raw.githubusercontent.com/yukimemi/dps-hitori/main/cmd/hitori-qt.ts
 ```
 

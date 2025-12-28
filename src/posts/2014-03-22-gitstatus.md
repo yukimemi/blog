@@ -16,7 +16,7 @@ status」を実行するプログラムを書いてみた。
 
 [yukimemi/gitstatus](https://github.com/yukimemi/gitstatus)
 
-```sh
+```bash
 $ gitstatus yukimemi
 ```
 <!-- more -->
@@ -27,7 +27,7 @@ status」を実行して出力する。引数を指定しなければ、すべ�
 
 出力イメージはこんな感じ。
 
-```sh
+```bash
 root /Users/yukimemi
 --------------------------------------------------------------------------------
 ★  /Users/yukimemi/.oh-my-zsh

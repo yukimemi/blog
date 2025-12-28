@@ -30,7 +30,7 @@ Windows では、 [AutoHotkey](https://www.autohotkey.com/) を使用して以�
 [AutoHotkey](https://www.autohotkey.com/) の設定で以下のような設定をしている。
 
 
-```sh
+```bash
 Toggle(app) {
   SplitPath, app, file
   Process, Exist, %file%

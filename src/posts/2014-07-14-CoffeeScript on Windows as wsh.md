@@ -20,11 +20,11 @@ thincaさん作成のcoffeescriptコンパイラ。Windowsで動く。nodejsも�
 
 
 ### 使用方法
-```sh
+```bash
 > ghq get https://github.com/thinca/coffee-script-on-jscript.git
 ```
 or
-```sh
+```bash
 > git clone https://github.com/thinca/coffee-script-on-jscript.git
 ```
 <!-- more -->
@@ -33,7 +33,7 @@ ghq があるなら上で。
 
 後は普通のcoffeescriptコンパイラと同じオプションがだいたい使えるようなので、普通にコンパイルするのであれば
 
-```sh
+```bash
 > coffee -c hello.coffee
 ```
 
@@ -41,7 +41,7 @@ ghq があるなら上で。
 
 `watch` オプションもあるみたいなので、
 
-```sh
+```bash
 > coffee -cw hello.coffee
 ```
 
@@ -49,7 +49,7 @@ ghq があるなら上で。
 
 他のオプションは、 `coffee.bat` に何も引数をつけずに実行するとhelpで表示される。
 
-```sh
+```bash
 > coffee
 Usage: coffee [options] path/to/script.coffee
 
@@ -102,7 +102,7 @@ do (name = "CoffeeScript") ->
 
 次のようにコンパイルすると、
 
-```sh
+```bash
 > coffee -c hello.coffee
 ```
 

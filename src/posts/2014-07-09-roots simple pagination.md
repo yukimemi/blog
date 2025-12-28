@@ -26,7 +26,7 @@ rootsは静的サイトジェネレーターなので、通常だとjadeの記�
 ちなみにローカルにインストールしたbowerを使う方法は、[前の記事](http://yukimemi.github.io/posts/2014-07-02_direnv%20for%20npm%20local%20commands.html) を参照。
 
 
-```sh
+```bash
 $ npm install bower --save-dev
 ```
 
@@ -35,7 +35,7 @@ $ npm install bower --save-dev
 事前準備として、bowerのコンポーネントがインストールされる先を変更しておく。
 
 roots のルートで、
-```sh
+```bash
 $ vim .bowerrc
 ```
 し、以下を記載。
@@ -46,7 +46,7 @@ $ vim .bowerrc
 ```
 
 その後、bowerにて、 [simplePagination.js](http://flaviusmatis.github.io/simplePagination.js/) をインストールする。
-```sh
+```bash
 $ bower install jquery.simplePagination --save
 ```
 
@@ -56,7 +56,7 @@ $ bower install jquery.simplePagination --save
 
 #### jade側の設定
 まずは、ページネーションの配置。
-```sh
+```bash
 $ vim views/layout.jade
 ```
 
@@ -71,11 +71,11 @@ divのclassで設定。単純に `pagination` というclassにて、divを配�
 
 それから、stylusでの設定がしやすいように、ブログ記事のリストにclassを設定しておく。
 
-```sh
+```bash
 $ vim views/index.jade
 ```
 
-```jade
+```text
 ul#posts
   - each post in sort(site.posts, { by: 'date' })
     li.plist
@@ -86,7 +86,7 @@ ul#posts
 `ul#posts -> li` に、class `plist` を追加しただけ。
 
 #### stylus側の設定
-```sh
+```bash
 $ vim assets/css/master.styl
 ```
 
@@ -101,7 +101,7 @@ $ vim assets/css/master.styl
 #### coffee側の設定
 `assets/js/main.coffee` に設定を記述していく。
 
-```sh
+```bash
 $ vim assets/js/main.coffee
 ```
 

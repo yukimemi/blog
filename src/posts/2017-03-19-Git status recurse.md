@@ -21,20 +21,20 @@ type: post
 (バイナリファイルもそのうち用意する)
 
 <!-- more -->
-```sh
+```bash
 $ go get github.com/yukimemi/gsr
 ```
 
 使い方は簡単で
 
-```sh
+```bash
 $ gsr [再帰的にチェックしたいディレクトリ]
 ```
 
 とすると、 `git status` で変更のあるディレクトリだけ出力されます。
 デフォルトでは、ディレクトリ名だけが出力されます。
 
-```sh
+```bash
 $ gsr --status [再帰的にチェックしたいディレクトリ]
 ```
 
@@ -68,7 +68,7 @@ alias ghl='gsr --all | __filter cd'
 
 さらに、 リモートと差分のあるリポジトリも対象としたい場合、以下のオプションが使用できます。
 
-```sh
+```bash
 $ gsr --ahead --behind
 ```
 

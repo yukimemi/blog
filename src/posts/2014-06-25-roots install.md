@@ -29,20 +29,20 @@ jade ファイルを保存したら、自動でブラウザが更新され、す
 
 #### 1. npmでグローバルにインストール
 
-```sh
+```bash
 $ npm install -g roots
 ```
 
 #### 2. ブログテンプレートでプロジェクト作成
 
-```sh
+```bash
 $ roots new yukimemi.github.io --blog
 ```
 これでブログ完成。
 
 #### 3. roots コマンドでコンパイル & ウォッチ
 
-```sh
+```bash
 $ cd yukimemi.github.io
 $ roots watch
 ```
@@ -52,7 +52,7 @@ $ roots watch
 
 #### 4. ブログ記事を修正
 
-```sh
+```bash
 $ cdk posts
 $ vim hello_world.jade
 ```

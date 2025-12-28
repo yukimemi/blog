@@ -26,7 +26,7 @@ rootsに限らず、静的サイトジェネレーターを使う場合はけっ
 
 ### [これ](https://github.com/X1011/git-directory-deploy) をダウンロード
 
-```sh
+```bash
 $ wget https://github.com/X1011/git-directory-deploy/raw/master/deploy.sh && chmod +x deploy.sh
 ```
 <!-- more -->
@@ -34,7 +34,7 @@ $ wget https://github.com/X1011/git-directory-deploy/raw/master/deploy.sh && chm
 ### git-directory-deployの設定
 以下の部分を必要に応じて書き換え。
 
-```sh
+```bash
 deploy_directory=public
 deploy_branch=master
 
@@ -48,7 +48,7 @@ repo=origin
 
 ### 初回一度だけ実行
 
-```sh
+```bash
 $ git --work-tree public checkout --orphan master
 $ git --work-tree public rm -rf "*"
 $ git --work-tree public add --all
@@ -62,7 +62,7 @@ $ git symbolic-ref HEAD refs/heads/drafts && git reset --mixed
 それから、 roots でコンパイル。
 あとは、ダウンロードした deploy.sh を実行するだけ。
 
-```sh
+```bash
 $ roots compile --no-compress
 $ ./deploy.sh
 ```

@@ -24,7 +24,7 @@ JScriptをES2015で書こう！！
 そこで、babelやらwebpackやらgulpやらを駆使してやってみた。
 
 ディレクトリ構成はこんなの。
-```sh
+```bash
 $ tree -I node_modules
 .
 ├── src
@@ -41,7 +41,7 @@ $ tree -I node_modules
 <!-- more -->
 
 いろいろインストール。(こんだけやったか定かじゃないけど・・・
-```sh
+```bash
 $ npm i -D babel babel-loader babel-preset-es2015-loose es3ify-webpack-plugin gulp gulp-cli gulp-convert-encoding gulp-eol gulp-header gulp-plumber gulp-rename gulp-watch webpack webpack-stream
 ```
 
@@ -199,12 +199,12 @@ gulp.task('default', ['build']);
 
 実行するときは、 `npm script` で、
 
-```sh
+```bash
 $ npm run build
 ```
 
 watch タスクは
-```sh
+```bash
 $ npm run watch
 ```
 

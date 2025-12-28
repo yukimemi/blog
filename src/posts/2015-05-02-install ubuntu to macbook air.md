@@ -16,7 +16,7 @@ type: post
 nvidiaのドライバ関係でいろいろ大変だったのでメモ。
 
 ### Install Usbメモリの作成
-```sh
+```bash
 $ sudo dd if=./ubuntu-15.04-desktop-amd64.iso of=/dev/sdb bs=4M
 ```
 <!-- more -->
@@ -28,7 +28,7 @@ nvidiaのグラフィックドライバをインストールする場合、grub�
 まず、最初の選択で、 "Try Ubuntu without installing it" を選ぶ。
 その後、 "Ctrl + Alt + T" を押して端末を起動し、インストーラを起動する。
 
-```sh
+```bash
 $ sudo ubiquity
 ```
 
@@ -42,7 +42,7 @@ $ sudo ubiquity
 その後はそのままインストールを続ける。
 全部終わると再起動が促されるが、そのまま再起動せずに、端末を起動し、grubをインストールする。
 
-```sh
+```bash
 $ sudo mount /dev/sda2 /mnt # rootパーティション
 $ sudo grub-install --root-directory=/mnt /dev/sda
 $ sudo grub-install --root-directory=/mnt --recheck /dev/sda
@@ -66,13 +66,13 @@ usbをさしたままだと、sdbにはインストールできないとかな�
 
 プロプライエタリのドライバをインストール後は、以下のコマンドを実行して、xorg.confファイルを作成する。
 
-```sh
+```bash
 sudo nvidia-xconfig
 ```
 
 バックライトの調整ができるように、xorg.confファイルに1行追加する。
 
-```sh
+```bash
 Section "Device"
     Identifier     "Device0"
     Driver         "nvidia"

@@ -16,7 +16,7 @@ facebookが作っているらしく、 `typescript` と違って、既存のjava
 
 導入は `npm` で簡単にインストール出来る。
 
-```sh
+```bash
 $ npm i -g flow-bin
 ```
 <!-- more -->

@@ -21,7 +21,7 @@ Mavericks がなんと無料で出たので、早速アップデートしまし�
 ### 1. github と bitbucket にsshキーを登録
 
 <!-- more -->
-```sh
+```bash
 $ ssh-keygen
   Generating public/private rsa key pair.
   Enter file in which to save the key (/Users/yukimemi/.ssh/id_rsa): [Enter]
@@ -40,7 +40,7 @@ github と bitbucket に元々登録してあったsshキーを削除して
 
 自分の環境構築用 dotfiles をクローンする。
 
-```sh
+```bash
 $ git clone git@github.com:yukimemi/dotfiles.git
 $ cd dotfiles
 $ ./setup.sh
@@ -53,7 +53,7 @@ setup.sh の中身は以下のような感じ。 中でもとても便利なの�
 homebrew cask 。 これはWindowsの chocolatey
 みたいに、アプリケーションを インストールしてくれる。
 
-```sh
+```bash
 #!/bin/bash
 git submodule init
 git submodule update

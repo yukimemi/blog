@@ -12,7 +12,7 @@ type: post
 
 mongodb をいれてみた。
 
-```sh
+```bash
 $ brew install mongodb
 ```
 <!-- more -->
@@ -21,7 +21,7 @@ $ brew install mongodb
 
 自動起動する設定も書いてあるからそれを実行するだけ。
 
-```sh
+```bash
 $ ln -sfv /usr/local/opt/mongodb/*.plist ~/Library/LaunchAgents
 $ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
 ```
@@ -30,7 +30,7 @@ $ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
 
 手動で起動するには、次のようにする。
 
-```sh
+```bash
 $ launchctl start homebrew.mxcl.mongodb
 ```
 

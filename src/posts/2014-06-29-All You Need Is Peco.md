@@ -20,13 +20,13 @@ type: post
 ### 導入手順
 
 homebrewでgoをインストール。
-```sh
+```bash
 $ brew install go --cross-compile-common
 ```
 <!-- more -->
 
 `.zshenv` に以下を記載。
-```sh
+```bash
 # go
 export GOPATH=$HOME/.go
 export PATH=$GOPATH/bin:$PATH
@@ -47,12 +47,12 @@ fi
 ```
 
 `.zshenv` を読み込み直す
-```sh
+```bash
 $ source ~/.zshenv
 ```
 
 インストール完了。
-```sh
+```bash
 $ ls -l | peco
 QUERY>                                                         IgnoreCase [1/1]
 total 96100
@@ -74,7 +74,7 @@ drwxr-xr-x  35 yukimemi staff     1190  6 28 17:20 dotfiles
 
 #### history
 以下を `.zshrc` に記載
-```sh
+```bash
 function peco-select-history() {
   local tac
   if which tac > /dev/null; then
@@ -94,7 +94,7 @@ bindkey '^r' peco-select-history
 
 `<C-r>` で起動。こんな感じ。
 
-```sh
+```bash
 QUERY>                                                           IgnoreCase [1/189]
 ls   -l | peco
 cd
@@ -110,7 +110,7 @@ pn
 
 #### resent dirs
 以下を `.zshrc` に記載
-```sh
+```bash
 zstyle ':filter-select' case-insensitive yes
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 add-zsh-hook chpwd chpwd_recent_dirs
@@ -132,7 +132,7 @@ bindkey '^@' peco-cdr
 
 `<C-@>` で起動。こんな感じ。
 
-```sh
+```bash
 QUERY>                                                           IgnoreCase [1/4]
 ~
 ~/.ghq
@@ -151,7 +151,7 @@ QUERY>                                                           IgnoreCase [1/4
 
 #### snippets
 以下を `.zshrc` に記載
-```sh
+```bash
 function peco-snippets() {
     BUFFER=$(grep -v "^#" ~/.peco-snippets | peco --query "$LBUFFER")
     zle clear-screen
@@ -161,7 +161,7 @@ bindkey '^s' peco-snippets
 ```
 
 `~/.peco-snippets` によく使うコマンドを記載しておく。
-```sh
+```bash
 # find
 find . -type f -mtime +10
 find . -mtime +50 -exec mv {} del \;
@@ -197,7 +197,7 @@ ghq get git@bitbucket.org:yukimemi/scripts.git
 ```
 
 `<C-s>` で起動。こんな感じ。
-```sh
+```bash
 QUERY>                                                           IgnoreCase [1/1]
 find . -type f -mtime +10
 find . -mtime +50 -exec mv {} del \;
@@ -229,7 +229,7 @@ ghq get git@bitbucket.org:yukimemi/scripts.git
 上記で記載済みの導入手順に従っていればインストールされているはず。
 
 以下を `.zshrc` に記載
-```sh
+```bash
 alias ghl='cd $(ghq list -p | peco)'
 alias gho='gh-open $(ghq list -p | peco)'
 ```
@@ -237,7 +237,7 @@ alias gho='gh-open $(ghq list -p | peco)'
 
 #### vim
 以下を `.zshrc` に記載
-```sh
+```bash
 alias pvim='vim "$(find . -type f | peco)"'
 ```
 これで、カレントディレクトリ以下のファイルをすぐにvimで開ける。ちょうべんり。

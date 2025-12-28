@@ -41,7 +41,7 @@ vi っぽいキーバインドで、 insert モードの場合は emacs っぽ�
 `fish` では、 [fisherman](https://github.com/fisherman/fisherman) というプラグインマネージャーが存在しており、これを使って各種プラグインを管理する。
 日本語での解説も書いてあるので導入は簡単。
 
-```sh
+```bash
 $ curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
 ```
 
@@ -59,7 +59,7 @@ $ curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
 `fish` は、設定を `~/.config/fish` 配下で管理する。
 こんな感じ。
 
-```sh
+```bash
 $ tree fish
 fish
 ├── completions
@@ -71,7 +71,7 @@ fish
 └── my_functions -> /Users/yukimemi/.dotfiles/.config/fish/my_functions
 ```
 
-```sh
+```bash
 $ tree my_functions
 my_functions
 ├── __cdup.fish
@@ -90,7 +90,7 @@ my_functions
 
 - `~/.config/fish/config.fish`
 
-```sh
+```bash
 # Load my_functions.
 for func in ~/.config/fish/my_functions/*.fish
   source $func
@@ -106,7 +106,7 @@ zsh の時は、`fzf` を使っていたんだけど、 `fzy` ってのがあっ
 
 - `~/.config/fish/my_functions/__filter_command.fish`
 
-```sh
+```bash
 function __filter_command
   fzy -l 200
 end
@@ -118,7 +118,7 @@ end
 
 - `~/.config/fish/my_functions/__filter_command_select.fish`
 
-```sh
+```bash
 function __filter_command_select
   __filter_command | read -l line
   and commandline $line
@@ -127,7 +127,7 @@ end
 
 - `~/.config/fish/my_functions/__filter_command_execute.fish`
 
-```sh
+```bash
 function __filter_command_execute
   __filter_command | read -l line
   and echo "
@@ -143,7 +143,7 @@ end
 
 - `~/.config/fish/my_functions/__filter_command_history_select.fish`
 
-```sh
+```bash
 function __filter_command_history_select
   history | sort -u | __filter_command_select
 end
@@ -151,7 +151,7 @@ end
 
 - `~/.config/fish/my_functions/__filter_command_history_execute.fish`
 
-```sh
+```bash
 function __filter_command_history_execute
   history | sort -u | __filter_command_execute
 end
@@ -165,7 +165,7 @@ end
 
 - `~/.config/fish/my_functions/fish_user_key_bindings.fish`
 
-```sh
+```bash
 function fish_user_key_bindings
 
   bind -M insert \cf accept-autosuggestion

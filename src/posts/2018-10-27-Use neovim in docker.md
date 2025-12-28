@@ -73,7 +73,7 @@ plugin manager は [k-takata/minpac](https://github.com/k-takata/minpac) を使�
 
 上記の Dockerfile をビルドする時は、以下のようなコマンドラインで実施する。
 
-```sh
+```bash
 > docker build --tag yukimemi/neovim --build-arg USERID=$(id -u) --build-arg USERNAME=$(id -un) --build-arg GROUPID=$(id -g) --build-arg GROUPNAME=$(id -gn) --build-arg HOMEPATH=${HOME} .
 ```
 
@@ -88,7 +88,7 @@ backupdir の設定とか plugin の設定とかによってはマウント元�
 
 `fish` の場合。
 
-```fish
+```bash
 > docker run --rm -it -v $PWD:$PWD -v $HOME/.cache/ctrlp:$HOME/.cache/ctrlp -v $HOME/.cache/neosnippet:$HOME/.cache/neosnippet -v $HOME/.cache/nvim/back:$HOME/.cache/nvim/back -v $HOME/.local/share/nvim:$HOME/.local/share/nvim -w $PWD yukimemi/neovim $argv
 ```
 

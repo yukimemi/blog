@@ -168,7 +168,7 @@ colorscheme gruvbox
 let g:plugpac_cfg_path = '~/.vim/rc'
 ```
 
-```sh
+```bash
 ~/.vim/rc
 ├── autodate.vim
 ├── coc.nvim

@@ -16,7 +16,7 @@ type: post
 
 `fish` で書くとこんな感じ。
 
-```fish
+```bash
 function __cd_to_git_dir
   gsr --all | peco | read -l line
   and echo "Change directory $line"
@@ -28,7 +28,7 @@ end
 
 だけど、 `gsr` が全ての結果を出力する前に、選択を決定して移動してしまった場合、以下のエラーが出力された。
 
-```sh
+```bash
 thread 'main' panicked at 'failed printing to stdout: Broken pipe (os error 32)'
 ```
 
@@ -47,7 +47,7 @@ fn main() {
 
 このプログラムに対して、 `head` を通すとエラーが再現する。
 
-```sh
+```bash
 $ cargo run | head
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
      Running `target/debug/pipe-test`
@@ -89,7 +89,7 @@ fn main() {
 これで、再度実行すると、正しく終了する。
 
 
-```sh
+```bash
 $ cargo run | head
     Finished dev [unoptimized + debuginfo] target(s) in 0.0 secs
      Running `target/debug/pipe-test`

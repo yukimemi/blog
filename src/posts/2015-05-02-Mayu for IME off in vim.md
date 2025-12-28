@@ -32,7 +32,7 @@ Windowsで「窓使いの憂鬱」と呼ばれてたソフトで、Linuxにも�
 
 Mayuはソースコードのみ配布されているので、自分でビルドする必要がある。
 Ubuntu 15.04では以下の通りにやるとビルド出来た。
-```sh
+```bash
 $ ghq get https://github.com/kenhys/mayu.git
 $ cd ~/.ghq/src/github.com/kenhys/mayu
 $ sudo aptitude install build-essential libboost-iostreams-dev libudev-dev libusb-1.0-0-dev
@@ -58,7 +58,7 @@ mayuはroot権限で実行する必要があり、systemd経由で自動起動�
 
 次に、mayuの設定を書く。上記のようにfcitxの設定をしているのであれば、mayuの設定としては以下の通り。
 
-```sh
+```bash
 def key Esc Escape = 0x01
 def key Eisu = 0x7b
 
@@ -85,13 +85,13 @@ key C-OpenBracket = C-OpenBracket Eisu
 
 userごとの自動起動設定としたいため、以下のファイルをまず作成する。
 
-```sh
+```bash
 $ mkdir -p ~/.config/systemd/user
 $ vim ~/.config/systemd/user/mayu.service
 ```
 
 「mayu.service」の中身はこんな感じ
-```sh
+```bash
 [Unit]
 Description=mayu keyboard hack
 
@@ -104,7 +104,7 @@ WantedBy=default.target
 
 それから、以下のようにして登録する。
 
-```sh
+```bash
 $ systemctl --user daemon-reload
 $ systemctl --user list-unit-files
 UNIT FILE            STATE
@@ -146,7 +146,7 @@ timers.target        static
 
 systemdとして正しく起動しているか確かめる場合は、ログを見る。
 
-```sh
+```bash
 $ journalctl
 5月 02 08:57:56 yukimemi-MacBookAir systemd[1372]: Starting Basic System.
 5月 02 08:57:56 yukimemi-MacBookAir systemd[1372]: Started mayu keyboard hack.

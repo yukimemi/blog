@@ -27,7 +27,7 @@ type: post
 
 mac の場合は、 [homebrew](https://brew.sh/index_ja.html) があるから簡単にインストールできる。
 
-```sh
+```bash
 $ brew tap caskroom/fonts
 $ brew cask install font-hack-nerd-font
 ```

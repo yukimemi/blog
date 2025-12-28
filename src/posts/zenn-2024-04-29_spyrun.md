@@ -24,7 +24,7 @@ https://github.com/yukimemi/spyrun
 
 以下コマンドを実行してインストールしてください。
 
-```sh
+```bash
 cargo install spyrun
 ```
 

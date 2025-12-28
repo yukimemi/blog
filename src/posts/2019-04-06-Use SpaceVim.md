@@ -30,7 +30,7 @@ bootstrap_after = "init#after"
 
 そして、それぞれの関数は以下の場所に配置する。
 
-```sh
+```bash
 ~/.SpaceVim.d
 ├── init.toml
 └── autoload

@@ -54,7 +54,7 @@ Command Line Options:
 
 このインストールの後に、 apt-cyg を入れれば完璧
 
-```sh
+```bash
 $ svn --force export http://apt-cyg.googlecode.com/svn/trunk/ /bin/
 $ chmod +x /bin/apt-cyg
 ```

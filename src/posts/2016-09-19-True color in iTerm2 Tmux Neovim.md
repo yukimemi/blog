@@ -20,25 +20,25 @@ type: post
 は特になく、 `homebrew cask` でインストールすればそのまま `true color` が使えるらしい。
 
 <!-- more -->
-```sh
+```bash
 $ brew cask install iterm2
 ```
 
 次に `tmux` の設定。
 `tmux` はバージョン `2.2` 以上ならOKっぽい。普通に `homebrew` でインストールしたら `2.2` だった。
 
-```sh
+```bash
 $ brew install tmux
 ```
 
 で、設定ファイル `tmux.conf` に以下を追加。
 
-```sh
+```bash
 set -ga terminal-overrides ",xterm-256color:Tc"
 ```
 
 もし、以下の設定が書いてあったらコメントアウト。
-```sh
+```bash
 # set -g default-terminal xterm-256color
 ```
 

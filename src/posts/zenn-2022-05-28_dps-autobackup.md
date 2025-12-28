@@ -62,7 +62,7 @@ let g:autobackup_blacklist_filetypes = ["log", "csv"]
 
 で保存される。 以下のような感じ。
 
-```sh
+```bash
 ~/.cache/autobackup
 └── 2022
     └── 05

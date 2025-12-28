@@ -16,7 +16,7 @@ type: post
 
 インストールは、 `cargo` で実施。
 
-```sh
+```bash
 $ cargo install --git https://github.com/yukimemi/gsr-rs
 $ gsr -h
 gsr 0.2.2

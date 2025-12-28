@@ -29,20 +29,20 @@ nas の自動マウントを行おうとして、 `automount` の設定を変更
 
 <!-- more -->
 
-```sh
+```bash
 # mount_apfs -uw /
 ```
 
 これで書き込みできる。
 設定は、 man で確認できる。
 
-```sh
+```bash
 # man 8 mount
 ```
 
 修正後、再起動して完了。
 
-```sh
+```bash
 # reboot
 ```
 

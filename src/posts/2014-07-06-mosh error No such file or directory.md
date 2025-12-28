@@ -20,7 +20,7 @@ mosh というmobile-shelllを導入してみたところ、「No such file or d
 ### mosh install
 環境は Mac OSX Mavericks。Homebrewで簡単にインストール出来た。
 
-```sh
+```bash
 $ brew install mosh
 ```
 <!-- more -->
@@ -31,19 +31,19 @@ $ brew install mosh
 ### 使い方
 普通の ```ssh``` を ```mosh``` に変えるだけ。
 
-```sh
+```bash
 $ ssh yukimemi@yukimemi-my-host.com
 ```
 
 ↓
 
-```sh
+```bash
 $ mosh yukimemi@yukimemi-my-host.com
 ```
 
 だけど、なぜか、こんなエラーが出て使えなかった・・・。
 
-```sh
+```bash
 $ mosh yukimemi@yukimemi-my-host.com
 zsh: No such file or directory
 ssh_exchange_identification: Connection closed by remote host
@@ -53,7 +53,7 @@ ssh_exchange_identification: Connection closed by remote host
 なんかzshが見つかんない？みたいなエラー。
 zshが悪いのかと思い、bashからやってみてもエラーになった。
 
-```sh
+```bash
 $ mosh yukimemi@yukimemi-my-host.com
 bash: No such file or directory
 ssh_exchange_identification: Connection closed by remote host
@@ -62,7 +62,7 @@ ssh_exchange_identification: Connection closed by remote host
 
 環境変数が悪いのか？と思い、以下のようにしてみた。
 
-```sh
+```bash
 $ SHELL=/bin/bash mosh yukimemi@yukimemi-my-host.com
 bash: mosh-server: command not found
 Connection to yukimemi-my-host.com closed.
@@ -73,7 +73,7 @@ Connection to yukimemi-my-host.com closed.
 これは ```mosh-server``` コマンドが見つかんないって言ってるだけなので、
 moshのオプションで指定出来るっぽい。
 
-```sh
+```bash
 $ SHELL=/bin/bash mosh --server=/usr/local/bin/mosh-server yukimemi@yukimemi-my-host.com
 [yukimemi@yukimemi-my-host.com] $
 ```
