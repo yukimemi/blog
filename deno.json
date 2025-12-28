@@ -14,7 +14,16 @@
     "serve": {
       "description": "Run and serve the site for development",
       "command": "deno task lume -s"
+    },
+    "fmt": {
+      "description": "Format the code",
+      "command": "deno fmt"
     }
+  },
+  "fmt": {
+    "exclude": [
+      "src/**/*.md"
+    ]
   },
   "compilerOptions": {
     "types": [

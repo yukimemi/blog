@@ -7,8 +7,8 @@ title: Tags
 
 <ul>
   {{ for tag of search.values("tags") }}
-  <li>
-    <a href="/tags/{{ tag }}/" class="tag">{{ tag }}</a>
-  </li>
+    <li>
+      <a href="/tags/{{ tag }}/" class="tag">{{ tag }}</a>
+    </li>
   {{ /for }}
 </ul>

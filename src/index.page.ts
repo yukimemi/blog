@@ -2,7 +2,7 @@ export const layout = "layouts/base.vto";
 
 export default function* ({ search, paginate }: Lume.Data) {
   const posts = search.pages("type=post", "date=desc");
-  
+
   // デバッグ用: コンソールに全記事数とタイトルを表示
   console.log(`Total posts found: ${posts.length}`);
   // posts.forEach(p => console.log(`- ${p.title} (${p.date})` ));
@@ -14,7 +14,9 @@ export default function* ({ search, paginate }: Lume.Data) {
 
   for (const page of paginate(posts, options)) {
     yield {
-      title: page.pagination.page === 1 ? "Home" : `Page ${page.pagination.page}`,
+      title: page.pagination.page === 1
+        ? "Home"
+        : `Page ${page.pagination.page}`,
       url: page.url,
       posts: page.results,
       pagination: page.pagination,
@@ -26,23 +28,31 @@ export default function* ({ search, paginate }: Lume.Data) {
   </div>
 
   <ul id="post-list" class="post-list">
-    ${page.results.map(post => `
+    ${
+        page.results.map((post) => `
       <li class="post-item">
         <h3><a href="${post.url}">${post.title}</a></h3>
         <div class="post-meta">
-          <time datetime="${post.date?.toISOString()}">${post.date?.toLocaleDateString("ja-JP")}</time>
+          <time datetime="${post.date?.toISOString()}">${
+          post.date?.toLocaleDateString("ja-JP")
+        }</time>
         </div>
         <p>${post.description || ""}</p>
       </li>
-    `).join("")}
+    `).join("")
+      }
   </ul>
 
-  ${page.pagination.next ? `
+  ${
+        page.pagination.next
+          ? `
     <div id="infinite-scroll-sentinel" style="text-align: center; padding: 2rem; visibility: hidden;">
       <a id="next-page-link" href="${page.pagination.next}">Next Page</a>
       <div class="loading-spinner">Loading more posts...</div>
     </div>
-  ` : ""}
+  `
+          : ""
+      }
 </section>
 
 <script>
@@ -88,7 +98,7 @@ export default function* ({ search, paginate }: Lume.Data) {
     }
   })();
 </script>
-      `
+      `,
     };
   }
 }

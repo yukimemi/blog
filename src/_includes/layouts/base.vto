@@ -1,41 +1,54 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title }} - yukimemi's Blog</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css" media="(prefers-color-scheme: light)">
-  <meta name="description" content="{{ description }}">
-</head>
-<body>
-  <header>
-    <div class="container">
-      <h1><a href="/">Yukimemi's Blog</a></h1>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/tags/">Tags</a>
-        <a href="/search/">Search</a>
-        <a href="/about/">About</a>
-      </nav>
-    </div>
-  </header>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - yukimemi's Blog</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css"
+      media="(prefers-color-scheme: dark)"
+    >
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css"
+      media="(prefers-color-scheme: light)"
+    >
+    <meta name="description" content="{{ description }}">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1><a href="/">Yukimemi's Blog</a></h1>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/tags/">Tags</a>
+          <a href="/search/">Search</a>
+          <a href="/about/">About</a>
+        </nav>
+      </div>
+    </header>
 
-  <main class="container">
-    {{ content }}
-  </main>
+    <main class="container">
+      {{ content }}
+    </main>
 
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 yukimemi's Blog. Built with <a href="https://lume.land">Lume</a>.</p>
-    </div>
-  </footer>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  <script>
-    document.querySelectorAll('code.highlight').forEach((el) => {
-      hljs.highlightElement(el);
-    });
-  </script>
-</body>
+    <footer>
+      <div class="container">
+        <p>
+          &copy; 2025 yukimemi's Blog. Built with <a href="https://lume.land"
+          >Lume</a>.
+        </p>
+      </div>
+    </footer>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    ></script>
+    <script>
+      document.querySelectorAll("code.highlight").forEach((el) => {
+        hljs.highlightElement(el);
+      });
+    </script>
+  </body>
 </html>

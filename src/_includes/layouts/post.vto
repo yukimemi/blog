@@ -4,7 +4,10 @@ layout: layouts/base.vto
 <article>
   <header class="post-header">
     <h1>{{ title }}</h1>
-    <time datetime="{{ date |> date('DATETIME') }}">{{ date |> date('yyyy/MM/dd') }}</time>
+    <time datetime="{{ date |> date('DATETIME') }}">{{
+      date
+      |> date("yyyy/MM/dd")
+    }}</time>
     <div class="tags">
       {{ for tag of tags }}
         <span class="tag">#{{ tag }}</span>
