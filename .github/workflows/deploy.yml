@@ -29,6 +29,6 @@ jobs:
       - name: Deploy to Deno Deploy
         uses: denoland/deployctl@1.13.1
         with:
-          project: yukimemi-blog
+          project: yukimemi
           root: _site
           entrypoint: jsr:@std/http/file-server
