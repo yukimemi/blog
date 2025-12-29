@@ -1,14 +1,15 @@
 export const layout = "layouts/base.vto";
 
 export default function* ({ search }: Lume.Data) {
-  // すべてのタグを取得し、小文字にして重複を除去
-  const allTags = search.values("tags");
-  const uniqueTags = Array.from(
-    new Set(allTags.map((t) => String(t).toLowerCase())),
-  );
+  // Get all tags, convert to lowercase, and remove duplicates
+  const tags = search.values("tags").map((tag) => tag.toLowerCase()).filter((
+    value,
+    index,
+    self,
+  ) => self.indexOf(value) === index);
 
-  // 各タグごとにページを生成
-  for (const tag of uniqueTags) {
+  // Generate a page for each tag
+  for (const tag of tags) {
     yield {
       url: `/tags/${tag}/`,
       title: `Tagged: ${tag}`,

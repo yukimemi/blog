@@ -1,3 +1,9 @@
+// =============================================================================
+// File        : _config.ts
+// Author      : yukimemi
+// Last Change : 2025/12/29 09:02:26
+// =============================================================================
+
 import lume from "lume/mod.ts";
 import attributes from "lume/plugins/attributes.ts";
 import date from "lume/plugins/date.ts";
@@ -9,7 +15,7 @@ import feed from "lume/plugins/feed.ts";
 import postcss from "lume/plugins/postcss.ts";
 import paginate from "lume/plugins/paginate.ts";
 import pagefind from "lume/plugins/pagefind.ts";
-import container from "npm:markdown-it-container";
+import container from "markdown-it-container";
 
 const site = lume({
   src: "./src",
@@ -20,11 +26,11 @@ site
   .use(date())
   .use(code_highlight())
   .use(extract_date())
+  .use(postcss())
   .use(base_path())
   .use(check_urls({
     output: "broken-links.txt",
   }))
-  .use(postcss())
   .use(paginate())
   .use(pagefind({
     ui: {
@@ -75,7 +81,7 @@ async function getMeta(url: string) {
   }
 }
 
-// 1. GitHub リンクの情報を収集し、プレースホルダーに変える (preprocess)
+// 1. Gather GitHub link information and replace with placeholders (preprocess)
 const githubCache = new Map();
 
 site.preprocess([".md"], async (pages) => {
@@ -85,12 +91,12 @@ site.preprocess([".md"], async (pages) => {
   for (const page of pages) {
     if (typeof page.data.content !== "string") continue;
 
-    // A. GitHub スニペット (行指定あり)
-    // プレースホルダー化することで、後続のリンクカード処理やMarkdownレンダリングの影響を受けないようにする
+    // A. GitHub snippets (with line numbers)
+    // By using placeholders, we avoid being affected by subsequent link card processing or Markdown rendering.
     const githubRegex =
       /https:\/\/github\.com\/([\w.-]+)\/([\w.-]+)\/blob\/([\w.-]+)\/([\w./-]+)#L(\d+)(?:-L(\d+))?/g;
 
-    // matchAllの結果を配列化しないと、replace内でイテレータがバグる可能性があるため
+    // We must convert matchAll results to an array, otherwise the iterator might behave unexpectedly within replace.
     const matches = Array.from(page.data.content.matchAll(githubRegex));
 
     for (const match of matches) {
@@ -120,7 +126,7 @@ site.preprocess([".md"], async (pages) => {
             code: snippetLines.join("\n"),
           });
 
-          // プレースホルダーに置換
+          // Replace with placeholder
           page.data.content = page.data.content.replace(
             fullUrl,
             `<div class="github-embed-placeholder" data-id="${id}"></div>`,
@@ -131,13 +137,13 @@ site.preprocess([".md"], async (pages) => {
       }
     }
 
-    // B. リンクカード (1行に URL だけがある場合)
-    // プレースホルダー置換後に行うため、GitHubリンクは既にdivになっている
+    // B. Link cards (when a line contains only a URL)
+    // Since this happens after placeholder replacement, GitHub links are already div elements.
     const lines = page.data.content.split("\n");
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim();
 
-      // プレースホルダーや他のHTMLタグが含まれている場合はスキップ
+      // Skip if it contains a placeholder or other HTML tags
       if (line.includes("<div") || line.startsWith("```")) continue;
 
       const urlMatch = line.match(/^https?:\/\/[\w\/:%#\$&\?\(\)~\.=+\-]+$/);
@@ -172,7 +178,7 @@ site.preprocess([".md"], async (pages) => {
   }
 });
 
-// 2. HTML 生成後にプレースホルダーを最終的な構造に変換する (process)
+// 2. Convert placeholders back to final structure after HTML generation (process)
 site.process([".html"], (pages) => {
   const escapeHtml = (text: string) =>
     text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -180,7 +186,7 @@ site.process([".html"], (pages) => {
   for (const page of pages) {
     if (!page.document) continue;
 
-    // A. GitHub プレースホルダーの置換
+    // A. Replace GitHub placeholders
     page.document.querySelectorAll(".github-embed-placeholder").forEach(
       (placeholder) => {
         const id = placeholder.getAttribute("data-id");
@@ -207,15 +213,15 @@ site.process([".html"], (pages) => {
       },
     );
 
-    // B. 通常のコードブロックへの行番号付与
+    // B. Add line numbers to normal code blocks
     page.document.querySelectorAll(".post-content pre").forEach((pre) => {
-      // 既に remote-code-container の中にある場合はスキップ
+      // Skip if already inside a remote-code-container
       if (pre.closest(".remote-code-container")) return;
 
       const codeEl = pre.querySelector("code");
       if (!codeEl) return;
 
-      // 先頭・末尾の改行を削除してインデントズレを防ぐ
+      // Remove leading/trailing newlines to prevent indentation issues
       const htmlContent = codeEl.innerHTML.replace(/^\n+/, "").replace(
         /\n+$/,
         "",

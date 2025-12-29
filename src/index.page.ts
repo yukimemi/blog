@@ -3,7 +3,7 @@ export const layout = "layouts/base.vto";
 export default function* ({ search, paginate }: Lume.Data) {
   const posts = search.pages("type=post", "date=desc");
 
-  // デバッグ用: コンソールに全記事数とタイトルを表示
+  // Debug: display total post count and titles in the console
   console.log(`Total posts found: ${posts.length}`);
   // posts.forEach(p => console.log(`- ${p.title} (${p.date})` ));
 
@@ -62,7 +62,7 @@ export default function* ({ search, paginate }: Lume.Data) {
     let nextLink = document.getElementById("next-page-link");
     const STORAGE_KEY = "blog_infinite_scroll_state";
 
-    // 状態の取得
+    // Get state
     const getState = () => {
       try {
         const state = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
@@ -72,7 +72,7 @@ export default function* ({ search, paginate }: Lume.Data) {
       }
     };
     
-    // 状態の保存
+    // Save state
     const saveState = (urls) => {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
         path: window.location.pathname,
@@ -80,16 +80,16 @@ export default function* ({ search, paginate }: Lume.Data) {
       }));
     };
 
-    // 初期状態のロード
+    // Load initial state
     const state = getState();
     let loadedUrls = state ? state.urls : [];
 
-    // もしパスが変わっていたらクリア
+    // Clear if path has changed
     if (!state) {
       sessionStorage.removeItem(STORAGE_KEY);
     }
 
-    // HTMLから記事を抽出して追加する関数
+    // Function to extract and append posts from HTML
     const appendPosts = (html) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html, "text/html");
@@ -99,7 +99,7 @@ export default function* ({ search, paginate }: Lume.Data) {
       const newNextLink = doc.getElementById("next-page-link");
       if (newNextLink && nextLink) {
         nextLink.href = newNextLink.href;
-        return newNextLink.href; // 次のURLがある場合
+        return newNextLink.href; // If next URL exists
       } else {
         nextLink = null;
         if (sentinel) sentinel.remove();
@@ -107,13 +107,13 @@ export default function* ({ search, paginate }: Lume.Data) {
       }
     };
 
-    // 初期化と復元処理
+    // Initialization and restoration process
     const init = async () => {
-      // 復元処理
+      // Restoration process
       if (loadedUrls.length > 0 && nextLink) {
         if (sentinel) sentinel.style.visibility = "visible";
         
-        // 順番に読み込んでDOMを復元
+        // Restore DOM by loading sequentially
         for (const url of loadedUrls) {
           try {
             const response = await fetch(url);
@@ -127,7 +127,7 @@ export default function* ({ search, paginate }: Lume.Data) {
         if (sentinel && nextLink) sentinel.style.visibility = "hidden";
       }
 
-      // IntersectionObserver の設定
+      // IntersectionObserver configuration
       if (sentinel && nextLink) {
         const observer = new IntersectionObserver(async (entries) => {
           if (entries[0].isIntersecting) {
@@ -140,7 +140,7 @@ export default function* ({ search, paginate }: Lume.Data) {
               const response = await fetch(url);
               const html = await response.text();
               
-              // 読み込み成功したらリストに追加して保存
+              // On success, add to list and save state
               loadedUrls.push(url);
               saveState(loadedUrls);
               
