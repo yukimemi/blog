@@ -71,7 +71,7 @@ export default function* ({ search, paginate }: Lume.Data) {
         return null;
       }
     };
-    
+
     // Save state
     const saveState = (urls) => {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
@@ -95,7 +95,7 @@ export default function* ({ search, paginate }: Lume.Data) {
       const doc = parser.parseFromString(html, "text/html");
       const newPosts = doc.querySelectorAll("#post-list .post-item");
       newPosts.forEach(post => postList.appendChild(post));
-      
+
       const newNextLink = doc.getElementById("next-page-link");
       if (newNextLink && nextLink) {
         nextLink.href = newNextLink.href;
@@ -112,7 +112,7 @@ export default function* ({ search, paginate }: Lume.Data) {
       // Restoration process
       if (loadedUrls.length > 0 && nextLink) {
         if (sentinel) sentinel.style.visibility = "visible";
-        
+
         // Restore DOM by loading sequentially
         for (const url of loadedUrls) {
           try {
@@ -123,7 +123,7 @@ export default function* ({ search, paginate }: Lume.Data) {
             console.error("Failed to restore page:", url, e);
           }
         }
-        
+
         if (sentinel && nextLink) sentinel.style.visibility = "hidden";
       }
 
@@ -135,17 +135,17 @@ export default function* ({ search, paginate }: Lume.Data) {
             if (!url) return;
 
             sentinel.style.visibility = "visible";
-            
+
             try {
               const response = await fetch(url);
               const html = await response.text();
-              
+
               // On success, add to list and save state
               loadedUrls.push(url);
               saveState(loadedUrls);
-              
+
               const hasMore = appendPosts(html);
-              
+
               if (!hasMore) {
                 observer.disconnect();
               } else {

@@ -42,7 +42,7 @@ site
     output: ["/feed.xml", "/feed.json"],
     query: "type=post",
     info: {
-      title: "yukimemi's Blog",
+      title: "Yukimemi's Blog",
       description: "A blog built with Lume",
     },
     items: {
@@ -94,7 +94,7 @@ site.preprocess([".md"], async (pages) => {
     // A. GitHub snippets (with line numbers)
     // By using placeholders, we avoid being affected by subsequent link card processing or Markdown rendering.
     const githubRegex =
-      /https:\/\/github\.com\/([\w.-]+)\/([\w.-]+)\/blob\/([\w.-]+)\/([\w./-]+)#L(\d+)(?:-L(\d+))?/g;
+      /https:\/\/github\.com\/([\w.-]+)\/([\w.-]+)\/blob\/([\w.-]+)\/([\w./-]+)(?:\?[^#]*)?#L(\d+)(?:-L(\d+))?/g;
 
     // We must convert matchAll results to an array, otherwise the iterator might behave unexpectedly within replace.
     const matches = Array.from(page.data.content.matchAll(githubRegex));
