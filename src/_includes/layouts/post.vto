@@ -10,7 +10,7 @@ layout: layouts/base.vto
     }}</time>
     <div class="tags">
       {{ for tag of tags }}
-        <span class="tag">#{{ tag }}</span>
+        <a href="/tags/{{ tag.toLowerCase() }}/" class="tag">#{{ tag }}</a>
       {{ /for }}
     </div>
   </header>
