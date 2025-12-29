@@ -1,6 +1,6 @@
 ---
 title: Windows でも editprompt したい！ AutoHotkey で自作する
-date: 2025-12-29
+date: 2025-12-29 12:00:00
 layout: layouts/post.vto
 tags:
   - windows
