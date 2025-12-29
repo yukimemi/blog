@@ -12,6 +12,7 @@ zenn_type: tech
 description: "ディレクトリ内のファイルを再帰的に検索して一覧表示するプラグイン「dps-walk」を作成しました。denops.vimを使用しています。"
 ---
 
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/dps-walk) にも投稿しています。
 
 またまた [denops.vim](https://github.com/vim-denops/denops.vim) ネタ。
 

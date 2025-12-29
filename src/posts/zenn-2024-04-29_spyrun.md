@@ -12,6 +12,8 @@ zenn_type: tech
 description: "ファイルの変更を検知して任意のコマンドを実行するRust製ツール「spyrun」を作成しました。"
 ---
 
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/spyrun) にも投稿しています。
+
 ## はじめに
 
 ファイルの作成、変更、削除などを検知して、何か処理を実行する、というのはビルドツールやタスクランナーとして使用頻度が高いと思います。

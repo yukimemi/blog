@@ -12,6 +12,7 @@ zenn_type: tech
 description: "`minpac`のラッパーである「plugpac.vim」の紹介記事です。vim-plugライクな使用感と、独自の遅延ロード機能について解説しています。"
 ---
 
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/plugpac) にも投稿しています。
 
 ## Vim (Neovim) プラグインマネージャー plugpac.vim の紹介
 

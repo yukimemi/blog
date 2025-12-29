@@ -13,6 +13,7 @@ zenn_type: tech
 description: "指定したイベント（`CursorHold`など）で自動的にファイルのバックアップを作成するプラグイン「dps-autobackup」を作成しました。"
 ---
 
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/dps-autobackup) にも投稿しています。
 
 またまた [denops.vim](https://github.com/vim-denops/denops.vim) で `plugin` 作成しました！
 

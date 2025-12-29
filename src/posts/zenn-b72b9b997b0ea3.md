@@ -11,6 +11,7 @@ zenn_type: tech
 description: "MINISFORUM UM790Proを使ってHyper-V環境を構築した手順のメモです。PowerShellを使ったネットワーク設定（内部スイッチ、NAT）やVM作成の自動化について解説しています。"
 ---
 
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/b72b9b997b0ea3) にも投稿しています。
 
 [MINISFORUM UM790Pro (64GB + 1T)](https://amzn.to/3Rr2ZBh) を購入したので、Hyper-V 環境を構築することにしました。
 

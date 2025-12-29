@@ -12,6 +12,7 @@ zenn_type: idea
 description: "VimでDenoのテスト環境を構築する方法です。`vim-test`と`neoterm`を組み合わせて、カーソル位置のテストを実行する設定などを紹介しています。"
 ---
 
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/denotest) にも投稿しています。
 
 [Deno](https://deno.land/) のテストをいい感じに `Vim` で実行できるように環境構築。
 

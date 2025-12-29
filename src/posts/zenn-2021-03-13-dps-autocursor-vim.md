@@ -12,6 +12,7 @@ zenn_type: tech
 description: "「denops.vim」を使って、`cursorline`や`cursorcolumn`を必要な時だけ有効にするプラグイン「dps-autocursor」を作成しました。"
 ---
 
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/dps-autocursor-vim) にも投稿しています。
 
 https://github.com/vim-denops/denops.vim
 
