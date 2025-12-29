@@ -9,6 +9,7 @@ tags:
   - ghq
 layout: layouts/post.vto
 type: post
+description: "コマンドライン選択ツールpecoの導入方法と、history検索やディレクトリ移動、スニペット実行などの活用事例を紹介します。"
 ---
 
 

@@ -9,6 +9,7 @@ tags:
   - shell
 layout: layouts/post.vto
 type: post
+description: "rootsで新しいブログ記事を作成するためのbashスクリプトを作成しました。タイトルを入力して記事ファイルを生成する方法を解説しています。"
 ---
 
 

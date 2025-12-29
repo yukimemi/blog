@@ -9,6 +9,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: tech
+description: "ファイル保存時などに、特定の書式（Last Changeなど）の日付を自動更新するプラグイン「dps-autodate」を作成しました。"
 ---
 
 

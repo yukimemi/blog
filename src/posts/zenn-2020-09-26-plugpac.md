@@ -9,6 +9,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: tech
+description: "`minpac`のラッパーである「plugpac.vim」の紹介記事です。vim-plugライクな使用感と、独自の遅延ロード機能について解説しています。"
 ---
 
 

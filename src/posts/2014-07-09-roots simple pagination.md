@@ -8,6 +8,7 @@ tags:
   - simplepagination
 layout: layouts/post.vto
 type: post
+description: "rootsで作成したブログに、jQueryプラグイン「simplePagination.js」を使ってページネーション機能を実装する方法を解説しています。"
 ---
 
 

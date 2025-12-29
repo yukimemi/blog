@@ -7,6 +7,7 @@ tags:
   - vim-automatic
 layout: layouts/post.vto
 type: post
+description: "automatic.vimプラグインを使って、Vimのウィンドウ（UniteやQuickFixなど）を一元管理する方法です。ESC連打でウィンドウを閉じる設定例も紹介しています。"
 ---
 
 

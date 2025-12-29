@@ -8,6 +8,7 @@ tags:
   - indentLine
 layout: layouts/post.vto
 type: post
+description: "Vimのインデント表示プラグインをvim-indent-guidesからYggdroot/indentLineに乗り換えた話です。設定方法や特定のファイルタイプを除外する方法も解説しています。"
 ---
 
 

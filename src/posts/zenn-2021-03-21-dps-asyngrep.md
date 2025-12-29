@@ -9,6 +9,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: tech
+description: "「denops.vim」を使って、`ripgrep`や`jvgrep`などで非同期にGrep検索を行うプラグイン「dps-asyngrep」を作成しました。"
 ---
 
 

@@ -9,6 +9,7 @@ tags:
   - fisher
 layout: layouts/post.vto
 type: post
+description: "長年使っていたzshからfish shellへ移行した話です。fishermanを使ったプラグイン管理や、独自の関数定義、peco/fzfとの連携設定などを詳述しています。"
 ---
 
 

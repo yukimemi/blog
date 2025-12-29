@@ -8,6 +8,7 @@ tags:
   - plugin
 layout: layouts/post.vto
 type: post
+description: "`minpac`に近い使い勝手を持つVimプラグインマネージャー「vim-packager」を試用し、設定スクリプトを作成した話です。"
 ---
 
 

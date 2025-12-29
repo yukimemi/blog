@@ -8,6 +8,7 @@ tags:
   - plugpac
 layout: layouts/post.vto
 type: post
+description: "`plugpac.vim`に`event`オプションを追加し、`CursorHold`などのイベント発生時にプラグインを遅延ロードできるようにした更新情報です。"
 ---
 
 

@@ -9,6 +9,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: tech
+description: "ディレクトリ内のファイルを再帰的に検索して一覧表示するプラグイン「dps-walk」を作成しました。denops.vimを使用しています。"
 ---
 
 

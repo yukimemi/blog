@@ -9,6 +9,7 @@ tags:
   - minpac
 layout: layouts/post.vto
 type: post
+description: "Vim 8のパッケージ機能を利用したプラグインマネージャー「minpac」の導入記事です。起動速度向上のための遅延ロード設定などを解説しています。"
 ---
 
 

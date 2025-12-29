@@ -8,6 +8,7 @@ tags:
   - more
 layout: layouts/post.vto
 type: post
+description: "Tinkererで「続きを読む」機能を使用する方法を紹介します。`.. more::` ディレクティブの使い方を解説しています。"
 ---
 
 

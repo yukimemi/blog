@@ -9,6 +9,7 @@ tags:
   - trackpad
 layout: layouts/post.vto
 type: post
+description: "UbuntuをインストールしたMacBook Airで、キー入力中のタッチパッド誤反応を防ぐために`synclient PalmDetect=1`を自動起動設定に追加する方法です。"
 ---
 
 

@@ -8,6 +8,7 @@ tags:
   - vimrc
 layout: layouts/post.vto
 type: post
+description: "Vimの起動速度を改善するために、起動時には最小限のプラグインのみを読み込み、必要に応じて全プラグインをロードする（スーパーサイヤ人化）設定を紹介します。"
 ---
 
 

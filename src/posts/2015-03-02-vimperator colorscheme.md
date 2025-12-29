@@ -7,6 +7,7 @@ tags:
   - colorscheme
 layout: layouts/post.vto
 type: post
+description: "FirefoxのアドオンVimperatorでカラースキームを設定する方法を紹介します。vimpr/vimperator-colorsリポジトリから取得して設定する手順です。"
 ---
 
 

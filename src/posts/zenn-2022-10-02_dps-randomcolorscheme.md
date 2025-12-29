@@ -10,6 +10,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: tech
+description: "Vimのカラースキームを時間経過やイベントでランダムに変更するプラグイン「dps-randomcolorscheme」を作成しました。"
 ---
 
 

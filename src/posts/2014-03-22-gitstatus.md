@@ -7,6 +7,7 @@ tags:
   - git
 layout: layouts/post.vto
 type: post
+description: "Go言語を使用して、Git管理下のすべてのディレクトリで`git status`を一括実行するツール「gitstatus」を作成しました。使い方や出力例を紹介しています。"
 ---
 
 

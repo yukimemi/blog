@@ -8,6 +8,7 @@ tags:
   - blog
 layout: layouts/post.vto
 type: post
+description: "OctopressやTinkerer、rootsなどの静的サイトジェネレーターを経て、Go言語製のHugoへ移行した話です。サイト生成速度の速さが決め手となりました。"
 ---
 
 

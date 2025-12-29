@@ -9,6 +9,7 @@ tags:
   - plugpac
 layout: layouts/post.vto
 type: post
+description: "`minpac`のラッパープラグイン「plugpac.vim」を導入し、vim-plugライクな記述でプラグイン管理を行う設定方法です。"
 ---
 
 

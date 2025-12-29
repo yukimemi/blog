@@ -8,6 +8,7 @@ tags:
   - npm
 layout: layouts/post.vto
 type: post
+description: "direnvを使って、プロジェクトローカルにインストールしたnpmパッケージのコマンド（node_modules/.bin）へ自動的にパスを通す設定方法です。"
 ---
 
 

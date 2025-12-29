@@ -10,6 +10,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: tech
+description: "既に起動しているNeovimインスタンスがある場合、新規起動せずに既存インスタンスでファイルを開くプラグイン「dps-hitori」を作成しました。Windows環境での`neovim-remote`代替として便利です。"
 ---
 
 

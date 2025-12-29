@@ -7,6 +7,7 @@ tags:
   - highlight
 layout: layouts/post.vto
 type: post
+description: "ブログのコードハイライトを`highlight.js`に変更し、CDN経由で読み込む設定方法を紹介します。複数言語への対応方法も解説しています。"
 ---
 
 

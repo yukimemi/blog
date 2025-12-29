@@ -7,6 +7,7 @@ tags:
   - ForEach-Object
 layout: layouts/post.vto
 type: post
+description: "PowerShellのForEach-Objectループ内でcontinueを使用する際の注意点についてです。意図した動作をさせるためにreturnを使用する方法を解説しています。"
 ---
 
 

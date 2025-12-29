@@ -9,6 +9,7 @@ tags:
   - button
 layout: layouts/post.vto
 type: post
+description: "Tinkererブログにソーシャルボタン（Twitter, はてなブックマーク, Google+, Facebook）を追加する方法です。テンプレートファイルの修正手順を詳細に解説しています。"
 ---
 
 

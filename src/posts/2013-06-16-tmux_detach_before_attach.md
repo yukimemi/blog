@@ -6,6 +6,7 @@ tags:
   - tmux
 layout: layouts/post.vto
 type: post
+description: "tmuxでアタッチする際、画面サイズの問題を防ぐために既存のセッションをデタッチしてからアタッチする方法です。.zshrcの設定例も紹介しています。"
 ---
 
 

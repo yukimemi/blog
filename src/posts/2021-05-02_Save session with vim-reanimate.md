@@ -8,6 +8,7 @@ tags:
   - vim-reanimate
 layout: layouts/post.vto
 type: post
+description: "Vimのセッション保存・復元プラグイン「vim-reanimate」の導入と、カレントディレクトリ単位での保存設定について紹介しています。"
 ---
 
 

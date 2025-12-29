@@ -7,6 +7,7 @@ tags:
   - ssh
 layout: layouts/post.vto
 type: post
+description: "MacからWindowsへSSH接続し、PowerShellを実行する環境を構築する方法です。PowerShell Serverの導入と設定について解説しています。"
 ---
 
 

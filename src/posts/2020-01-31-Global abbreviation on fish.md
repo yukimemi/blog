@@ -8,6 +8,7 @@ tags:
   - fisher
 layout: layouts/post.vto
 type: post
+description: "fish shellでzshのグローバルエイリアスのような機能を実現する「fish-global-abbreviation」プラグインの導入と、Enterキーで展開するためのキーバインド設定についてです。"
 ---
 
 

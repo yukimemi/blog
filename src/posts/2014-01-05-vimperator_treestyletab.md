@@ -8,6 +8,7 @@ tags:
   - treestyletab
 layout: layouts/post.vto
 type: post
+description: "Vimperatorとツリー型タブを使用している際に表示が崩れる問題を、CSS設定（styleコマンド）で修正する方法を紹介します。"
 ---
 
 

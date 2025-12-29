@@ -8,6 +8,7 @@ tags:
   - powershell
 layout: layouts/post.vto
 type: post
+description: "VimでPowerShellスクリプトを書くための環境設定です。保存時に自動的にバッチファイルと結合し、ダブルクリックで実行可能な形式にするテクニックを紹介します。"
 ---
 
 

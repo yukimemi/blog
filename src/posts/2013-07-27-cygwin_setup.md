@@ -7,6 +7,7 @@ tags:
   - install
 layout: layouts/post.vto
 type: post
+description: "Windows環境にCygwinをコマンドラインで簡単にインストールする方法です。setup.exeのオプションを利用したバッチスクリプトを紹介しています。"
 ---
 
 

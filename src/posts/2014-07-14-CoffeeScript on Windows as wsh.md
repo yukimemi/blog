@@ -9,6 +9,7 @@ tags:
   - windows
 layout: layouts/post.vto
 type: post
+description: "Windows上でNode.jsを使わずにCoffeeScriptをWSH (JScript) として実行・コンパイルする方法を紹介します。thinca/coffee-script-on-jscriptを使用します。"
 ---
 
 

@@ -9,6 +9,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: tech
+description: "シンプルなステータスラインプラグイン「barow」の導入と、`dein.vim`を使った設定例を紹介しています。"
 ---
 
 

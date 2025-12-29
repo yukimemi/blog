@@ -10,6 +10,7 @@ tags:
   - ES2015
 layout: layouts/post.vto
 type: post
+description: "WindowsのJScript開発環境をモダンにするため、ES2015でコードを書き、Webpack、Gulp、Babelを使ってトランスパイル・ビルドする手順を紹介します。"
 ---
 
 

@@ -7,6 +7,7 @@ tags:
   - theme
 layout: layouts/post.vto
 type: post
+description: "静的サイトジェネレーターZolaのテーマを、レトロでミニマルな「Terminimal」に変更しました。"
 ---
 
 

@@ -3,7 +3,7 @@ title: Hello Lume! Gemini CLI でブログを作りました
 date: 2025-12-29
 layout: layouts/post.vto
 tags: [lume, gemini, blog]
-description: Gemini CLI を使って Lume でブログサイトを構築しました。
+description: "Gemini CLI を使って Lume でブログサイトを構築しました。"
 type: post
 ---
 

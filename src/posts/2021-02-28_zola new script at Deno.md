@@ -7,6 +7,7 @@ tags:
   - zola
 layout: layouts/post.vto
 type: post
+description: "Denoを使って、静的サイトジェネレーターZolaの新規記事作成コマンド（`zola-new`）を自作した話です。"
 ---
 
 

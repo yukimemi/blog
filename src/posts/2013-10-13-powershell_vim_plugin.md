@@ -8,6 +8,7 @@ tags:
   - vim-plugin
 layout: layouts/post.vto
 type: post
+description: "VimでPowerShellスクリプト（ps1ファイル）を書くためのプラグイン「vim-ps1」の導入方法を紹介します。"
 ---
 
 

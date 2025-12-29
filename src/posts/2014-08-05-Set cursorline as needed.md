@@ -8,6 +8,7 @@ tags:
   - vimrc
 layout: layouts/post.vto
 type: post
+description: "Vimで`cursorline`を必要な時だけ（CursorHold時など）有効にする設定において、うまく動作しないケースを修正した話です。"
 ---
 
 

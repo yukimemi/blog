@@ -8,6 +8,7 @@ tags:
   - javascript
 layout: layouts/post.vto
 type: post
+description: "VimでJavaScriptコードを自動整形するために、`js-beautify`と`vim-autoformat`を組み合わせる設定方法です。ES2015に対応した`.jsbeautifyrc`の設定例も紹介しています。"
 ---
 
 

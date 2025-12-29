@@ -7,6 +7,7 @@ tags:
   - git
 layout: layouts/post.vto
 type: post
+description: "再帰的にGitディレクトリのステータスを確認できるGo言語製ツール「gsr」を作成しました。ghqとの連携や、peco/fzfを使ったリポジトリ移動の設定例も紹介しています。"
 ---
 
 

@@ -6,6 +6,7 @@ tags:
   - gatsby
 layout: layouts/post.vto
 type: post
+description: "ブログをHugoからGatsbyJSへ移行し、Netlifyでホスティングを開始しました。導入の手軽さやNetlifyとの連携について触れています。"
 ---
 
 

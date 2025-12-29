@@ -11,6 +11,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: tech
+description: "Google Gemini APIを利用して、Vim上でAIとチャットができるプラグイン「futago.vim」を作成しました。会話履歴の保存や、ずんだもんキャラの設定例も紹介しています。"
 ---
 
 

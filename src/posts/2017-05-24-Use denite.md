@@ -8,6 +8,7 @@ tags:
   - denite
 layout: layouts/post.vto
 type: post
+description: "Vimの統合インターフェースプラグインをUniteからDeniteへ移行しました。dein.vimを使ったtoml設定や、grepツール（pt, jvgrep, ripgrep）との連携方法を紹介しています。"
 ---
 
 

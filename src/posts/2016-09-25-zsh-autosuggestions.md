@@ -8,6 +8,7 @@ tags:
   - plugin
 layout: layouts/post.vto
 type: post
+description: "zshの入力補完プラグイン「zsh-autosuggestions」の導入方法と、キーバインド設定について紹介します。"
 ---
 
 

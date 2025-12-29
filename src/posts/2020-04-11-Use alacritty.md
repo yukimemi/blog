@@ -7,6 +7,7 @@ tags:
   - alacritty
 layout: layouts/post.vto
 type: post
+description: "GPUアクセラレーション対応のターミナル「Alacritty」の導入と設定（yaml形式）についてです。alacritty-colorschemeを使ったテーマ切り替え設定も紹介しています。"
 ---
 
 

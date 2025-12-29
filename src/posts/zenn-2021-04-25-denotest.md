@@ -9,6 +9,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: idea
+description: "VimでDenoのテスト環境を構築する方法です。`vim-test`と`neoterm`を組み合わせて、カーソル位置のテストを実行する設定などを紹介しています。"
 ---
 
 

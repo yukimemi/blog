@@ -8,6 +8,7 @@ tags:
   - theme
 layout: layouts/post.vto
 type: post
+description: "Tinkererのブログテーマを「tinkerturquoise」に変更しました。"
 ---
 
 

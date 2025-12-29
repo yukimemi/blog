@@ -7,6 +7,7 @@ tags:
   - git
 layout: layouts/post.vto
 type: post
+description: "以前Go言語で作成した`git status`一括実行ツールを、Haskellで書き直してみました。コードの紹介と解説です。"
 ---
 
 

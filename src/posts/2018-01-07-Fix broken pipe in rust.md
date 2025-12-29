@@ -6,6 +6,7 @@ tags:
   - rust
 layout: layouts/post.vto
 type: post
+description: "Rust製のCLIツールでパイプ処理を中断した際に発生する「Broken pipe」パニックを、`writeln!`を使って適切にハンドリングする方法です。"
 ---
 
 

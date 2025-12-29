@@ -7,6 +7,7 @@ tags:
   - terminal
 layout: layouts/post.vto
 type: post
+description: "Electron製ターミナル「Hyper」を導入し、iTerm2から移行しました。フルスクリーン表示や透過設定など、使用しているプラグインと設定を紹介します。"
 ---
 
 

@@ -7,6 +7,7 @@ tags:
   - mac
 layout: layouts/post.vto
 type: post
+description: "Mac OSX Mountain LionにHomebrewを使ってMongoDBをインストールし、自動起動設定を行う手順をまとめました。"
 ---
 
 

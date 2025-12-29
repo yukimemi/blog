@@ -8,6 +8,7 @@ tags:
   - mac
 layout: layouts/post.vto
 type: post
+description: "MacBook Air (Late 2010) にUbuntu 15.04をインストールした際の記録です。NVIDIAドライバの導入に伴うGRUBの手動インストール手順などを解説しています。"
 ---
 
 

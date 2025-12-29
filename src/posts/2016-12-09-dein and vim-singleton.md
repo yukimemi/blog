@@ -9,6 +9,7 @@ tags:
   - singleton
 layout: layouts/post.vto
 type: post
+description: "Vimプラグイン`vim-singleton`を`dein.vim`で管理する際の注意点についてです。`hook_source`の使用や`dein#call_hook('source')`の呼び出しについて解説しています。"
 ---
 
 

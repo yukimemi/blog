@@ -8,6 +8,7 @@ tags:
   - colorscheme
 layout: layouts/post.vto
 type: post
+description: "True Color環境下でSolarizedカラースキームを使用する際、通常のプラグインではなく`vim-solarized8`を使用することで解決した話です。"
 ---
 
 

@@ -6,6 +6,7 @@ tags:
   - tmux
 layout: layouts/post.vto
 type: post
+description: "tmux 1.8以降でペインを一時的に最大化するショートカット（prefix z）と、Vimでの類似設定について紹介します。"
 ---
 
 

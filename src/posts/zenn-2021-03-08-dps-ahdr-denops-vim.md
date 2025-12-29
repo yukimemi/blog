@@ -9,6 +9,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: tech
+description: "DenoでVimプラグインを書ける「denops.vim」を使って、ファイルにヘッダーを追加するプラグイン「dps-ahdr」を作成しました。"
 ---
 
 

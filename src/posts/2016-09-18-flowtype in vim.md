@@ -7,6 +7,7 @@ tags:
   - flowtype
 layout: layouts/post.vto
 type: post
+description: "JavaScriptの静的型チェッカー「Flow」をVimで利用するための設定です。`vim-flow`プラグインと`deoplete.nvim`を組み合わせた補完環境の構築手順を紹介します。"
 ---
 
 

@@ -9,6 +9,7 @@ tags:
   - plugpac
 layout: layouts/post.vto
 type: post
+description: "自作の「plugpac.vim」に`lazyall`オプションを追加しました。プラグイン本体だけでなく設定ファイルも遅延読み込みすることで、起動速度をさらに短縮する方法です。"
 ---
 
 

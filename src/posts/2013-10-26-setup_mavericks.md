@@ -7,6 +7,7 @@ tags:
   - mavericks
 layout: layouts/post.vto
 type: post
+description: "OS X Mavericksをクリーンインストールした後の環境構築手順をまとめました。GitHubからのdotfiles導入やHomebrew Caskを使ったアプリのインストールについて詳述しています。"
 ---
 
 

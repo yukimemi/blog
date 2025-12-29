@@ -8,6 +8,7 @@ tags:
   - terminal
 layout: layouts/post.vto
 type: post
+description: "UbuntuでGuake Terminalを導入し、MacのiTerm2のように使う設定を紹介します。外観のカスタマイズやRicty for Powerlineフォントの導入、カラースキームの設定も含みます。"
 ---
 
 

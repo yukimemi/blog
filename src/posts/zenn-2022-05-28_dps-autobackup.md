@@ -10,6 +10,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: tech
+description: "指定したイベント（`CursorHold`など）で自動的にファイルのバックアップを作成するプラグイン「dps-autobackup」を作成しました。"
 ---
 
 

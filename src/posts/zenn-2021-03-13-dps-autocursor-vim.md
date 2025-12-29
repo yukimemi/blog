@@ -9,6 +9,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: tech
+description: "「denops.vim」を使って、`cursorline`や`cursorcolumn`を必要な時だけ有効にするプラグイン「dps-autocursor」を作成しました。"
 ---
 
 

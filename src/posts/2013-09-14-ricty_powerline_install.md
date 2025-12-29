@@ -8,6 +8,7 @@ tags:
   - homebrew
 layout: layouts/post.vto
 type: post
+description: "MacにRictyフォントとPowerlineをインストールする手順をまとめました。Homebrewを使ったインストールとパッチ適用のスクリプトも紹介しています。"
 ---
 
 

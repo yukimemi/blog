@@ -7,6 +7,7 @@ tags:
   - ansible
 layout: layouts/post.vto
 type: post
+description: "新しいMacBookのセットアップをAnsibleで行いました。Homebrewパッケージの管理などを含めたPlaybookを作成し、自動化した話です。"
 ---
 
 

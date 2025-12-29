@@ -8,6 +8,7 @@ tags:
   - javascript
 layout: layouts/post.vto
 type: post
+description: "Node.js製の静的サイトジェネレーター「roots」をインストールし、ブログプロジェクトを作成する手順を紹介します。"
 ---
 
 

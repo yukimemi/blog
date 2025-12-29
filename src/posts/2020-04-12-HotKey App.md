@@ -8,6 +8,7 @@ tags:
   - autohotkey
 layout: layouts/post.vto
 type: post
+description: "Macでアプリを特定のホットキーで起動・切り替えできる「HotKey App」の紹介です。WindowsのAutoHotkeyのような挙動をMacで実現します。"
 ---
 
 

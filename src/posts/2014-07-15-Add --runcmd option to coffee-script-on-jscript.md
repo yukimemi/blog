@@ -9,6 +9,7 @@ tags:
   - windows
 layout: layouts/post.vto
 type: post
+description: "WSHで動くCoffeeScriptコンパイラに、コンパイル後に即実行する`--runcmd`オプションを追加しました。その使い方を紹介しています。"
 ---
 
 

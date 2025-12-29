@@ -11,6 +11,7 @@ tags:
   - mozc
 layout: layouts/post.vto
 type: post
+description: "Linux環境（Ubuntu + fcitx-mozc）で、Vimのモード切り替え時（Escapeキー押下時）に自動でIMEをオフにするために「Mayu」を導入・設定した手順です。"
 ---
 
 

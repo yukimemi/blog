@@ -8,6 +8,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: tech
+description: "MINISFORUM UM790Proを使ってHyper-V環境を構築した手順のメモです。PowerShellを使ったネットワーク設定（内部スイッチ、NAT）やVM作成の自動化について解説しています。"
 ---
 
 

@@ -8,6 +8,7 @@ tags:
   - deploy
 layout: layouts/post.vto
 type: post
+description: "rootsで生成されたpublicディレクトリのみをGitHub Pagesにデプロイするためのスクリプト`git-directory-deploy`の使用方法を紹介します。"
 ---
 
 

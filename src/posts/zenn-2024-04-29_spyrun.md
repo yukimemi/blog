@@ -9,6 +9,7 @@ tags:
 layout: layouts/post.vto
 type: post
 zenn_type: tech
+description: "ファイルの変更を検知して任意のコマンドを実行するRust製ツール「spyrun」を作成しました。"
 ---
 
 ## はじめに

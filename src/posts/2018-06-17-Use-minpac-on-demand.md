@@ -7,6 +7,7 @@ tags:
   - minpac
 layout: layouts/post.vto
 type: post
+description: "「minpac」を使って、コマンド実行時やファイルタイプ検出時にプラグインをオンデマンドで読み込む設定方法を紹介しています。dein.vimのような遅延ロードを実現する独自関数も解説しています。"
 ---
 
 

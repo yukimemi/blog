@@ -8,6 +8,7 @@ tags:
   - iterm
 layout: layouts/post.vto
 type: post
+description: "iTerm2、tmux、Neovimの組み合わせでTrue Color（24bitカラー）表示を有効にする設定方法を解説しています。"
 ---
 
 

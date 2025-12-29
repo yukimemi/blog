@@ -9,6 +9,7 @@ tags:
   - tweetdeck
 layout: layouts/post.vto
 type: post
+description: "Chromeを使ってTwitterモバイル版とTweetDeckをアプリのように起動する設定方法です。fish shellのalias設定例を紹介しています。"
 ---
 
 

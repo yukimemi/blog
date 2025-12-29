@@ -7,6 +7,7 @@ tags:
   - docker
 layout: layouts/post.vto
 type: post
+description: "Dockerコンテナ内でNeovimを実行環境を構築するためのDockerfile作成と、ホストOSとの権限問題を解決する方法について解説しています。"
 ---
 
 

@@ -8,6 +8,7 @@ tags:
   - tickeys
 layout: layouts/post.vto
 type: post
+description: "タイピング時に効果音を鳴らすアプリ「Tickeys」をMacに導入した話です。キーボードを叩くのが楽しくなり、作業効率向上を目指します。"
 ---
 
 

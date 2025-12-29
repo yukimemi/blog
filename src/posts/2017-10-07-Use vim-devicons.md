@@ -12,6 +12,7 @@ tags:
   - neovim
 layout: layouts/post.vto
 type: post
+description: "Vimでファイルタイプアイコンを表示する「vim-devicons」と、ステータスラインプラグイン「vim-airline」を導入・設定してみた話です。"
 ---
 
 

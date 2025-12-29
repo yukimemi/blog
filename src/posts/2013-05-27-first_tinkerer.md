@@ -7,6 +7,7 @@ tags:
   - tinkerer
 layout: layouts/post.vto
 type: post
+description: "TinkererとBitbucketを使ってブログを開設する方法についてです。Python環境の構築からTinkererのインストール、ブログの初期化、設定、そしてデプロイまでの手順を解説しています。"
 ---
 
 

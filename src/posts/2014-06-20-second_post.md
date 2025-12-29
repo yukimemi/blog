@@ -8,6 +8,7 @@ tags:
   - javascript
 layout: layouts/post.vto
 type: post
+description: "rootsを使ったブログ構築の続きです。subtree pushの利便性について触れています。"
 ---
 
 

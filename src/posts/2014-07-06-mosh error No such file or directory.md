@@ -8,6 +8,7 @@ tags:
   - ssh
 layout: layouts/post.vto
 type: post
+description: "MacからMoshで接続しようとした際に発生した「No such file or directory」エラーの原因と、対処法についてメモしました。"
 ---
 
 

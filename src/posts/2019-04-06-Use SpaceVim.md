@@ -7,6 +7,7 @@ tags:
   - SpaceVim
 layout: layouts/post.vto
 type: post
+description: "Vimの複雑な設定管理をやめ、SpaceVimへ移行しました。`init.toml`を使った設定例やレイヤーの構成について紹介しています。"
 ---
 
 

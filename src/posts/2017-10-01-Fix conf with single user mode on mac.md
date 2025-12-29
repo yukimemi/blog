@@ -9,6 +9,7 @@ tags:
   - apfs
 layout: layouts/post.vto
 type: post
+description: "Macの設定変更で起動しなくなった際に、シングルユーザーモードで起動して設定ファイルを修正・復旧した手順のメモです。"
 ---
 
 

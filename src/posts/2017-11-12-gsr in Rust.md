@@ -7,6 +7,7 @@ tags:
   - rust
 layout: layouts/post.vto
 type: post
+description: "以前Go言語で作成した「gsr」をRustで書き直しました。`structopt`や`walkdir`、`rust-threadpool`などのクレートを使用した実装について解説しています。"
 ---
 
 

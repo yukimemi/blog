@@ -8,6 +8,7 @@ tags:
   - syntax
 layout: layouts/post.vto
 type: post
+description: "VimでCoffeeScriptを書く際に、Syntasticプラグインを使って自動構文チェックを行う方法です。NeoBundleを使ったインストールや設定について解説しています。"
 ---
 
 
