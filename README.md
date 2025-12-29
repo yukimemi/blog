@@ -1,5 +1,7 @@
 # blog
 
+https://yukimemi.deno.dev
+
 This is a blog built with [Lume](https://lume.land), a static site generator for Deno.
 
 ## Usage
