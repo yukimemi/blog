@@ -11,6 +11,8 @@ type: post
 description: "Gemini CLI や Claude Code などの CLI ツールで、プロンプトを外部エディタで編集するための `editprompt` が Windows で使えなかったため、AutoHotkey で同様の機能を実装しました。"
 ---
 
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/2025-12-29-editprompt-on-windows-with-autohotkey) にも投稿しています。
+
 Gemini CLI や Claude Code など、ターミナルで対話する AI ツールが増えてきました。
 長文のプロンプトを入力する際、ターミナルの入力欄だけでは編集しづらいことがあります。
 

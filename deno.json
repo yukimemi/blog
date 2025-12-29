@@ -19,6 +19,10 @@
     "fmt": {
       "description": "Format the code",
       "command": "deno fmt"
+    },
+    "zenn": {
+      "description": "Copy a post to Zenn directory",
+      "command": "deno run -A scripts/copy_to_zenn.ts"
     }
   },
   "fmt": {
