@@ -12,7 +12,7 @@ zenn_type: tech
 description: "DenoでVimプラグインを書ける「denops.vim」を使って、ファイルにヘッダーを追加するプラグイン「dps-ahdr」を作成しました。"
 ---
 
-この記事は [Zenn](https://zenn.dev/yukimemi/articles/dps-ahdr-denops-vim) にも投稿しています。
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/2021-03-08-dps-ahdr-denops-vim) にも投稿しています。
 
 ## denops.vim とは
 

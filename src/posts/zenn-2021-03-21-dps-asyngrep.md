@@ -12,7 +12,7 @@ zenn_type: tech
 description: "「denops.vim」を使って、`ripgrep`や`jvgrep`などで非同期にGrep検索を行うプラグイン「dps-asyngrep」を作成しました。"
 ---
 
-この記事は [Zenn](https://zenn.dev/yukimemi/articles/dps-asyngrep) にも投稿しています。
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/2021-03-21-dps-asyngrep) にも投稿しています。
 
 相変わらず [denops.vim](https://github.com/vim-denops/denops.vim) たのしい！
 

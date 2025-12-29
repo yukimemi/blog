@@ -12,7 +12,7 @@ zenn_type: tech
 description: "ファイル保存時などに、特定の書式（Last Changeなど）の日付を自動更新するプラグイン「dps-autodate」を作成しました。"
 ---
 
-この記事は [Zenn](https://zenn.dev/yukimemi/articles/dps-autodate) にも投稿しています。
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/2022-06-11_dps-autodate) にも投稿しています。
 
 またまた [denops.vim](https://github.com/vim-denops/denops.vim) で `plugin` 作成しました！
 

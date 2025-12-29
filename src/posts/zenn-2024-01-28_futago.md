@@ -14,7 +14,7 @@ zenn_type: tech
 description: "Google Gemini APIを利用して、Vim上でAIとチャットができるプラグイン「futago.vim」を作成しました。会話履歴の保存や、ずんだもんキャラの設定例も紹介しています。"
 ---
 
-この記事は [Zenn](https://zenn.dev/yukimemi/articles/futago) にも投稿しています。
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/2024-01-28_futago) にも投稿しています。
 
 Google Gemini の API が出ており、今は無料で使える！ということで、[denops.vim](https://github.com/vim-denops/denops.vim) を利用したプラグインを作成してみました。
 

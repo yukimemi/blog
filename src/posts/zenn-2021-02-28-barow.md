@@ -12,7 +12,7 @@ zenn_type: tech
 description: "シンプルなステータスラインプラグイン「barow」の導入と、`dein.vim`を使った設定例を紹介しています。"
 ---
 
-この記事は [Zenn](https://zenn.dev/yukimemi/articles/barow) にも投稿しています。
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/2021-02-28-barow) にも投稿しています。
 
 Vim の simple な statusline plugin があったので使用してみた。
 

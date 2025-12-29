@@ -13,7 +13,7 @@ zenn_type: tech
 description: "既に起動しているNeovimインスタンスがある場合、新規起動せずに既存インスタンスでファイルを開くプラグイン「dps-hitori」を作成しました。Windows環境での`neovim-remote`代替として便利です。"
 ---
 
-この記事は [Zenn](https://zenn.dev/yukimemi/articles/dps-hitori) にも投稿しています。
+この記事は [Zenn](https://zenn.dev/yukimemi/articles/2023-03-04_dps-hitori) にも投稿しています。
 
 またまた [denops.vim](https://github.com/vim-denops/denops.vim) で `plugin` 作成しました！
 
