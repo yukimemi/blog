@@ -23,6 +23,10 @@
     "zenn": {
       "description": "Copy a post to Zenn directory",
       "command": "deno run -A scripts/copy_to_zenn.ts"
+    },
+    "new": {
+      "description": "Create a new post",
+      "command": "deno run -A scripts/new_post.ts"
     }
   },
   "fmt": {

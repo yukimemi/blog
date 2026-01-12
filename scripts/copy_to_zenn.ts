@@ -1,5 +1,11 @@
+// =============================================================================
+// File        : copy_to_zenn.ts
+// Author      : yukimemi
+// Last Change : 2026/01/12 08:56:25
+// =============================================================================
+
 import { parse, stringify } from "jsr:@std/yaml";
-import { join, basename } from "jsr:@std/path";
+import { basename, join } from "jsr:@std/path";
 
 const srcFile = Deno.args[0];
 
