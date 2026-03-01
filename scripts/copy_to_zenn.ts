@@ -1,7 +1,7 @@
 // =============================================================================
 // File        : copy_to_zenn.ts
 // Author      : yukimemi
-// Last Change : 2026/01/12 08:56:25
+// Last Change : 2026/03/01 22:00:00
 // =============================================================================
 
 import { parse, stringify } from "jsr:@std/yaml";
@@ -16,10 +16,11 @@ if (!srcFile) {
 
 const destDir = "../zenn-dev/articles";
 
-// Read file
-const content = await Deno.readTextFile(srcFile);
+// Read file and normalize line endings to LF
+let content = await Deno.readTextFile(srcFile);
+content = content.replace(/\r\n/g, "\n");
 
-// Simple frontmatter parsing
+// Simple frontmatter parsing (now only needs to handle LF)
 const match = content.match(/^---\n([\s\S]+?)\n---\n([\s\S]*)$/);
 if (!match) {
   console.error("Could not parse frontmatter");
@@ -38,7 +39,7 @@ const zennFm = {
   published: true,
 };
 
-// Generate Zenn content
+// Generate Zenn content (ensure LF)
 const zennContent = `---\n${stringify(zennFm).trim()}\n---\n${body.trim()}\n`;
 
 // Determine destination filename (normalize underscores to hyphens)
