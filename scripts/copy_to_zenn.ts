@@ -56,8 +56,8 @@ for (const imgMatch of images) {
   console.log(`Copying image: ${srcImgPath} -> ${destImgPath}`);
   try {
     await copy(srcImgPath, destImgPath, { overwrite: true });
-    // Replace path in markdown: /static/images/name.gif -> img/name.gif
-    processedBody = processedBody.replace(fullPath, `img/${imgName}`);
+    // Replace path in markdown to GitHub absolute URL
+    processedBody = processedBody.replace(fullPath, `https://github.com/yukimemi/zenn-dev/blob/main/articles/img/${imgName}?raw=true`);
   } catch (e) {
     console.error(`Failed to copy image ${imgName}:`, e);
   }
