@@ -1,11 +1,12 @@
-node_modules/
-_site/
 .DS_Store
+.claude/settings.local.json
 _import/
 _import_from_zenn/
+_site/
 broken-links.txt
 debug_import.ts
-fix_links.ts
 fix_dates.ts
-import_zola.ts
+fix_links.ts
 import_zenn.ts
+import_zola.ts
+node_modules/
