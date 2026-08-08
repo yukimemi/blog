@@ -84,7 +84,10 @@ main {
   min-height: 60vh;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-top: 2rem;
@@ -236,7 +239,8 @@ footer {
   border-bottom: 1px solid var(--accents-2);
 }
 
-.remote-code-header a, .remote-code-header span {
+.remote-code-header a,
+.remote-code-header span {
   font-size: 0.8rem;
   color: var(--accents-7);
   text-decoration: none;

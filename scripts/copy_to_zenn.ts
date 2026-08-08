@@ -57,14 +57,19 @@ for (const imgMatch of images) {
   try {
     await copy(srcImgPath, destImgPath, { overwrite: true });
     // Replace path in markdown to GitHub absolute URL
-    processedBody = processedBody.replace(fullPath, `https://github.com/yukimemi/zenn-dev/blob/main/articles/img/${imgName}?raw=true`);
+    processedBody = processedBody.replace(
+      fullPath,
+      `https://github.com/yukimemi/zenn-dev/blob/main/articles/img/${imgName}?raw=true`,
+    );
   } catch (e) {
     console.error(`Failed to copy image ${imgName}:`, e);
   }
 }
 
 // Generate Zenn content
-const zennContent = `---\n${stringify(zennFm).trim()}\n---\n${processedBody.trim()}\n`;
+const zennContent = `---\n${
+  stringify(zennFm).trim()
+}\n---\n${processedBody.trim()}\n`;
 
 // Determine destination filename (normalize underscores to hyphens)
 const filename = basename(srcFile).replace(/_/g, "-");
