@@ -32,14 +32,28 @@ if (!match) {
 const [, fmRaw, body] = match;
 const fm = parse(fmRaw) as Record<string, any>;
 
-// Convert Frontmatter to Zenn format
-const zennFm = {
-  title: fm.title,
-  emoji: "💻",
-  type: "tech",
-  topics: fm.tags || [],
-  published: true,
-};
+// Determine destination filename (normalize underscores to hyphens)
+const filename = basename(srcFile).replace(/_/g, "-");
+const destPath = join(destDir, filename);
+
+// Zenn's emoji is picked per article by hand (🪢 for yui, ⚡ for shun, …)
+// and has no counterpart in the blog frontmatter. Re-running this script
+// used to reset it to the default and silently undo that choice, so keep
+// whatever the existing article already declares.
+const DEFAULT_EMOJI = "💻";
+let emoji = DEFAULT_EMOJI;
+try {
+  const existing = await Deno.readTextFile(destPath);
+  const existingFm = existing.match(/^---\n([\s\S]+?)\n---\n/);
+  if (existingFm) {
+    const parsed = parse(existingFm[1]) as Record<string, any>;
+    if (typeof parsed.emoji === "string" && parsed.emoji.length > 0) {
+      emoji = parsed.emoji;
+    }
+  }
+} catch {
+  // First run for this article — default it is.
+}
 
 // --- Image Handling ---
 // Find all images: ![](/static/images/...)
@@ -66,14 +80,39 @@ for (const imgMatch of images) {
   }
 }
 
-// Generate Zenn content
-const zennContent = `---\n${
-  stringify(zennFm).trim()
-}\n---\n${processedBody.trim()}\n`;
+// --- Centered HTML → Zenn markdown ---
+// The blog wraps the hero logo / tagline in `<p align="center">`, which
+// Zenn strips the alignment from and, for `<picture>`, renders as
+// nothing useful. This used to be fixed by hand after every copy — and
+// re-running the script silently threw the fix away.
+processedBody = processedBody
+  .replace(
+    /<p align="center">\s*<picture>[\s\S]*?<img\s+src="([^"]+)"[^>]*alt="([^"]*)"[^>]*\/?>\s*<\/picture>\s*<\/p>/g,
+    (_m, src, alt) => `![${alt}](${src})`,
+  )
+  .replace(
+    /<p align="center">\s*<b>([\s\S]*?)<\/b>\s*<\/p>/g,
+    (_m, text) => `**${text.trim()}**`,
+  );
 
-// Determine destination filename (normalize underscores to hyphens)
-const filename = basename(srcFile).replace(/_/g, "-");
-const destPath = join(destDir, filename);
+// Generate Zenn content.
+//
+// `stringify` handles everything but the emoji: it escapes non-ASCII
+// scalars, which turns `emoji: "🪢"` into `emoji: "\U0001F4BB"`. So the
+// emoji line is injected afterwards (double-quoted YAML is
+// JSON-compatible, hence `JSON.stringify`), which also keeps the rest of
+// the frontmatter in the same shape every existing article already has.
+const zennFmLines = stringify({
+  title: fm.title,
+  type: "tech",
+  topics: fm.tags || [],
+  published: true,
+}).trim().split("\n");
+const titleIdx = zennFmLines.findIndex((l) => l.startsWith("title:"));
+zennFmLines.splice(titleIdx + 1, 0, `emoji: ${JSON.stringify(emoji)}`);
+const zennContent = `---\n${zennFmLines.join("\n")}\n---\n${
+  processedBody.trim()
+}\n`;
 
 console.log(`Copying and converting: ${srcFile} -> ${destPath}`);
 
