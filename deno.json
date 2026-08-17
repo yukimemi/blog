@@ -31,7 +31,20 @@
   },
   "fmt": {
     "exclude": [
-      "src/**/*.md"
+      "src/**/*.md",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "GEMINI.md",
+      "OPENCODE.md",
+      "apm.yml",
+      "apm.lock.yaml",
+      ".agents/",
+      ".claude/",
+      ".gemini/",
+      ".kata/",
+      "renri.toml",
+      "renovate.json",
+      "opencode.json"
     ]
   },
   "compilerOptions": {
