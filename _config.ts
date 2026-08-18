@@ -19,6 +19,7 @@ import container from "markdown-it-container";
 
 const site = lume({
   src: "./src",
+  location: new URL("https://river.yukimemi.deno.net/"),
 });
 
 site
