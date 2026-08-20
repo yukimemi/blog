@@ -3,10 +3,19 @@
 {% block title %}{{ page.title }}{% endblock title %}
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
 
+{% block mode %}NORMAL{% endblock mode %}
+{% block file %}posts/{{ page.slug }}.md{% endblock file %}
+{% block meta %}<span class="statusline__meta">{%- for tag in page.taxonomies.tags | default(value=[]) %}#{{ tag }}{% if not loop.last %} {% endif %}{% endfor -%}</span>{% endblock meta %}
+
 {% block content %}
 <article>
   <header class="post-header">
-    <h1>{{ page.title }}</h1>
+    {# Pagefind's automatic title detection takes the first h1 in the whole
+       document, not the first inside data-pagefind-body, so the masthead
+       wordmark won it and every search result on the site was headed
+       "yukimemi". Naming the title explicitly is the only thing that beats
+       it. #}
+    <h1 data-pagefind-meta="title">{{ page.title }}</h1>
     <time datetime="{{ page.date | date(format='%Y-%m-%dT%H:%M:%S%:z') }}">{{ page.date | date(format="%Y/%m/%d") }}</time>
     <div class="tags">
       {% for tag in page.taxonomies.tags | default(value=[]) %}

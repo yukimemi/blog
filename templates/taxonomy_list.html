@@ -2,13 +2,20 @@
 
 {% block title %}Tags{% endblock title %}
 
-{% block content %}
-<h1>Tags</h1>
+{% block mode %}TAGS{% endblock mode %}
+{% block file %}tags{% endblock file %}
+{% block meta %}<span class="statusline__meta">{{ terms | length }} tags</span>{% endblock meta %}
 
-<ul>
+{% block content %}
+<h1 class="page-title" data-pagefind-meta="title">tags</h1>
+
+{# Alphabetical, as Zola orders terms. The count carries the useful signal --
+   which subjects the archive actually has depth in -- without reordering away
+   the ability to find a known tag by name. #}
+<ul class="tag-cloud">
   {% for term in terms %}
     <li>
-      <a href="{{ term.path }}" class="tag">{{ term.name }}</a>
+      <a href="{{ term.path }}">{{ term.name }}<span class="tag-cloud__n">{{ term.pages | length }}</span></a>
     </li>
   {% endfor %}
 </ul>

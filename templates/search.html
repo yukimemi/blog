@@ -4,22 +4,22 @@
 
 {% block head %}
 <link rel="stylesheet" href="/pagefind/pagefind-ui.css">
-<style>
-  /* Fine-tuning Pagefind styles to match blog design */
-  :root {
-    --pagefind-ui-primary: var(--link-color);
-    --pagefind-ui-text: var(--fg);
-    --pagefind-ui-background: var(--bg);
-    --pagefind-ui-border: var(--accents-2);
-    --pagefind-ui-tag: var(--accents-1);
-  }
-</style>
+{# The --pagefind-ui-* overrides that used to sit here named pre-redesign
+   tokens (--link-color, --accents-1, --accents-2) that no longer exist, so
+   three of the five resolved to nothing. styles.css themes #search directly
+   now; a second, half-broken source of truth in an inline style element is
+   worse than none. #}
 {% endblock head %}
 
-{% block content %}
-<h1>Search</h1>
+{% block mode %}SEARCH{% endblock mode %}
+{% block file %}search{% endblock file %}
 
-<div id="search" style="margin-top: 2rem"></div>
+{% block content %}
+<h1 class="page-title" data-pagefind-meta="title">Search</h1>
+
+{# No inline margin: an inline style cannot be overridden from styles.css
+   without !important, so spacing belongs in the stylesheet. #}
+<div id="search"></div>
 {% endblock content %}
 
 {% block scripts %}
