@@ -42,7 +42,8 @@
   --link: var(--ai);
   --link-hover: var(--ai-deep);
 
-  /* Code surface, identical in both schemes. */
+  /* Code surface. Dark in both schemes; the two are swapped under the dark
+     scheme via --code-surface / --code-header below. */
   --ink-surface: #14161b;
   --ink-surface-hi: #1d2027;
   --ink-edge: #2b2f38;
@@ -52,6 +53,9 @@
      failed for the line-number gutter, the code-block language label and the
      statusline in both schemes. 5.08:1 / 4.57:1. */
   --ink-faint: #828893;
+
+  --code-surface: var(--ink-surface);
+  --code-header: var(--ink-surface-hi);
 
   --display: "M PLUS 2", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
   --body:
@@ -63,8 +67,20 @@
   --statusline-h: 2rem;
 }
 
+/* -----------------------------------------------------------------------------
+   Colour scheme
+   Three states: auto, light, dark. `data-bg` is written to <html> before first
+   paint by the inline script in base.html, so switching never flashes.
+
+   The dark values are stated twice on purpose: once for "the OS says dark and
+   the reader has not overridden it", once for "the reader asked for dark". CSS
+   cannot share one declaration block between a media query and an attribute
+   selector, and light-dark() would blank every colour on a browser that lacks
+   it. Edit one block, edit the other.
+   -------------------------------------------------------------------------- */
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-bg="light"]) {
     --fg: #ddddd6;
     --fg-soft: #a2a49e;
     /* 3.85:1 on --bg-hi before; 4.91:1 / 4.57:1 now. */
@@ -75,7 +91,36 @@
     --link: #7fa9dd;
     --link-hover: #a6c4ea;
     --kincha: #d3a24e;
+
+    /* Code blocks exist to give a long page rhythm, which means they have to
+       read as objects. Against --bg the base ink surface is a four-per-cent
+       step and they all but vanish, so in the dark scheme the surfaces step up
+       instead of down: the block is raised and its header recesses. Same two
+       tokens, inverted, like an editor window lifted off its background. */
+    --code-surface: var(--ink-surface-hi);
+    --code-header: var(--ink-surface);
   }
+}
+
+:root[data-bg="dark"] {
+  --fg: #ddddd6;
+  --fg-soft: #a2a49e;
+  /* 3.85:1 on --bg-hi before; 4.91:1 / 4.57:1 now. */
+  --fg-faint: #81828b;
+  --bg: #101216;
+  --bg-hi: #171a1f;
+  --edge: #282c34;
+  --link: #7fa9dd;
+  --link-hover: #a6c4ea;
+  --kincha: #d3a24e;
+
+  /* Code blocks exist to give a long page rhythm, which means they have to
+     read as objects. Against --bg the base ink surface is a four-per-cent
+     step and they all but vanish, so in the dark scheme the surfaces step up
+     instead of down: the block is raised and its header recesses. Same two
+     tokens, inverted, like an editor window lifted off its background. */
+  --code-surface: var(--ink-surface-hi);
+  --code-header: var(--ink-surface);
 }
 
 *,
@@ -582,19 +627,19 @@ input:focus-visible {
    stripes partly because the blocks sat as close together as prose. */
 .remote-code-container {
   margin: 2.25rem 0;
-  background: var(--ink-surface);
+  background: var(--code-surface);
   border: 1px solid var(--ink-edge);
   overflow: hidden;
   /* The block scrolls sideways on its own; a light OS scrollbar was the
      brightest thing on the page, so the ink surface claims it too. */
   scrollbar-width: thin;
-  scrollbar-color: var(--ink-edge) var(--ink-surface);
+  scrollbar-color: var(--ink-edge) var(--code-surface);
 }
 
 .remote-code-header {
   display: flex;
   padding: 0.4rem 0.85rem;
-  background: var(--ink-surface-hi);
+  background: var(--code-header);
   border-bottom: 1px solid var(--ink-edge);
   font-family: var(--mono);
   font-size: 0.75rem;
@@ -627,7 +672,7 @@ input:focus-visible {
 .line-numbers {
   flex: 0 0 auto;
   padding: 0.85rem 0;
-  background: var(--ink-surface);
+  background: var(--code-surface);
   border-right: 1px solid var(--ink-edge);
   font-family: var(--mono);
   font-size: 0.8125rem;
@@ -678,37 +723,12 @@ input:focus-visible {
    carried 0.85rem of extra top padding, which pushed the code down by one row
    so it no longer lined up with its own line numbers. */
 .post-content > pre {
-  background: var(--ink-surface);
+  background: var(--code-surface);
   border: 1px solid var(--ink-edge);
   padding: 0.85rem 1rem;
   overflow-x: auto;
   scrollbar-width: thin;
-  scrollbar-color: var(--ink-edge) var(--ink-surface);
-}
-
-/* The point of putting code on ink in both schemes is rhythm: a long Japanese
-   page needs the blocks to read as objects. In the light scheme they do. In the
-   dark scheme --ink-surface (#14161b) against --bg (#101216) is a four-per-cent
-   step, so the blocks all but disappeared and the dark scheme had none of the
-   rhythm the decision was made for. Here the surfaces step up instead of down —
-   the block takes --ink-surface-hi and its header recesses to --ink-surface —
-   which is the same relationship, the same two tokens, and the same idea as an
-   editor window raised off its background. */
-@media (prefers-color-scheme: dark) {
-  .remote-code-container,
-  .line-numbers,
-  .post-content > pre {
-    background: var(--ink-surface-hi);
-  }
-
-  .remote-code-container,
-  .post-content > pre {
-    scrollbar-color: var(--ink-edge) var(--ink-surface-hi);
-  }
-
-  .remote-code-header {
-    background: var(--ink-surface);
-  }
+  scrollbar-color: var(--ink-edge) var(--code-surface);
 }
 
 /* -----------------------------------------------------------------------------
@@ -1099,14 +1119,46 @@ footer a {
   text-overflow: ellipsis;
 }
 
+/* The scheme control is a segment, not a button pretending to be one: same
+   height, same rule, same type as its neighbours. `margin-left: auto` moves
+   here from .statusline__pos so this segment and the ruler sit together at the
+   right edge, in the order Vim puts flags before the ruler. */
+.statusline__bg {
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding: 0 0.9rem;
+  border: none;
+  border-left: 1px solid var(--ink-edge);
+  background: none;
+  color: var(--ink-faint);
+  font: inherit;
+  line-height: var(--statusline-h);
+  cursor: pointer;
+}
+
+.statusline__bg:hover {
+  color: var(--ink-fg);
+  background: var(--ink-surface);
+}
+
+.statusline__bg:focus-visible {
+  outline: 2px solid var(--kincha);
+  outline-offset: -2px;
+}
+
 /* Pushed to the right edge the way a ruler is. */
 .statusline__pos {
   flex: 0 0 auto;
-  margin-left: auto;
   padding: 0 0.9rem;
   border-left: 1px solid var(--ink-edge);
   font-variant-numeric: tabular-nums;
   color: var(--ink-fg);
+}
+
+/* With the control hidden -- no scripting -- the ruler has to take the right
+   edge back, or it sits mid-bar with dead space after it. */
+.statusline__bg[hidden] + .statusline__pos {
+  margin-left: auto;
 }
 
 @media (max-width: 40rem) {
