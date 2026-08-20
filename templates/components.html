@@ -1,0 +1,11 @@
+{#- Zola 0.23 removed shortcodes; Tera v2 components are the replacement, and
+    they register globally, so this file only has to exist for `<message>` to be
+    usable from any page.
+
+    This replaces the markdown-it `:::message` container the Lume build used.
+    markdown-it rendered the block's contents as Markdown, so the slot is piped
+    through the `markdown` filter to keep links, emphasis and inline code
+    working inside a callout. -#}
+{% component message() %}
+<div class="message">{{ body | markdown | safe }}</div>
+{% endcomponent message %}

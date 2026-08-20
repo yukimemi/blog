@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{#- The previous Lume feed carried the 10 most recent posts, put the front-matter
+    description in <description>, and the rendered body in <content:encoded>.
+    Readers keyed to either element keep working only if both are present, so the
+    shape is reproduced here rather than replaced with Zola's default.
+    The window is applied with a loop guard because this Tera build has no
+    `slice` filter. -#}
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>{{ config.title }}</title>
+      <link>{{ config.base_url | escape_xml | safe }}/</link>
+      <atom:link href="{{ feed_url | safe }}" rel="self" type="application/rss+xml"/>
+      <description>{{ config.description }}</description>
+      {%- if last_updated is defined %}
+      <lastBuildDate>{{ last_updated | date(format="%a, %d %b %Y %H:%M:%S GMT", timezone="UTC") }}</lastBuildDate>
+      {%- endif %}
+      <language>{{ lang }}</language>
+      <generator>Zola</generator>
+      {%- for page in pages %}{% if loop.index0 < 10 %}
+      <item>
+          <title>{{ page.title }}</title>
+          <link>{{ page.permalink | escape_xml | safe }}</link>
+          {#- The Lume feed marked the guid as a non-permalink. Dropping the
+              attribute changes how a reader derives an item's identity, which
+              can make every existing item look new exactly once. -#}
+          <guid isPermaLink="false">{{ page.permalink | escape_xml | safe }}</guid>
+          <pubDate>{{ page.date | date(format="%a, %d %b %Y %H:%M:%S GMT", timezone="UTC") }}</pubDate>
+          <description>{{ page.description | default(value="") }}</description>
+          <content:encoded><![CDATA[{{ page.content | safe }}]]></content:encoded>
+      </item>
+      {%- endif %}{%- endfor %}
+    </channel>
+</rss>

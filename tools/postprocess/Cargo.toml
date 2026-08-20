@@ -1,0 +1,21 @@
+[package]
+name = "blog-postprocess"
+version = "0.1.0"
+edition = "2021"
+description = "Expands remote-content embeds in the generated site that Zola cannot produce itself."
+license = "MIT"
+publish = false
+
+[dependencies]
+anyhow = "1"
+html-escape = "0.2"
+parking_lot = "0.12"
+rayon = "1"
+regex = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+ureq = { version = "2", features = ["tls"] }
+walkdir = "2"
+
+[profile.release]
+opt-level = 2

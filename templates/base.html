@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ config.title }}{% endblock title %} - Yukimemi's Blog</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css"
+      media="(prefers-color-scheme: dark)"
+    >
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css"
+      media="(prefers-color-scheme: light)"
+    >
+    <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
+    {% block head %}{% endblock head %}
+    <link rel="alternate" type="application/rss+xml" title="{{ config.title }}" href="{{ get_url(path='feed.xml', trailing_slash=false) }}">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1><a href="/">Yukimemi's Blog</a></h1>
+        <nav>
+          <a href="/">Home</a>
+          <a href="/tags/">Tags</a>
+          <a href="/search/">Search</a>
+          <a href="/about/">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      {% block content %}{% endblock content %}
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>
+          &copy; 2025 Yukimemi's Blog. Built with <a href="https://www.getzola.org"
+          >Zola</a>.
+        </p>
+      </div>
+    </footer>
+    <!-- Highlighting is deliberately client-side, matching the previous Lume
+         layout: Zola's build-time highlighter is off, and blog-postprocess adds
+         the "highlight" opt-in class to every code block. The init below is the
+         only thing that selects that class, so dropping it silently disables
+         highlighting site-wide.
+
+         The CDN bundle carries 36 languages, which leaves 91 code blocks across
+         55 pages unhighlighted -- vim alone accounts for 57 of them. Each pack
+         below is a language this blog actually uses and the bundle omits; keep
+         the list in step with the fences in content/. Alias-only mismatches
+         (zsh, ps1, Dockerfile, ...) are normalised by blog-postprocess when it
+         writes the class, so they need no pack of their own. -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    ></script>
+    {% for pack in ["vim", "powershell", "dos", "coffeescript", "haskell", "stylus", "dockerfile", "autohotkey"] %}
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/{{ pack }}.min.js"
+    ></script>
+    {%- endfor %}
+    <script>
+    document.querySelectorAll("code.highlight").forEach((el) => {
+      hljs.highlightElement(el);
+    });
+    </script>
+    {% block scripts %}{% endblock scripts %}
+  </body>
+</html>
