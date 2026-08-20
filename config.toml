@@ -1,0 +1,27 @@
+base_url = "https://yukimemi.pages.dev"
+title = "Yukimemi's Blog"
+description = "Thoughts, code, and life."
+default_language = "ja"
+compile_sass = false
+build_search_index = false
+generate_feeds = true
+feed_filenames = ["feed.xml", "feed.json"]
+taxonomies = [{ name = "tags", feed = false, paginate_by = 0 }]
+
+# URL parity with the previous Lume build is load-bearing: 88 of the 107 post
+# URLs contain underscores (e.g. /posts/add_more_directive/). Zola's default
+# `slugify.paths = "on"` would rewrite every one of those to a hyphen and break
+# all existing inbound links, so slugification is disabled outright. Filenames
+# and tag names are already URL-safe ASCII.
+[slugify]
+paths = "off"
+taxonomies = "off"
+anchors = "off"
+
+# Syntax highlighting stays client-side. The existing layout loads highlight.js
+# from a CDN and highlights `code.highlight` in the browser, so enabling Zola's
+# build-time highlighting here would emit competing markup and a second theme.
+[markdown]
+render_emoji = false
+external_links_target_blank = false
+smart_punctuation = false

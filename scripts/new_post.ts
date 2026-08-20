@@ -4,7 +4,6 @@
 // Last Change : 2026/01/12 09:09:11
 // =============================================================================
 
-import { format } from "https://deno.land/std@0.224.0/datetime/format.ts";
 import { join } from "https://deno.land/std@0.224.0/path/mod.ts";
 
 const title = prompt("Title:");
@@ -26,23 +25,33 @@ const tags = tagsInput
 
 const description = prompt("Description:");
 
-const now = new Date();
-const dateStr = format(now, "yyyy-MM-dd HH:mm:ss");
-const fileDateStr = format(now, "yyyy-MM-dd");
+// Both values come from the same instant. A local-time formatter paired with a
+// literal "Z" would label a JST wall clock as UTC and shift every feed
+// `pubDate` by the zone offset -- the feed templates format these dates with
+// timezone="UTC" and trust the instant to be real. `toISOString()` is
+// genuinely UTC; the milliseconds are dropped only because no existing post
+// carries them.
+const dateStr = new Date().toISOString().replace(/\.\d{3}Z$/, "Z");
+const fileDateStr = dateStr.slice(0, 10);
+
+// Tags are lowercased because `slugify.taxonomies` is off: a tag becomes its
+// URL verbatim, so `Rust` and `rust` would split one tag across two pages.
+const tagList = tags.map((t) => `"${t.toLowerCase()}"`).join(", ");
 
 const content = `---
 title: ${title}
 date: ${dateStr}
-layout: layouts/post.vto
-tags: [${tags.map((t) => `"${t}"`).join(", ")}]
 description: "${description || ""}"
-type: post
+taxonomies:
+  tags: [${tagList}]
+extra:
+  type: post
 ---
 
 `;
 
 const fileName = `${fileDateStr}_${slug}.md`;
-const filePath = join(Deno.cwd(), "src/posts", fileName);
+const filePath = join(Deno.cwd(), "content/posts", fileName);
 
 await Deno.writeTextFile(filePath, content);
 

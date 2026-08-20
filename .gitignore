@@ -10,6 +10,14 @@ fix_links.ts
 import_zenn.ts
 import_zola.ts
 node_modules/
+
+# Zola + postprocess build artifacts. `public/` is Zola's output directory,
+# the direct counterpart to Lume's `_site/` above; jj otherwise tries to
+# snapshot the copied-in images under public/images/ and warns on every one.
+public/
+.postprocess-cache.json
+tools/postprocess/target/
+
 # kata:gitignore:base:begin
 # Editor / OS noise — kata-managed (yukimemi/pj-base).
 .idea/

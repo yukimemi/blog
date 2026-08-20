@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}{% if paginator.current_index and paginator.current_index > 1 %}Page {{ paginator.current_index }}{% else %}Home{% endif %}{% endblock title %}
+
+{% block content %}
+<section>
+  <div class="hero" style="padding: 4rem 0; text-align: center;">
+    <h2 style="font-size: 3rem; margin-bottom: 1rem;">Welcome to my blog</h2>
+    <p style="font-size: 1.25rem; color: var(--accents-7);">Thoughts, code, and life.</p>
+  </div>
+
+  <ul id="post-list" class="post-list">
+    {% for post in paginator.pages %}
+      <li class="post-item">
+        <h3><a href="{{ post.path }}">{{ post.title }}</a></h3>
+        <div class="post-meta">
+          <time datetime="{{ post.date | date(format='%Y-%m-%dT%H:%M:%S%:z') }}">{{ post.date | date(format="%Y/%m/%d") }}</time>
+        </div>
+        <p>{{ post.description | default(value="") }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% if paginator.next %}
+    <div id="infinite-scroll-sentinel" style="text-align: center; padding: 2rem; visibility: hidden;">
+      <!-- `paginator.next` is a full permalink built from `base_url`. Cloudflare
+           Pages gives every branch its own preview host, so an absolute link
+           here would make a preview deployment navigate and fetch against
+           production. The infinite-scroll script reads this href directly. -->
+      <a id="next-page-link" href="{{ paginator.next | replace(from=config.base_url, to='') }}">Next Page</a>
+      <div class="loading-spinner">Loading more posts...</div>
+    </div>
+  {% endif %}
+</section>
+{% endblock content %}
+
+{% block scripts %}
+<script src="/infinite-scroll.js" defer></script>
+{% endblock scripts %}

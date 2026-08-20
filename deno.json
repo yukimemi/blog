@@ -1,21 +1,6 @@
 {
-  "imports": {
-    "lume/": "https://cdn.jsdelivr.net/gh/lumeland/lume@3.1.2/",
-    "markdown-it-container": "npm:markdown-it-container@^4.0.0"
-  },
+  "//": "The site is built by Zola plus tools/postprocess (see build.sh). Deno is kept only for the authoring helpers in scripts/.",
   "tasks": {
-    "lume": {
-      "description": "Run Lume command",
-      "command": "deno run -A lume/cli.ts"
-    },
-    "build": {
-      "description": "Build the site for production",
-      "command": "deno task lume"
-    },
-    "serve": {
-      "description": "Run and serve the site for development",
-      "command": "deno task lume -s"
-    },
     "fmt": {
       "description": "Format the code",
       "command": "deno fmt"
@@ -31,11 +16,14 @@
   },
   "fmt": {
     "exclude": [
-      "src/**/*.md",
+      "content/",
+      "public/",
+      "templates/",
       "AGENTS.md",
       "CLAUDE.md",
       "GEMINI.md",
       "OPENCODE.md",
+      "README.md",
       "apm.yml",
       "apm.lock.yaml",
       ".agents/",
@@ -46,52 +34,6 @@
       "renovate.json",
       "opencode.json"
     ]
-  },
-  "compilerOptions": {
-    "types": [
-      "lume/types.ts"
-    ]
-  },
-  "permissions": {
-    "lume": {
-      "read": true,
-      "write": [
-        "./"
-      ],
-      "import": [
-        "cdn.jsdelivr.net:443",
-        "jsr.io:443",
-        "deno.land:443",
-        "esm.sh:443"
-      ],
-      "net": [
-        "0.0.0.0",
-        "cdn.jsdelivr.net:443",
-        "data.jsdelivr.com:443",
-        "jsr.io:443",
-        "deno.land:443",
-        "esm.sh:443",
-        "registry.npmjs.org:443"
-      ],
-      "env": true,
-      "run": true,
-      "ffi": true,
-      "sys": true
-    }
-  },
-  "unstable": [
-    "temporal",
-    "fmt-component"
-  ],
-  "lint": {
-    "plugins": [
-      "https://cdn.jsdelivr.net/gh/lumeland/lume@3.1.2/lint.ts"
-    ],
-    "rules": {
-      "exclude": [
-        "no-import-prefix"
-      ]
-    }
   },
   "lock": false
 }

@@ -64,7 +64,10 @@ const images = body.matchAll(imgRegex);
 for (const imgMatch of images) {
   const fullPath = imgMatch[1];
   const imgName = basename(fullPath);
-  const srcImgPath = join(Deno.cwd(), "src", fullPath);
+  // Image paths in posts are site-absolute (`/static/images/...`) and Zola
+  // serves `static/` from the repository root, so the path maps straight onto
+  // the working directory. Under Lume the same assets lived in `src/static/`.
+  const srcImgPath = join(Deno.cwd(), fullPath);
   const destImgPath = join(destImgDir, imgName);
 
   console.log(`Copying image: ${srcImgPath} -> ${destImgPath}`);
@@ -95,6 +98,15 @@ processedBody = processedBody
     (_m, text) => `**${text.trim()}**`,
   );
 
+// --- Strip Zola's Tera escapes ---
+// Zola renders Markdown through Tera, so a post that shows `{{` or `{%`
+// literally — a Vim fold marker, a Tera example — has to fence it in
+// `{% raw %}`. Zenn has no template layer and would print those markers
+// verbatim.
+processedBody = processedBody
+  .replace(/^[ \t]*\{%-?\s*(raw|endraw)\s*-?%\}[ \t]*\r?\n/gm, "")
+  .replace(/\{%-?\s*(raw|endraw)\s*-?%\}/g, "");
+
 // Generate Zenn content.
 //
 // `stringify` handles everything but the emoji: it escapes non-ASCII
@@ -105,7 +117,9 @@ processedBody = processedBody
 const zennFmLines = stringify({
   title: fm.title,
   type: "tech",
-  topics: fm.tags || [],
+  // Tags moved under `taxonomies` when the blog switched to Zola, which
+  // reads them as a taxonomy rather than a plain front-matter list.
+  topics: fm.taxonomies?.tags ?? [],
   published: true,
 }).trim().split("\n");
 const titleIdx = zennFmLines.findIndex((l) => l.startsWith("title:"));

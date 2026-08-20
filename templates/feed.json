@@ -1,0 +1,20 @@
+{#- JSON Feed 1.0, matching the key set and 10-item window the Lume build used.
+    The window uses a loop guard because this Tera build has no `slice` filter. -#}
+{
+  "version": "https://jsonfeed.org/version/1",
+  "title": {{ config.title | json_encode | safe }},
+  "home_page_url": {{ config.base_url | json_encode | safe }},
+  "feed_url": {{ feed_url | json_encode | safe }},
+  "description": {{ config.description | json_encode | safe }},
+  "items": [
+    {%- for page in pages %}{% if loop.index0 < 10 %}{% if loop.index0 > 0 %},{% endif %}
+    {
+      "id": {{ page.permalink | json_encode | safe }},
+      "url": {{ page.permalink | json_encode | safe }},
+      "title": {{ page.title | json_encode | safe }},
+      "date_published": {{ page.date | date(format="%a, %d %b %Y %H:%M:%S GMT", timezone="UTC") | json_encode | safe }},
+      "content_html": {{ page.content | json_encode | safe }}
+    }
+    {%- endif %}{%- endfor %}
+  ]
+}

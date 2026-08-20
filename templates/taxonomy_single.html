@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Tagged: {{ term.name }}{% endblock title %}
+
+{% block content %}
+<h1>Tagged: {{ term.name }}</h1>
+<ul class="post-list">
+  {% for post in term.pages %}
+    <li>
+      <a href="{{ post.path }}">{{ post.title }}</a>
+      <time datetime="{{ post.date | date(format='%Y-%m-%dT%H:%M:%S%:z') }}">{{ post.date | date(format="%Y/%m/%d") }}</time>
+    </li>
+  {% endfor %}
+</ul>
+<p><a href="/tags/">All Tags</a></p>
+{% endblock content %}

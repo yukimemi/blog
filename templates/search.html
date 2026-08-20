@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Search{% endblock title %}
+
+{% block head %}
+<link rel="stylesheet" href="/pagefind/pagefind-ui.css">
+<style>
+  /* Fine-tuning Pagefind styles to match blog design */
+  :root {
+    --pagefind-ui-primary: var(--link-color);
+    --pagefind-ui-text: var(--fg);
+    --pagefind-ui-background: var(--bg);
+    --pagefind-ui-border: var(--accents-2);
+    --pagefind-ui-tag: var(--accents-1);
+  }
+</style>
+{% endblock head %}
+
+{% block content %}
+<h1>Search</h1>
+
+<div id="search" style="margin-top: 2rem"></div>
+{% endblock content %}
+
+{% block scripts %}
+<script src="/pagefind/pagefind-ui.js"></script>
+<script>
+  // Options mirror what the Lume `pagefind` plugin emitted, so the migrated
+  // page behaves identically to https://yukimemi.pages.dev/search/ . Only
+  // `showImages: false` departs from PagefindUI's own defaults; the rest are
+  // spelled out because the plugin did, and leaving them implicit would make a
+  // future upstream default change silently alter this page.
+  window.addEventListener("DOMContentLoaded", () => {
+    new PagefindUI({
+      element: "#search",
+      showImages: false,
+      excerptLength: 0,
+      showEmptyFilters: true,
+      showSubResults: false,
+      resetStyles: true,
+      bundlePath: "/pagefind/",
+      baseUrl: "/",
+    });
+  });
+</script>
+{% endblock scripts %}
