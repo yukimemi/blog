@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ config.title }}{% endblock title %} - Yukimemi's Blog</title>
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css"
-      media="(prefers-color-scheme: dark)"
+      href="https://fonts.googleapis.com/css2?family=M+PLUS+2:wght@700;800&family=IBM+Plex+Sans+JP:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
     >
+    <link rel="stylesheet" href="/styles.css">
+    <!-- Code blocks sit on an ink surface in both colour schemes, so the dark
+         highlight theme is loaded unconditionally rather than per scheme.
+         tokyo-night-dark is chosen over github-dark because its blues sit in
+         the same indigo family as the page's own accent. -->
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github.min.css"
-      media="(prefers-color-scheme: light)"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/tokyo-night-dark.min.css"
     >
     <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
     {% block head %}{% endblock head %}
@@ -22,28 +26,55 @@
   <body>
     <header>
       <div class="container">
-        <h1><a href="/">Yukimemi's Blog</a></h1>
-        <nav>
-          <a href="/">Home</a>
-          <a href="/tags/">Tags</a>
-          <a href="/search/">Search</a>
-          <a href="/about/">About</a>
+        <h1><a href="/">yukimemi</a></h1>
+        <nav aria-label="サイト">
+          <a href="/">posts</a>
+          <a href="/tags/">tags</a>
+          <a href="/search/">search</a>
+          <a href="/about/">about</a>
         </nav>
       </div>
     </header>
 
-    <main class="container">
+    {# data-pagefind-body confines the search index to the page's own content.
+       Without it Pagefind indexed the whole body element, so the masthead
+       heading was picked as every result's title -- all 11 hits for "dvpm"
+       were headed "yukimemi" -- and the statusline's own text ("LIST index
+       106 posts ...") matched on every page. #}
+    <main class="container" data-pagefind-body>
       {% block content %}{% endblock content %}
     </main>
 
     <footer>
       <div class="container">
         <p>
-          &copy; 2025 Yukimemi's Blog. Built with <a href="https://www.getzola.org"
-          >Zola</a>.
+          &copy; 2013&ndash;2026 yukimemi &middot; <a href="/feed.xml">feed</a>
+          &middot; built with <a href="https://www.getzola.org">Zola</a>
         </p>
       </div>
     </footer>
+
+    {# The statusline reports real state: which file you are in, what it is
+       tagged with, and how far down you are. Pages supply the first segments;
+       the position is filled in by statusline.js and stays blank without it.
+
+       Deliberately NOT role="status". role="status" is a polite live region,
+       and statusline.js rewrites the ruler on scroll: one pass down
+       /posts/dvpm/ produced 100 distinct text values, i.e. 100 queued
+       screen-reader announcements for a number nobody asked for. An <aside>
+       makes the bar a labelled complementary landmark instead, so it is
+       reachable on demand -- useful, since it is the only place a post's tags
+       are summarised -- and silent otherwise. The ruler is additionally
+       aria-hidden: a pixel percentage of the viewport means nothing to a
+       reader navigating by virtual cursor, and it would be stale the moment
+       they moved. #}
+    <aside class="statusline" aria-label="ページの状態">
+      <span class="statusline__mode">{% block mode %}NORMAL{% endblock mode %}</span>
+      <span class="statusline__file">{% block file %}{% endblock file %}</span>
+      {%- block meta %}{% endblock meta -%}
+      <span class="statusline__pos" data-pos aria-hidden="true">&mdash;</span>
+    </aside>
+    <script src="/statusline.js" defer></script>
     <!-- Highlighting is deliberately client-side, matching the previous Lume
          layout: Zola's build-time highlighter is off, and blog-postprocess adds
          the "highlight" opt-in class to every code block. The init below is the

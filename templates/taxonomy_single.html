@@ -2,15 +2,23 @@
 
 {% block title %}Tagged: {{ term.name }}{% endblock title %}
 
+{% block mode %}FILTER{% endblock mode %}
+{% block file %}#{{ term.name }}{% endblock file %}
+{% block meta %}<span class="statusline__meta">{{ term.pages | length }} posts</span>{% endblock meta %}
+
 {% block content %}
-<h1>Tagged: {{ term.name }}</h1>
+<h1 class="page-title" data-pagefind-meta="title">#{{ term.name }}</h1>
+
+{# Same entry shape as the index so a filtered archive reads identically to the
+   unfiltered one. #}
 <ul class="post-list">
   {% for post in term.pages %}
-    <li>
-      <a href="{{ post.path }}">{{ post.title }}</a>
-      <time datetime="{{ post.date | date(format='%Y-%m-%dT%H:%M:%S%:z') }}">{{ post.date | date(format="%Y/%m/%d") }}</time>
+    <li class="post-item">
+      <h2><a href="{{ post.path }}">{{ post.title }}</a></h2>
+      <div class="post-meta">
+        <time datetime="{{ post.date | date(format='%Y-%m-%dT%H:%M:%S%:z') }}">{{ post.date | date(format="%Y/%m/%d") }}</time>
+      </div>
     </li>
   {% endfor %}
 </ul>
-<p><a href="/tags/">All Tags</a></p>
 {% endblock content %}

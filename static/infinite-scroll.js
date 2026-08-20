@@ -1,11 +1,28 @@
 // Progressive enhancement for the paginated home page: appends the next page's
 // posts as the sentinel scrolls into view, and restores the already-loaded pages
-// when navigating back. Extracted verbatim from the previous Lume template.
+// when navigating back. Extracted from the previous Lume template.
+//
+// The paginator link is no longer the thing that gets hidden. It used to sit
+// inside `visibility: hidden`, which meant the only link to page 2 on the site
+// was absent from the tab order and the accessibility tree -- with JavaScript
+// off, or with a keyboard and no pointer, the archive ended at ten posts. The
+// link now stays visible and this script only retargets its href as it appends
+// pages, removing it when the last page has been loaded. What gets shown and
+// hidden instead is the loading line, which is the only part that is genuinely
+// transient.
 (function () {
   const postList = document.getElementById("post-list");
   const sentinel = document.getElementById("infinite-scroll-sentinel");
   let nextLink = document.getElementById("next-page-link");
+  const spinner = sentinel && sentinel.querySelector(".loading-spinner");
   const STORAGE_KEY = "blog_infinite_scroll_state";
+
+  // `hidden` rather than a style write: it keeps the line out of the
+  // accessibility tree between fetches, so its role="status" announces the
+  // append once instead of sitting there permanently.
+  const loading = (on) => {
+    if (spinner) spinner.hidden = !on;
+  };
 
   const getState = () => {
     try {
@@ -49,7 +66,7 @@
 
   const init = async () => {
     if (loadedUrls.length > 0 && nextLink) {
-      if (sentinel) sentinel.style.visibility = "visible";
+      loading(true);
 
       for (const url of loadedUrls) {
         try {
@@ -61,7 +78,7 @@
         }
       }
 
-      if (sentinel && nextLink) sentinel.style.visibility = "hidden";
+      loading(false);
     }
 
     if (sentinel && nextLink) {
@@ -70,7 +87,7 @@
           const url = nextLink.href;
           if (!url) return;
 
-          sentinel.style.visibility = "visible";
+          loading(true);
 
           try {
             const response = await fetch(url);
@@ -83,12 +100,11 @@
 
             if (!hasMore) {
               observer.disconnect();
-            } else {
-              sentinel.style.visibility = "hidden";
             }
+            loading(false);
           } catch (e) {
             console.error("Failed to load next page:", e);
-            sentinel.style.visibility = "hidden";
+            loading(false);
           }
         }
       }, {

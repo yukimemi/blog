@@ -3,8 +3,14 @@
 {% block title %}{{ page.title }}{% endblock title %}
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
 
+{% block mode %}NORMAL{% endblock mode %}
+{% block file %}{{ page.slug }}.md{% endblock file %}
+
 {% block content %}
-<article>
+{# The heading of a standalone page comes from its Markdown, so the title is
+   named on the wrapper instead. Without it Pagefind uses the first h1 in the
+   document, which is the masthead wordmark. #}
+<article data-pagefind-meta="title:{{ page.title }}">
   <div class="post-content">
     {{ page.content | safe }}
   </div>

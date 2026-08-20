@@ -1,440 +1,1129 @@
+/* =============================================================================
+   Yukimemi's Blog
+   -----------------------------------------------------------------------------
+   Ground: 白練 (shironeri) paper. Ink and indigo on it.
+   Code sits on 墨 (sumi) even in light mode, because that is how the author
+   actually reads code, and because the dark blocks give a long Japanese page
+   the rhythm it otherwise lacks.
+   The one loud element is the statusline. Everything else stays quiet.
+   ============================================================================= */
+
 :root {
-  --font-main:
-    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  /* Paper, kept low-chroma so it reads as washi rather than warm cream. */
+  --paper: #e9e9e4;
+  --paper-hi: #f2f2ee;
+  --paper-edge: #d6d6cf;
 
-  --bg: #ffffff;
-  --fg: #1a1a1a;
-  --accents-1: #fafafa;
-  --accents-2: #eaeaea;
-  --accents-7: #333;
-  --link-color: #0070f3;
-  --radius: 8px;
+  /* 墨 — ink. Never pure black. */
+  --sumi: #14161b;
+  --sumi-soft: #454b55;
+  /* Measured, not chosen: #757b85 gave 3.50:1 on --paper and 3.80:1 on
+     --paper-hi, so every date, footer line, tag count and link-card meta line
+     failed AA. Same hue, 15% darker, still a clear third step below
+     --sumi-soft. 4.60:1 / 4.99:1. */
+  --sumi-faint: #636871;
 
-  --max-width: 800px;
+  /* 藍 — indigo. Structure and links. */
+  --ai: #2c4b7c;
+  --ai-deep: #1b3459;
+
+  /* 金茶 — the single warm accent. Statusline mode block, current markers. */
+  --kincha: #a8762a;
+
+  /* 浅葱 — cool secondary, used only on the ink surfaces. */
+  --asagi: #6fa9b3;
+
+  --fg: var(--sumi);
+  --fg-soft: var(--sumi-soft);
+  --fg-faint: var(--sumi-faint);
+  --bg: var(--paper);
+  --bg-hi: var(--paper-hi);
+  --edge: var(--paper-edge);
+  --link: var(--ai);
+  --link-hover: var(--ai-deep);
+
+  /* Code surface, identical in both schemes. */
+  --ink-surface: #14161b;
+  --ink-surface-hi: #1d2027;
+  --ink-edge: #2b2f38;
+  --ink-fg: #d8d6d0;
+  /* The ink surface is scheme-independent, so this one value has to clear AA
+     on both --ink-surface and --ink-surface-hi: #6b7280 was 3.74 / 3.37 and
+     failed for the line-number gutter, the code-block language label and the
+     statusline in both schemes. 5.08:1 / 4.57:1. */
+  --ink-faint: #828893;
+
+  --display: "M PLUS 2", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  --body:
+    "IBM Plex Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  --measure: 43rem;
+  --rail: 4.5rem;
+  --statusline-h: 2rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #000000;
-    --fg: #ededed;
-    --accents-1: #111111;
-    --accents-2: #333333;
-    --accents-7: #888;
-    --link-color: #3291ff;
+    --fg: #ddddd6;
+    --fg-soft: #a2a49e;
+    /* 3.85:1 on --bg-hi before; 4.91:1 / 4.57:1 now. */
+    --fg-faint: #81828b;
+    --bg: #101216;
+    --bg-hi: #171a1f;
+    --edge: #282c34;
+    --link: #7fa9dd;
+    --link-hover: #a6c4ea;
+    --kincha: #d3a24e;
   }
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
+  margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font-main);
-  line-height: 1.6;
-  margin: 0;
+  font-family: var(--body);
+  font-size: 1rem;
+  line-height: 1.85;
+  font-feature-settings: "palt" 1;
   -webkit-font-smoothing: antialiased;
+  /* Room for the fixed statusline, plus the phone home-indicator inset, so the
+     last line of a post is never sat on by the bar. */
+  padding-bottom: calc(
+    var(--statusline-h) + 1rem + env(safe-area-inset-bottom, 0px)
+  );
 }
 
 .container {
-  max-width: var(--max-width);
+  max-width: var(--measure);
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 0 1.5rem;
 }
 
+/* -----------------------------------------------------------------------------
+   Masthead
+   The wordmark is set in the display face at a weight the rest of the page
+   never uses, so it reads as a mark rather than a heading.
+   -------------------------------------------------------------------------- */
+
 header {
-  padding: 3rem 0;
-  border-bottom: 1px solid var(--accents-2);
+  border-bottom: 1px solid var(--edge);
 }
 
 header .container {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 1.5rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
 }
 
 header h1 {
   margin: 0;
-  font-size: 1.5rem;
+  font-family: var(--display);
+  font-size: 1.0625rem;
   font-weight: 800;
-  letter-spacing: -0.05em;
+  letter-spacing: 0.02em;
 }
 
-header h1 a {
+header h1 a,
+header h1 a:hover {
   color: var(--fg);
   text-decoration: none;
 }
 
-nav a {
-  margin-left: 1.5rem;
-  text-decoration: none;
-  color: var(--accents-7);
-  font-weight: 500;
-  transition: color 0.2s;
+/* A kanji badge sat here. It was a second bid for attention next to the
+   statusline and it did not mean anything: the character belonged to one of the
+   author's tools rather than to the site. Removed so the statusline is the only
+   loud element on the page. */
+
+nav {
+  display: flex;
+  gap: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
 }
 
-nav a:hover {
-  color: var(--link-color);
+nav a {
+  color: var(--fg-soft);
+  text-decoration: none;
+  padding-bottom: 0.15rem;
+  border-bottom: 1px solid transparent;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  color: var(--fg);
+  border-bottom-color: var(--kincha);
+  text-decoration: none;
 }
 
 main {
   min-height: 60vh;
 }
 
+/* -----------------------------------------------------------------------------
+   Type
+   -------------------------------------------------------------------------- */
+
 h1,
 h2,
 h3,
-h4 {
+h4,
+/* h5 is used by 42 of the 106 posts — more than h4 — mostly as a 参考 / リンク
+   footer in the 2013-2016 entries. Left out of this list it fell through to the
+   UA default and set itself in the body face at 14px, smaller than the prose it
+   was heading. h6 is used by none. */
+h5 {
+  font-family: var(--display);
+  /* Breaks Japanese headings at phrase boundaries rather than mid-phrase.
+     Unsupported browsers simply keep the default behaviour. */
+  word-break: auto-phrase;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-top: 2rem;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
 }
 
+/* Japanese has no descenders, so a default underline sits almost on the
+   baseline and reads as a box edge. Pushed clear of it, and skip-ink disabled
+   because a link like 「Neovimの設定」 otherwise gets a rule that breaks up
+   under the latin run and continues under the kana. */
 a {
-  color: var(--link-color);
-  text-decoration: none;
+  color: var(--link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
+  text-decoration-skip-ink: none;
 }
 
 a:hover {
-  text-decoration: underline;
+  color: var(--link-hover);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--kincha);
+  outline-offset: 2px;
+}
+
+/* -----------------------------------------------------------------------------
+   Index
+   The eyebrow states what the site is in the author's own terms. No hero
+   slogan: the posts are the point, so the list starts almost immediately.
+   -------------------------------------------------------------------------- */
+
+.masthead-note {
+  padding: 3.5rem 0 2.5rem;
+}
+
+.masthead-note p {
+  margin: 0;
+  max-width: 34rem;
+}
+
+.masthead-note .lede {
+  font-family: var(--display);
+  word-break: auto-phrase;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: 0.005em;
+  text-wrap: pretty;
+}
+
+.masthead-note .sub {
+  margin-top: 0.85rem;
+  color: var(--fg-soft);
+  font-size: 0.9375rem;
+  text-wrap: pretty;
 }
 
 .post-list {
   list-style: none;
+  margin: 0;
   padding: 0;
-  margin-top: 3rem;
 }
 
+/* Each entry hangs off a date in the left rail. The rail is the only
+   alignment device on the page, so the eye tracks a single edge. */
 .post-item {
-  margin-bottom: 3rem;
+  display: grid;
+  grid-template-columns: var(--rail) 1fr;
+  /* The date and the title share a first baseline. It was previously faked with
+     line-height: 2.6 on the <time>, which only lined up at one font size and
+     sat the date visibly high on /tags/vim/ where entries have no summary. */
+  align-items: baseline;
+  gap: 0 1.5rem;
+  /* 1.75rem read as generous on the index, where each row carries two lines of
+     summary, and as empty on a taxonomy page, where a row is one title and 42
+     of them. */
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--edge);
 }
 
-.post-item h3 a {
-  color: var(--fg);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.post-item h3 a:hover {
-  color: var(--link-color);
-}
-
-.post-item time {
-  font-size: 0.9rem;
-  color: var(--accents-7);
-}
-
-.post-header {
-  margin-bottom: 3rem;
-  text-align: left;
-}
-
-.post-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  line-height: 1.3;
-  letter-spacing: -0.03em;
-  text-wrap: balance;
-}
-
-@media (max-width: 600px) {
-  .post-header h1 {
-    font-size: 1.8rem;
+/* Above the breakpoint the date is pulled out into the page margin, marginalia
+   style, so the titles line up with the prose column instead of being indented
+   by the width of a date. Below it the grid collapses and the date sits inline. */
+@media (min-width: 64rem) {
+  .post-item {
+    margin-left: calc(-1 * (var(--rail) + 1.5rem));
   }
 }
 
-.post-content {
+/* The entry title is an h2: it is the only heading level between the masthead
+   wordmark and the entries, and the size is pinned here so it never picks up a
+   display step from the generic heading rule. */
+.post-item h2 {
+  grid-column: 2;
+  margin: 0;
   font-size: 1.125rem;
 }
 
-.post-content pre {
-  background: var(--accents-1);
-  padding: 1rem 1.25rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--accents-2);
-  overflow-x: auto;
-  margin: 1.5rem 0;
-  line-height: 1.45;
-}
-
-.remote-code-container pre {
-  background: transparent !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  line-height: 22px !important;
-}
-
-.post-content pre code {
-  padding: 0;
-  background: transparent;
-  font-size: 0.85em;
-  border-radius: 0;
-}
-
-.post-content code {
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-  background: var(--accents-1);
-  padding: 0.2em 0.4em;
-  border-radius: 4px;
-}
-
-.tags {
-  display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.tag {
-  background: var(--accents-2);
-  padding: 0.2rem 0.6rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  color: var(--accents-7);
-  font-weight: 500;
-}
-
-footer {
-  padding: 4rem 0;
-  border-top: 1px solid var(--accents-2);
-  text-align: center;
-  color: var(--accents-7);
-  font-size: 0.9rem;
-}
-
-/* Zenn-like alerts */
-.message {
-  padding: 1rem 1.25rem;
-  border-radius: var(--radius);
-  margin: 1.5rem 0;
-  border-left: 5px solid #0070f3;
-  background: var(--accents-1);
-}
-
-.details {
-  border: 1px solid var(--accents-2);
-  border-radius: var(--radius);
-  padding: 1rem;
-  margin: 1.5rem 0;
-}
-
-/* Remote Code Container */
-.remote-code-container {
-  border: 1px solid var(--accents-2);
-  border-radius: var(--radius);
-  margin: 2rem 0;
-  overflow: hidden;
-  background: var(--bg);
-}
-
-.remote-code-header {
-  background: var(--accents-1);
-  padding: 0.5rem 1rem;
-  border-bottom: 1px solid var(--accents-2);
-}
-
-.remote-code-header a,
-.remote-code-header span {
-  font-size: 0.8rem;
-  color: var(--accents-7);
+.post-item h2 a {
+  color: var(--fg);
   text-decoration: none;
 }
 
-.remote-code-body {
-  display: flex;
-  align-items: stretch;
-  background: var(--accents-1);
+.post-item h2 a:hover,
+.post-item h2 a:focus-visible {
+  color: var(--link);
+  text-decoration: underline;
 }
 
-.line-numbers {
-  padding: 16px 0 !important;
-  min-width: 3.5rem;
-  text-align: right;
-  user-select: none;
-  color: #888;
-  font-size: 14px;
-  line-height: 22px;
-  font-family: var(--font-mono);
-  border-right: 1px solid var(--accents-2);
+.post-item .post-meta {
+  grid-column: 1;
+  grid-row: 1;
 }
 
-.line-numbers div {
-  padding: 0 8px;
-}
-
-.code-content {
-  flex: 1;
-  overflow-x: auto;
-  padding: 16px 0 !important;
-}
-
-.code-content pre code {
-  font-size: 14px !important;
-  line-height: 22px !important;
-  font-family: var(--font-mono) !important;
-  display: block;
-  padding: 0 16px !important;
-  white-space: pre !important;
-  word-spacing: normal;
-  word-break: normal;
-  background: transparent !important;
-}
-
-/* Link Card Styles */
-.link-card {
-  display: flex;
-  border: 1px solid var(--accents-2);
-  border-radius: var(--radius);
-  margin: 2rem 0;
-  overflow: hidden;
-  text-decoration: none !important;
-  background: var(--bg);
-  transition: border-color 0.2s, background 0.2s;
-  max-height: 120px;
-}
-
-.link-card:hover {
-  border-color: var(--link-color);
-  background: var(--accents-1);
-}
-
-.link-card-content {
-  flex: 1;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-width: 0;
-}
-
-.link-card-title {
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--fg);
-  margin-bottom: 0.25rem;
+.post-item time {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--fg-faint);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.45;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-.link-card-description {
-  font-size: 0.85rem;
-  color: var(--accents-7);
+.post-item p {
+  grid-column: 2;
+  margin: 0.4rem 0 0;
+  color: var(--fg-soft);
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  /* Two lines is enough to judge whether to open a post; the full text is one
+     click away and letting it run buries the titles. */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 1.4;
 }
 
-.link-card-meta {
-  display: flex;
-  align-items: center;
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
-  color: var(--accents-7);
-}
+@media (max-width: 40rem) {
+  .post-item {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
 
-.link-card-favicon {
-  width: 16px !important;
-  height: 16px !important;
-  margin-right: 0.5rem;
-  display: inline-block;
-  vertical-align: middle;
-  border-radius: 2px;
-  box-shadow: none !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
+  .post-item h2,
+  .post-item p,
+  .post-item .post-meta {
+    grid-column: 1;
+  }
 
-.link-card-meta span {
-  vertical-align: middle;
-}
-
-.link-card-image {
-  width: 120px;
-  background-size: cover;
-  background-position: center;
-  background-color: var(--accents-1);
-  border-left: 1px solid var(--accents-2);
-}
-
-@media (max-width: 600px) {
-  .link-card-image {
-    display: none;
+  .post-item time {
+    line-height: 1.6;
   }
 }
 
-/* Pagefind UI customization */
-#search {
-  --pagefind-ui-primary: var(--link-color);
+/* The list is a bounded run of rows, like the tag index: the first row needs a
+   top edge or the run appears to start mid-page. */
+.post-item:first-child {
+  border-top: 1px solid var(--edge);
 }
 
-/* Post Content Styles */
+/* Holds the permanent link to the next page, so it is laid out for everyone
+   rather than only for the infinite-scroll observer. */
+#infinite-scroll-sentinel {
+  padding: 2rem 0;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--fg-faint);
+}
+
+#next-page-link {
+  color: var(--fg-soft);
+  text-decoration: none;
+  border-bottom: 1px solid var(--edge);
+  padding-bottom: 0.15rem;
+}
+
+#next-page-link:hover,
+#next-page-link:focus-visible {
+  color: var(--fg);
+  border-bottom-color: var(--kincha);
+}
+
+.loading-spinner {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--fg-faint);
+}
+
+/* -----------------------------------------------------------------------------
+   Post
+   -------------------------------------------------------------------------- */
+
+.post-header {
+  padding: 3.5rem 0 2rem;
+  border-bottom: 1px solid var(--edge);
+}
+
+.post-header h1 {
+  margin: 0 0 1rem;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+@media (max-width: 40rem) {
+  .post-header h1 {
+    font-size: 1.5rem;
+  }
+}
+
+.post-header time {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--fg-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: 0.85rem;
+}
+
+/* Tags are set as plain monospace tokens. A pill would make 155 of them look
+   like buttons; they are labels. */
+.tag {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--fg-soft);
+  text-decoration: none;
+}
+
+.tag:hover {
+  color: var(--link);
+  text-decoration: underline;
+}
+
+.post-content {
+  font-size: 1.0625rem;
+  padding-top: 2.5rem;
+  /* /posts/dvpm/ scrolled the whole page sideways by 41px at 390px wide: the
+     list item 「~/AppData/Local/nvim/denops/config/main.ts (Windows)」 is plain
+     prose, not inline code, and a bare filesystem path offers a Japanese line
+     breaker nothing to break on. Only words that cannot fit are broken. */
+  overflow-wrap: break-word;
+}
+
+/* One blank line, matching the source markdown. At 1.4em the gap between
+   paragraphs was smaller than the leading inside them, so consecutive
+   paragraphs of Japanese — which have no descenders to break up the block —
+   fused into one grey slab. */
+.post-content > * + * {
+  margin-top: 1.85em;
+}
+
+/* A ~1.2 step between body, h3, h2 and the title. h3 was 1.125rem against
+   1.0625rem body: six per cent apart, so a section head read as a bold
+   sentence and a forty-screen post had no navigable structure. */
 .post-content h2 {
-  border-bottom: 1px solid var(--accents-2);
-  padding-bottom: 0.5rem;
-  margin-top: 3rem;
+  margin-top: 3.25rem;
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.4rem;
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--edge);
+}
+
+.post-content h3 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.85rem;
+  font-size: 1.25rem;
+}
+
+/* The smallest level is at body size, so it cannot earn its rank from size.
+   It earns it from proximity instead: 「Neovim の場合」 sits almost on top of
+   the list it labels and well clear of what came before. Greying it out was
+   tried and was worse — it made the label look like an aside rather than the
+   heading of the block underneath it.
+
+   h4 and h5 are deliberately one visual level. 57 of the 106 posts skip levels
+   in their authored Markdown — 30 go straight from h1 to h5 — so a size step
+   between the two would be reporting a depth that isn't there. Both mean the
+   same thing here: a labelled block inside a section. */
+.post-content h4,
+.post-content h5 {
+  margin-top: 2.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.0625rem;
+  letter-spacing: 0.03em;
+}
+
+/* A heading owns the thing under it: the gap below must stay smaller than the
+   gap above, including when the thing under it is a code block or a callout
+   that carries its own margin. */
+.post-content :is(h2, h3) + * {
+  margin-top: 1.1rem;
+}
+
+.post-content :is(h4, h5) + * {
+  margin-top: 0.5rem;
+}
+
+.post-content ul,
+.post-content ol {
+  padding-left: 1.4em;
+}
+
+.post-content li + li {
+  margin-top: 0.4em;
 }
 
 .post-content img {
   max-width: 100%;
   height: auto;
-  display: block;
-  margin: 2rem auto;
-  border-radius: var(--radius);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--edge);
 }
 
+/* Grey, not 金茶: the warm accent is worth something only while it is scarce,
+   and quotations are frequent here. */
+.post-content blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0.2rem 0 0.2rem 1.25rem;
+  border-left: 2px solid var(--fg-faint);
+  color: var(--fg-soft);
+}
+
+.post-content hr {
+  border: none;
+  border-top: 1px solid var(--edge);
+  margin: 3rem 0;
+}
+
+/* Inline code stays on paper so it does not speckle the prose with dark
+   blocks; only real code blocks go to ink. It is set in ink rather than the
+   link colour: a paragraph like 「init.vim ではなく init.toml を使う」 was
+   putting five blue tokens next to one real link, and the reader could not tell
+   which of them was clickable. Mono on a tinted ground is distinction enough. */
+.post-content :not(pre) > code {
+  font-family: var(--mono);
+  font-size: 0.875em;
+  padding: 0.12em 0.32em;
+  background: var(--bg-hi);
+  color: var(--fg);
+  /* A path or an import URL in inline code has no break opportunity, so
+     without this a single `~/AppData/Local/nvim/denops/config/main.ts` in a
+     list item made the whole document 416px wide at a 320px viewport: the
+     page scrolled sideways, not the code block. WCAG 1.4.10. */
+  overflow-wrap: anywhere;
+}
+
+/* Inside a link, code must not opt out of the link colour. */
+.post-content a > code {
+  color: inherit;
+}
+
+/* -----------------------------------------------------------------------------
+   Callout
+   -------------------------------------------------------------------------- */
+
+.message {
+  margin: 1.75rem 0;
+  padding: 1.1rem 1.25rem;
+  background: var(--bg-hi);
+  /* --link, not --ai: --ai is the fixed light-scheme indigo and all but
+     disappears against the dark ground. */
+  border-left: 2px solid var(--link);
+  font-size: 0.9375rem;
+}
+
+.message > :first-child {
+  margin-top: 0;
+}
+
+.message > :last-child {
+  margin-bottom: 0;
+}
+
+/* -----------------------------------------------------------------------------
+   Code blocks
+   Markup is produced by tools/postprocess; these class names are its contract.
+   -------------------------------------------------------------------------- */
+
+/* Slightly more air than a paragraph gap (1.85em ≈ 1.97rem): a dark block is a
+   heavier object than a line of text, and at ten-plus blocks a post read as
+   stripes partly because the blocks sat as close together as prose. */
+.remote-code-container {
+  margin: 2.25rem 0;
+  background: var(--ink-surface);
+  border: 1px solid var(--ink-edge);
+  overflow: hidden;
+  /* The block scrolls sideways on its own; a light OS scrollbar was the
+     brightest thing on the page, so the ink surface claims it too. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-edge) var(--ink-surface);
+}
+
+.remote-code-header {
+  display: flex;
+  padding: 0.4rem 0.85rem;
+  background: var(--ink-surface-hi);
+  border-bottom: 1px solid var(--ink-edge);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
+
+.remote-code-header span {
+  color: var(--ink-faint);
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+}
+
+.remote-code-header a {
+  color: var(--asagi);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.remote-code-header a:hover {
+  color: var(--ink-fg);
+  text-decoration: underline;
+}
+
+/* Only .code-content scrolls. Both this and .code-content declared
+   overflow-x: auto, so a wide block produced two nested scroll containers and
+   two stacked scrollbars inside one frame. */
+.remote-code-body {
+  display: flex;
+}
+
+.line-numbers {
+  flex: 0 0 auto;
+  padding: 0.85rem 0;
+  background: var(--ink-surface);
+  border-right: 1px solid var(--ink-edge);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--ink-faint);
+  text-align: right;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.line-numbers div {
+  padding: 0 0.7rem;
+}
+
+.code-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.85rem 0;
+  overflow-x: auto;
+}
+
+/* The padding lives on .code-content, never on the <pre>: the gutter and the
+   code have to share one vertical origin. */
+.code-content pre {
+  margin: 0;
+  padding: 0 1rem;
+  background: none;
+  border: none;
+}
+
+.code-content pre code,
+.post-content pre code {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--ink-fg);
+}
+
+/* A bare <pre> can only appear if the post-processor did not run. Keep it
+   legible rather than letting it inherit paper colours.
+
+   Scoped to a direct child. Unscoped, this rule also matched the <pre> inside
+   .code-content and, being later in the file at equal specificity, won: every
+   code block on the site drew a second inset border inside its own frame and
+   carried 0.85rem of extra top padding, which pushed the code down by one row
+   so it no longer lined up with its own line numbers. */
+.post-content > pre {
+  background: var(--ink-surface);
+  border: 1px solid var(--ink-edge);
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-edge) var(--ink-surface);
+}
+
+/* The point of putting code on ink in both schemes is rhythm: a long Japanese
+   page needs the blocks to read as objects. In the light scheme they do. In the
+   dark scheme --ink-surface (#14161b) against --bg (#101216) is a four-per-cent
+   step, so the blocks all but disappeared and the dark scheme had none of the
+   rhythm the decision was made for. Here the surfaces step up instead of down —
+   the block takes --ink-surface-hi and its header recesses to --ink-surface —
+   which is the same relationship, the same two tokens, and the same idea as an
+   editor window raised off its background. */
 @media (prefers-color-scheme: dark) {
-  .post-content img {
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+  .remote-code-container,
+  .line-numbers,
+  .post-content > pre {
+    background: var(--ink-surface-hi);
+  }
+
+  .remote-code-container,
+  .post-content > pre {
+    scrollbar-color: var(--ink-edge) var(--ink-surface-hi);
+  }
+
+  .remote-code-header {
+    background: var(--ink-surface);
   }
 }
 
-/* Table Styles */
+/* -----------------------------------------------------------------------------
+   Link card
+   -------------------------------------------------------------------------- */
+
+/* --bg-hi sits 1.08:1 from the page and --edge is a 1.2:1 hairline, so the box
+   alone left a clickable card effectively borderless. The left edge is the same
+   device .message uses — this is an editorial insert too, just an outbound
+   one — which makes the card an object without adding a new idiom. */
+.link-card {
+  display: flex;
+  align-items: stretch;
+  margin: 2.25rem 0;
+  background: var(--bg-hi);
+  border: 1px solid var(--edge);
+  border-left: 2px solid var(--link);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+}
+
+.link-card:hover,
+.link-card:focus-visible {
+  border-color: var(--link);
+  background: var(--bg);
+}
+
+.link-card-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.85rem 1rem;
+}
+
+.link-card-title {
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--fg);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.link-card-description {
+  margin-top: 0.3rem;
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  color: var(--fg-soft);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.link-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.55rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--fg-faint);
+}
+
+.link-card-favicon {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+}
+
+.link-card-image {
+  flex: 0 0 8.5rem;
+  background-size: cover;
+  background-position: center;
+  border-left: 1px solid var(--edge);
+}
+
+@media (max-width: 40rem) {
+  .link-card-image {
+    display: none;
+  }
+}
+
+/* -----------------------------------------------------------------------------
+   Tables
+   -------------------------------------------------------------------------- */
+
 .post-content table {
   width: 100%;
   border-collapse: collapse;
-  margin: 2rem 0;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: 0 0 0 1px var(--accents-2);
+  font-size: 0.9375rem;
+  /* Block so a wide comparison table scrolls instead of forcing the prose
+     column open. */
+  display: block;
+  overflow-x: auto;
+  scrollbar-width: thin;
 }
 
 .post-content th,
 .post-content td {
-  padding: 0.75rem 1rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--edge);
   text-align: left;
-  border-bottom: 1px solid var(--accents-2);
+  vertical-align: top;
 }
 
+/* The header row is a label row, so it is set in the utility face and the rule
+   under it is the strong one: without it the first data row was
+   indistinguishable from the header. */
 .post-content th {
-  background-color: var(--accents-1);
-  font-weight: 600;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--fg-soft);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  border-bottom-color: var(--fg-faint);
+}
+
+.post-content td {
+  font-variant-numeric: tabular-nums;
+}
+
+/* -----------------------------------------------------------------------------
+   Tag index
+   -------------------------------------------------------------------------- */
+
+.page-title {
+  padding: 3.5rem 0 1.5rem;
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.tag-cloud {
+  list-style: none;
+  margin: 0;
+  padding: 1.5rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  border-top: 1px solid var(--edge);
+}
+
+/* 153 tags in a 43rem column is a wall. The list borrows the same left rail the
+   post list hangs its dates in, so both index pages track one edge and the
+   cloud loses a couple of rows of height. */
+@media (min-width: 64rem) {
+  .tag-cloud {
+    margin-left: calc(-1 * (var(--rail) + 1.5rem));
+  }
+}
+
+.tag-cloud a {
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  color: var(--fg-soft);
+  text-decoration: none;
+}
+
+.tag-cloud a:hover,
+.tag-cloud a:focus-visible {
+  color: var(--link);
+  text-decoration: underline;
+}
+
+/* The count is the reason the list is worth scanning, but it must not compete
+   with the tag name, so it is set smaller and raised like a footnote marker. */
+.tag-cloud__n {
+  margin-left: 0.3em;
+  font-size: 0.6875rem;
+  color: var(--fg-faint);
+  vertical-align: 0.35em;
+  font-variant-numeric: tabular-nums;
+}
+
+.tag-cloud a:hover .tag-cloud__n,
+.tag-cloud a:focus-visible .tag-cloud__n {
+  color: var(--kincha);
+}
+
+/* -----------------------------------------------------------------------------
+   Search
+   -------------------------------------------------------------------------- */
+
+/* Pagefind injects its own DOM and ships its own stylesheet, which the search
+   page loads AFTER this one. Every rule here is therefore written with the
+   #search id so it outranks Pagefind's single-class defaults regardless of
+   order. */
+#search {
+  --pagefind-ui-primary: var(--link);
+  --pagefind-ui-text: var(--fg);
+  --pagefind-ui-background: var(--bg);
+  --pagefind-ui-border: var(--edge);
+  --pagefind-ui-tag: var(--bg-hi);
+  --pagefind-ui-border-radius: 0;
+  --pagefind-ui-font: var(--body);
+  --pagefind-ui-scale: 0.9;
+  /* .page-title already pads 1.5rem below itself; this is the difference that
+     makes the query box read as belonging to the heading. */
+  margin-top: 0.5rem;
+}
+
+/* The query box is a control, so it is set in the utility face like the nav and
+   the statusline, not in the body face Pagefind defaults to. */
+#search .pagefind-ui__search-input {
+  font-family: var(--mono);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  background: var(--bg-hi);
+  border: 1px solid var(--edge);
   color: var(--fg);
 }
 
-.post-content tr:last-child td {
-  border-bottom: none;
+#search .pagefind-ui__search-input::placeholder {
+  color: var(--fg-faint);
 }
 
-.post-content tr:hover {
-  background-color: var(--accents-1);
+/* Pagefind draws a 2px near-black border on focus, which is the only place on
+   the site that does not use the 金茶 ring. */
+#search .pagefind-ui__search-input:focus-visible {
+  border-color: var(--edge);
+  outline: 2px solid var(--kincha);
+  outline-offset: 2px;
 }
 
-@media (max-width: 600px) {
-  .post-content table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+#search .pagefind-ui__search-clear {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  background: none;
+  color: var(--fg-soft);
+}
+
+#search .pagefind-ui__search-clear:hover {
+  color: var(--fg);
+  text-decoration: underline;
+}
+
+/* The hit count is a report on state, so it is set like the statusline's meta
+   segment rather than as a bold sentence. */
+#search .pagefind-ui__message {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--fg-faint);
+  padding: 1.75rem 0 0;
+  border-bottom: 1px solid var(--edge);
+  padding-bottom: 0.6rem;
+}
+
+#search .pagefind-ui__results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* A result is a row in a list of posts, so it is built like .post-item: one
+   hairline per row, no card, no second border. */
+#search .pagefind-ui__result {
+  padding: 1.5rem 0;
+  border: none;
+  border-bottom: 1px solid var(--edge);
+}
+
+#search .pagefind-ui__result-inner {
+  display: block;
+  margin: 0;
+  gap: 0;
+}
+
+#search .pagefind-ui__result-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.45;
+  word-break: auto-phrase;
+}
+
+#search .pagefind-ui__result-link {
+  color: var(--fg);
+  text-decoration: none;
+}
+
+#search .pagefind-ui__result-link:hover,
+#search .pagefind-ui__result-link:focus-visible {
+  color: var(--link);
+  text-decoration: underline;
+}
+
+#search .pagefind-ui__result-excerpt {
+  margin: 0.4rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.8;
+  color: var(--fg-soft);
+}
+
+/* Pagefind's default <mark> is browser yellow — the one colour on the site that
+   is in no scheme. The hit is marked by weight and a 金茶 rule under it, which
+   is what 金茶 is for: saying where you are. */
+#search .pagefind-ui__result-excerpt mark {
+  background: none;
+  color: var(--fg);
+  font-weight: 600;
+  box-shadow: inset 0 -1px 0 var(--kincha);
+}
+
+/* -----------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+footer {
+  margin-top: 5rem;
+  border-top: 1px solid var(--edge);
+}
+
+footer .container {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+footer p {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--fg-faint);
+}
+
+footer a {
+  color: var(--fg-soft);
+}
+
+/* -----------------------------------------------------------------------------
+   Statusline — the signature
+   A real statusline, not a decoration: every segment reports something the
+   reader can act on. The mode block is the only saturated fill on the page.
+   -------------------------------------------------------------------------- */
+
+/* On ink, in both schemes, exactly like the code blocks. In the light scheme it
+   was --bg-hi (#f2f2ee) on --paper (#e9e9e4): a bar two per cent lighter than
+   the page, so the 金茶 mode block appeared to be floating on nothing and the
+   signature element read as a widget someone had attached. Ink makes it the
+   same decision the code blocks are — the editor's surface, on the author's
+   paper — and it is the same five colours either way. */
+.statusline {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 10;
+  display: flex;
+  align-items: stretch;
+  height: calc(var(--statusline-h) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--ink-surface-hi);
+  border-top: 1px solid var(--ink-edge);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: var(--statusline-h);
+  color: var(--ink-faint);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.statusline__mode {
+  flex: 0 0 auto;
+  padding: 0 0.9rem;
+  background: var(--kincha);
+  color: #14161b;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+.statusline__file {
+  flex: 0 1 auto;
+  padding: 0 0.9rem;
+  color: var(--ink-fg);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.statusline__meta {
+  flex: 0 1 auto;
+  padding: 0 0.9rem;
+  border-left: 1px solid var(--ink-edge);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Pushed to the right edge the way a ruler is. */
+.statusline__pos {
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding: 0 0.9rem;
+  border-left: 1px solid var(--ink-edge);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-fg);
+}
+
+@media (max-width: 40rem) {
+  /* The mode and the ruler are the two things worth 390px of width; the tag
+     list is already in the page. */
+  .statusline__meta {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

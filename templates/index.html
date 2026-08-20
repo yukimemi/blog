@@ -2,17 +2,29 @@
 
 {% block title %}{% if paginator.current_index and paginator.current_index > 1 %}Page {{ paginator.current_index }}{% else %}Home{% endif %}{% endblock title %}
 
+{% block mode %}LIST{% endblock mode %}
+{% block file %}{% if paginator.current_index and paginator.current_index > 1 %}page/{{ paginator.current_index }}{% else %}index{% endif %}{% endblock file %}
+{% block meta %}<span class="statusline__meta">{{ paginator.total_pages | default(value=0) }} posts &middot; 2013 &mdash; 2026</span>{% endblock meta %}
+
 {% block content %}
-<section>
-  <div class="hero" style="padding: 4rem 0; text-align: center;">
-    <h2 style="font-size: 3rem; margin-bottom: 1rem;">Welcome to my blog</h2>
-    <p style="font-size: 1.25rem; color: var(--accents-7);">Thoughts, code, and life.</p>
+{# The index has no <h1> of its own -- the masthead wordmark is the document's
+   h1 and the lede is prose, not a heading -- so Pagefind is told the title
+   outright rather than left to guess from the first heading inside <main>. #}
+<section data-pagefind-meta="title:posts{% if paginator.current_index and paginator.current_index > 1 %} (page {{ paginator.current_index }}){% endif %}">
+  {# Replaces a "Welcome to my blog / Thoughts, code, and life." hero. That copy
+     described no one; this says what is actually here and who writes it. #}
+  <div class="masthead-note">
+    <p class="lede">Vim / Neovim と Rust で、道具を作りながら書いています。</p>
+    <p class="sub">
+      denops プラグイン、CLI ツール、dotfiles の運用。手を動かした記録が
+      {{ paginator.total_pages | default(value=0) }} 本。
+    </p>
   </div>
 
   <ul id="post-list" class="post-list">
     {% for post in paginator.pages %}
       <li class="post-item">
-        <h3><a href="{{ post.path }}">{{ post.title }}</a></h3>
+        <h2><a href="{{ post.path }}">{{ post.title }}</a></h2>
         <div class="post-meta">
           <time datetime="{{ post.date | date(format='%Y-%m-%dT%H:%M:%S%:z') }}">{{ post.date | date(format="%Y/%m/%d") }}</time>
         </div>
@@ -22,14 +34,24 @@
   </ul>
 
   {% if paginator.next %}
-    <div id="infinite-scroll-sentinel" style="text-align: center; padding: 2rem; visibility: hidden;">
-      <!-- `paginator.next` is a full permalink built from `base_url`. Cloudflare
-           Pages gives every branch its own preview host, so an absolute link
-           here would make a preview deployment navigate and fetch against
-           production. The infinite-scroll script reads this href directly. -->
-      <a id="next-page-link" href="{{ paginator.next | replace(from=config.base_url, to='') }}">Next Page</a>
-      <div class="loading-spinner">Loading more posts...</div>
-    </div>
+    {# This link used to live inside `visibility: hidden`, which took it out of
+       the tab order and the accessibility tree as well as out of sight. It was
+       the only link to page 2 on the whole site, so with JavaScript off -- or
+       with a keyboard and no pointer to scroll with -- the archive stopped at
+       ten posts. It is now permanently visible: infinite scroll retargets its
+       href as it appends pages and removes it when the last page is loaded, so
+       it always points at the next page nobody has seen yet.
+
+       `paginator.next` is a full permalink built from `base_url`. Cloudflare
+       Pages gives every branch its own preview host, so an absolute link here
+       would make a preview deployment navigate and fetch against production. #}
+    <nav id="infinite-scroll-sentinel" aria-label="ページ送り">
+      <a id="next-page-link" rel="next" href="{{ paginator.next | replace(from=config.base_url, to='') }}">Next Page</a>
+      {# Hidden until a fetch is actually in flight, and role="status" so the
+         append is announced once -- this, not the ruler, is the one thing on
+         the page worth a live region. #}
+      <p class="loading-spinner" role="status" hidden>Loading more posts...</p>
+    </nav>
   {% endif %}
 </section>
 {% endblock content %}
