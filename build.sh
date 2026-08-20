@@ -101,20 +101,53 @@ ZOLA_SHA256="f07c92607e5745268b576bd325ceef3a582aada253bb64db8d92a8a85303d958"
 ZOLA_INSTALL="${ZOLA_INSTALL:-${HOME:-.}/.zola}"
 export PATH="$ZOLA_INSTALL/bin:$PATH"
 
-# Resolved once into $ZOLA so the rest of the script never has to care which of
-# the three sources won.
-ZOLA=""
+# The pin is a compatibility requirement, not a preference, so presence of a
+# `zola` is not enough -- only one reporting the pinned version is accepted.
+#
+# Zola 0.23 replaced shortcodes with Tera components, so templates/components.html
+# is unparseable by 0.22 and earlier. The Cloudflare build image ships its own
+# zola (0.22.1), which an earlier version of this script preferred simply
+# because it was on PATH. That silently defeated the pin and failed the build on
+# template syntax from a version this repository has never targeted.
+zola_is_pinned() {
+  local reported
+  reported="$("$1" --version 2>/dev/null)" || return 1
+  # Compared exactly, and only after stripping the known `zola ` prefix. A
+  # substring test would accept 0.23.30 or 10.23.3 as "0.23.3", which is the
+  # same class of silent version skew this check exists to catch. If the output
+  # format ever changes the comparison fails, which is the safe direction: the
+  # pinned archive is installed rather than an unverified binary being trusted.
+  [ "${reported#zola }" = "${ZOLA_VERSION#v}" ]
+}
 
-if command -v zola >/dev/null 2>&1; then
-  # Already installed: a previous run of this script, a CI cache, or a
-  # developer's own install.
-  ZOLA="zola"
-elif [ -n "${USERPROFILE:-}" ] && [ -x "${USERPROFILE//\\//}/.local/bin/zola.exe" ]; then
-  # Windows developer checkout. `zola.exe` frequently lives in a per-user bin
-  # directory that Git Bash does not put on PATH, so look there before
-  # reaching for a Linux archive that would not run here anyway.
-  ZOLA="${USERPROFILE//\\//}/.local/bin/zola.exe"
-else
+# Resolved once into $ZOLA so the rest of the script never has to care which
+# candidate won. The install directory comes first so a previous run of this
+# script wins over anything the image happens to provide.
+ZOLA=""
+for candidate in \
+  "$ZOLA_INSTALL/bin/zola" \
+  "zola" \
+  "${USERPROFILE:+${USERPROFILE//\\//}/.local/bin/zola.exe}"
+do
+  # `zola` is resolved through PATH; the other two are literal paths that only
+  # exist on the platform that produced them.
+  [ -n "$candidate" ] || continue
+  if command -v "$candidate" >/dev/null 2>&1 && zola_is_pinned "$candidate"; then
+    ZOLA="$candidate"
+    break
+  fi
+done
+
+if [ -z "$ZOLA" ]; then
+  # The archive is Linux-only, so downloading it anywhere else would produce a
+  # binary that cannot run. Fail with instructions instead.
+  if [ "$(uname -s 2>/dev/null)" != "Linux" ]; then
+    echo "Error: Zola $ZOLA_VERSION is required and no matching binary was found." >&2
+    echo "  Install it from https://github.com/getzola/zola/releases/tag/$ZOLA_VERSION" >&2
+    echo "  and put it on PATH, or set ZOLA_INSTALL to a prefix containing bin/zola." >&2
+    exit 1
+  fi
+
   echo "==> Installing Zola $ZOLA_VERSION ($ZOLA_TARGET)"
   archive="$ZOLA_INSTALL/zola.tar.gz"
   mkdir -p "$ZOLA_INSTALL/bin"
@@ -137,7 +170,14 @@ else
   tar -xzf "$archive" -C "$ZOLA_INSTALL/bin" zola
   rm -f "$archive"
   chmod +x "$ZOLA_INSTALL/bin/zola"
-  ZOLA="zola"
+  ZOLA="$ZOLA_INSTALL/bin/zola"
+
+  # A mismatch here means the pinned archive does not contain the pinned
+  # version, which would otherwise surface as a confusing template error.
+  if ! zola_is_pinned "$ZOLA"; then
+    echo "Error: installed Zola reports $("$ZOLA" --version), expected $ZOLA_VERSION." >&2
+    exit 1
+  fi
 fi
 
 echo "==> $("$ZOLA" --version)"
