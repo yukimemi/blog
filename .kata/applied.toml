@@ -1,5 +1,5 @@
 preset = "github.com/yukimemi/pj-presets:base"
-applied_at = "2026-08-17T23:22:56.2677718Z"
+applied_at = "2026-08-21T03:34:36.635380911Z"
 
 [[templates]]
 source = "github.com/yukimemi/pj-base"
@@ -19,16 +19,16 @@ content_hash = "486c974de88903113ed99b4e643432b7050e88f1031276f5263e8da7b43fe11e
 content_hash = "6d380d1ecc2f882c2011429d548a6f3c774b74f0c757d884453e4667172acc2a"
 
 [files.".github/workflows/apm-bump.yml"]
-content_hash = "d7331ae3c991ee893b97dd182ffeabfc5314798a6c9a8595a4c874b1f9b52ad9"
+content_hash = "85b195e27232805149919455cf3e9906cec9e5c5d82c1b0e9c668db355844ed1"
 
 [files.".github/workflows/claude-review.yml"]
-content_hash = "8d0de0b2e577bd089d18475915f4cd41f2e7af4054b4888a8ddaac58946ee4e8"
+content_hash = "9c07be16af6dc6f1e86b8a845a64a5c54b0d9092b8b34a9c4eefe31e84269509"
 
 [files.".github/workflows/claude.yml"]
-content_hash = "86ff51d6d07835c68827801f362d3b2a08b970ec721dde3bbe58df57fcc38c4f"
+content_hash = "2db473008ec9528565097a8e543c7a5586a6dd383d8f3e32e094ca78e8e9c2f5"
 
 [files.".github/workflows/kata-apply.yml"]
-content_hash = "2256d160721583ff5b6afe5c9a1778761f7ce6fc5ba46dbe27c9cd7d803a0632"
+content_hash = "3e0e0491a0a1bf4dc0fd4e62cb57748278ff578ceca95e9c140f3e82f4cc6e39"
 
 [files.".gitignore"]
 content_hash = "4bebd1c3417c33f9d1c51f011694f6d82b098bbb1a5a102ba56e97ab01a866ef"
