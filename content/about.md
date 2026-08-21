@@ -12,7 +12,8 @@ Vim / Neovim と Rust で道具を作っています。
 
 ## 作っているもの
 
-- **Vim / Neovim プラグイン** — [denops.vim](https://github.com/vim-denops/denops.vim) を使い TypeScript で書いています。プラグインマネージャの [dvpm](https://github.com/yukimemi/dvpm) と、`dps-` で始まる一連の小さなプラグイン群。
+- **プラグインマネージャー** — 今は [rvpm](https://github.com/yukimemi/rvpm)。Rust 製で、`config.toml` から `loader.lua` を事前コンパイルする CLI ファーストな設計です。その前は Deno + denops で設定を TypeScript で書く [dvpm](https://github.com/yukimemi/dvpm) を使っていました。
+- **Vim / Neovim プラグイン** — [denops.vim](https://github.com/vim-denops/denops.vim) を使い TypeScript で書いた `dps-` で始まる一連の小さなプラグイン群。
 - **CLI ツール** — Rust。ガントチャート・ToDo の [yaiba](https://github.com/yukimemi/yaiba)、dotfiles マネージャーの [yui](https://github.com/yukimemi/yui)、プロジェクトテンプレートの [kata](https://github.com/yukimemi/kata)、ディスパッチャの [todoke](https://github.com/yukimemi/todoke) など。
 - **環境の整備** — PowerShell、dotfiles、ターミナルまわり。
 
