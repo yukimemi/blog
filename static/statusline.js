@@ -56,4 +56,55 @@
   if ("ResizeObserver" in window) {
     new ResizeObserver(schedule).observe(document.body);
   }
+
+  // `:set background=…` — the reader's override of the OS scheme.
+  //
+  // Three states, not two: once someone has picked light or dark they are
+  // overriding their own OS for good, so "auto" has to stay reachable. The
+  // button is inert markup until here, so a reader without scripting is never
+  // offered a control that cannot work.
+  const toggle = document.querySelector("[data-bg-toggle]");
+  if (!toggle) return;
+
+  const ORDER = ["auto", "light", "dark"];
+  const root = document.documentElement;
+
+  const stored = () => {
+    try {
+      const v = localStorage.getItem("bg");
+      return v === "light" || v === "dark" ? v : "auto";
+    } catch (e) {
+      return "auto";
+    }
+  };
+
+  const paint = (mode) => {
+    if (mode === "auto") root.removeAttribute("data-bg");
+    else root.setAttribute("data-bg", mode);
+
+    toggle.textContent = "bg=" + mode;
+    // The label already reads "bg=dark"; the accessible name says what pressing
+    // it will do, which the label does not.
+    const next = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length];
+    toggle.setAttribute("aria-label", "配色: " + mode + "。押すと " + next + " に切り替わります");
+  };
+
+  let mode = stored();
+  paint(mode);
+  toggle.hidden = false;
+
+  toggle.addEventListener("click", () => {
+    mode = ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length];
+    try {
+      if (mode === "auto") localStorage.removeItem("bg");
+      else localStorage.setItem("bg", mode);
+    } catch (e) {
+      // Private browsing and similar. The choice still applies to this page.
+    }
+    paint(mode);
+  });
+
+  // No matchMedia listener here on purpose. Following the OS while on "auto"
+  // is the media query's job and it re-evaluates on its own; the label reads
+  // "bg=auto" either way, so there is nothing left for JS to update.
 })();

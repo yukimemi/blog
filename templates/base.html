@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ config.title }}{% endblock title %} - Yukimemi's Blog</title>
+    {# Applies the reader's stored scheme before the first paint. Inline and
+       blocking on purpose: loading this as a file would let the page paint in
+       the OS scheme first and then flip, which is worse than having no toggle.
+       Absent or invalid storage leaves no attribute, which is "auto" -- the
+       media query in styles.css then follows the OS as it always has. #}
+    <script>
+      try {
+        var bg = localStorage.getItem("bg");
+        if (bg === "light" || bg === "dark") {
+          document.documentElement.setAttribute("data-bg", bg);
+        }
+      } catch (e) {}
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -72,6 +85,16 @@
       <span class="statusline__mode">{% block mode %}NORMAL{% endblock mode %}</span>
       <span class="statusline__file">{% block file %}{% endblock file %}</span>
       {%- block meta %}{% endblock meta -%}
+      {# Vim spells this `:set background=…`, so the control says what the
+         option is rather than drawing a sun and a moon. Rendered as a button
+         only when scripting is available -- statusline.js fills in the label,
+         and an inert control that cannot do anything is worse than none. #}
+      <button
+        type="button"
+        class="statusline__bg"
+        data-bg-toggle
+        hidden
+      ></button>
       <span class="statusline__pos" data-pos aria-hidden="true">&mdash;</span>
     </aside>
     <script src="/statusline.js" defer></script>
