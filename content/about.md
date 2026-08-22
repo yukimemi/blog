@@ -13,7 +13,7 @@ Vim / Neovim と Rust で道具を作っています。
 ## 作っているもの
 
 - **プラグインマネージャー** — 今は [rvpm](https://github.com/yukimemi/rvpm)。Rust 製で、`config.toml` から `loader.lua` を事前コンパイルする CLI ファーストな設計です。その前は Deno + denops で設定を TypeScript で書く [dvpm](https://github.com/yukimemi/dvpm) を使っていました。
-- **Vim / Neovim プラグイン** — [denops.vim](https://github.com/vim-denops/denops.vim) を使い TypeScript で書いた `dps-` で始まる一連の小さなプラグイン群。
+- **Neovim プラグイン** — Lua で書いた `*.nvim`。静かに世代付きバックアップを取る [silentsaver.nvim](https://github.com/yukimemi/silentsaver.nvim)、読み書きの履歴を残す [chronicle.nvim](https://github.com/yukimemi/chronicle.nvim)、保存時に正規表現置換をかける [autoreplacer.nvim](https://github.com/yukimemi/autoreplacer.nvim)、colorscheme を好み付きで巡回する [lumiris.nvim](https://github.com/yukimemi/lumiris.nvim) など。rvpm 側のヘルパ [rvpm.nvim](https://github.com/yukimemi/rvpm.nvim) もあります。以前は [denops.vim](https://github.com/vim-denops/denops.vim) 上で TypeScript で書いていて、そちらは `*.vim` という名前です。古い記事に出てくるのは主にこの世代です。
 - **CLI ツール** — Rust。ガントチャート・ToDo の [yaiba](https://github.com/yukimemi/yaiba)、dotfiles マネージャーの [yui](https://github.com/yukimemi/yui)、プロジェクトテンプレートの [kata](https://github.com/yukimemi/kata)、ディスパッチャの [todoke](https://github.com/yukimemi/todoke) など。
 - **環境の整備** — PowerShell、dotfiles、ターミナルまわり。
 
