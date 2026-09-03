@@ -1,9 +1,9 @@
 preset = "github.com/yukimemi/pj-presets:base"
-applied_at = "2026-08-24T03:36:10.727011089Z"
+applied_at = "2026-09-03T23:07:48.9157647Z"
 
 [[templates]]
 source = "github.com/yukimemi/pj-base"
-rev = "10cd49c09b95af8add4daf71c5151835821cb670"
+rev = "08989f887002780557cb6e0ce18141d7abf2c85e"
 version = "0.18.0"
 
 [files.".agents/skills/renri/SKILL.md"]
@@ -11,6 +11,9 @@ once_applied = true
 
 [files.".claude/skills/renri/SKILL.md"]
 once_applied = true
+
+[files.".editorconfig"]
+content_hash = "df3d6e27040e82c12677ac073ca9676cc92bffa2cb1b875bfe63d12b4dd1135b"
 
 [files.".gemini/settings.json"]
 content_hash = "486c974de88903113ed99b4e643432b7050e88f1031276f5263e8da7b43fe11e"
@@ -38,7 +41,7 @@ content_hash = "8e573305bc9b45b40e4c4c24c0da7728771a12d81c4c1631d6e35f25a189cf84
 once_applied = true
 
 [files."AGENTS.md"]
-content_hash = "664bcc15ff6a09def47ddeed7f16c3cc6e724c7d9cfa6c14790f2100d7193271"
+content_hash = "2988a5e92eb2a14278df912f889a4c7745e498701bec46c023aef3694dc20a31"
 
 [files."CLAUDE.md"]
 content_hash = "a76b3af252969b8120128d7ce44f2b6cfdcf88c7420ee00675732f542d047529"
