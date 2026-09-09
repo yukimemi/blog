@@ -1,0 +1,66 @@
+# magi competing on this repository.
+#
+# **Only what is peculiar to this checkout lives here.** The roster
+# ([[agents]]), [roles], [graph] and [update] all describe which agent CLIs
+# are installed and what the operator is willing to spend — none of that is a
+# fact about this repository, so it stays in the machine layer
+# (`<config_dir>/magi/config.toml`) and is not repeated here.
+#
+# What that leaves, and why each one has to be here:
+#
+# - `[merge] base` names this repository's branch, and is required at all
+#   because of how this checkout is set up (see below). This is the actual
+#   reason this file exists.
+# - `[prompts]` are this project's conventions.
+# - There is no `[verify]` here — see the comment below for why.
+#
+# Note that an array may be declared in exactly one layer
+# (`Config::refuse_split_arrays`), so nothing here re-declares an array the
+# machine layer already owns.
+#
+# Rendered by teravars. Tera braces are live everywhere in this file, but
+# comments are stripped before Tera sees them (teravars >= 0.2.2), so a
+# comment may quote `{{ ... }}` freely.
+
+# No `[verify]` section, on purpose.
+#
+# This repository has no CI (`.github/workflows/` only has apm-bump,
+# kata-apply and the claude workflows — no `ci.yml`), and deno.json's tasks
+# are `fmt` / `zenn` / `new`: no test task, no lint task. There is nothing to
+# point a gate at without inventing a check CI does not also run, which is
+# exactly the failure mode `[verify].gate` exists to prevent (a local pass
+# that does not mean a green PR, because there is no PR check to match it
+# against).
+#
+# `deno fmt --check` was considered and rejected as the gate: deno.json
+# excludes `content/`, `public/` and `templates/` from fmt, so it does not
+# check the thing this repository actually produces — article formatting.
+# What it does cover (scripts/, static/) is not even clean right now
+# (`deno fmt --check` currently fails on pre-existing files), so it is not a
+# gate this repository passes today either.
+#
+# An empty gate is not an oversight: magi skips the gate entirely when it is
+# empty (`src/graph.rs`, `if !self.state.gate.is_empty()`), which is the
+# correct behavior for a repository with no CI to match. If this repository
+# gains a `ci.yml`, add a matching `[verify]` here at the same time.
+
+[merge]
+mode = "none"
+# Required here, and in every jj-colocated repo: jj keeps git's HEAD detached
+# at the working-copy commit, so magi cannot infer the base branch from
+# `git symbolic-ref HEAD`.
+base = "main"
+
+# Project conventions appended to the node prompts, never merged into them.
+# Repository-wide context lives in AGENTS.md, which every agent already reads
+# from the checkout; these are the things a magi *node* needs to know.
+[prompts]
+all = """
+This is a blog article repository (Zola + Markdown content under content/), \
+not an application codebase — calibrate review seats accordingly: most \
+changes are prose, front matter and static assets, not logic.
+
+This repository uses jj (Jujutsu) with a colocated git repo. `git commit` \
+works in a candidate worktree and is what magi expects, but never run `jj` \
+commands and never touch the main working copy.
+"""
