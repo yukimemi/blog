@@ -1,0 +1,76 @@
+# magi competing on this repository.
+#
+# **Only what is peculiar to this checkout lives here.** The roster
+# (`[[agents]]`), `[roles]`, `[graph]` and `[update]` all belong to the
+# machine layer (`<config_dir>/magi/config.toml`): they are facts about which
+# agent CLIs are installed and what the operator is willing to spend, not
+# about this repository, so stating them here would just shadow the machine
+# layer for no reason.
+#
+# What is left, and why it has to be here:
+#
+# - `[merge] base` — this checkout is jj-colocated, so jj keeps git's HEAD
+#   detached at the working-copy commit and the `git symbolic-ref HEAD`
+#   fallback in `git::current_branch` cannot infer a base branch. Without it,
+#   `magi review` has nothing to diff against and stops. Restated explicitly
+#   even though the machine layer happens to default to the same branch name,
+#   the same way `~/.config/magi/config.toml`'s own `[merge] base` comment
+#   describes doing this once for every jj-colocated checkout on the machine.
+# - `[merge] mode` — set to `"none"` here, which *diverges* from the
+#   machine-wide default of `"pr"`. This repository is a personal blog, not
+#   one of the software repos that default was chosen for: there is no CI to
+#   watch and no release pipeline waiting on the merge, so `magi review` runs
+#   the review + gate half of the graph and stops, leaving landing to the
+#   owner by hand.
+# - `[verify]` is intentionally absent — see the comment below.
+# - `[prompts]` restates this repository's jj-colocated conventions (the
+#   machine layer's `[prompts] all` is a plain string field, not an array, so
+#   the highest-precedence file's value wins outright rather than appending;
+#   leaving it unset here would silently drop that guidance for this repo)
+#   and adds the one thing peculiar to this checkout: it is a writing
+#   repository, not a code repository.
+#
+# Note that an array may be declared in exactly one layer
+# (`Config::refuse_split_arrays`) — another reason the roster and role lists
+# are left untouched here.
+#
+# Rendered by teravars. Tera braces are live everywhere in this file, but
+# comments are stripped before Tera sees them, so a comment may quote
+# `{{ ... }}` freely.
+
+[merge]
+base = "main"
+mode = "none"
+
+# No `[verify]` section on purpose. This repository ships no CI to mirror:
+# `.github/workflows/` only has `apm-bump.yml` and `kata-apply.yml` (plus the
+# kata-apply/claude machinery), neither of which builds or checks the site,
+# and `deno.json` only defines `fmt`, `zenn` and `new` — no test, no lint.
+#
+# `deno fmt` looked like the obvious candidate for a gate, since it is the one
+# formatting command this repo has, but it does not actually cover the thing
+# a gate here would need to check: `deno.json`'s `fmt.exclude` excludes
+# `content/`, which is where every article lives, so `deno fmt --check` never
+# looks at post formatting at all — only at the authoring scripts under
+# `scripts/`, `static/`, and similar. Gating on it would police code this
+# repo barely has, while waving articles through unchecked, which is not a
+# meaningful verification for a blog. Nothing else in the repo checks
+# anything close to "is this post well-formed."
+#
+# An empty `[verify]` gate is not a placeholder: magi skips the gate entirely
+# when it is empty (`src/graph.rs`, `if !self.state.gate.is_empty()`), and
+# that is the correct behavior for a repository with nothing to gate on. If
+# this repo ever grows a real CI workflow or a content-lint task, mirror it
+# here then — `verify.gate` should always be the exact command CI runs, per
+# AGENTS.md's pre-merge review section.
+
+[prompts]
+all = """
+This repository uses jj (Jujutsu) with a colocated git repo. `git commit` \
+works in a candidate worktree and is what magi expects, but never run `jj` \
+commands and never touch the main working copy.
+
+This is a blog: the tree under review is Markdown articles and Zola/Deno \
+site-authoring plumbing, not application code. Judge and review it as \
+writing and static-site tooling, not as a service or library.
+"""
