@@ -16,7 +16,8 @@
 #   even though the machine layer happens to default to the same branch name,
 #   the same way `~/.config/magi/config.toml`'s own `[merge] base` comment
 #   describes doing this once for every jj-colocated checkout on the machine.
-# - `[verify]` is intentionally absent — see the comment below.
+# - `[verify]` runs the `tools/postprocess` crate's tests and release build —
+#   the only checkable code here; see the comment on the section.
 # - `[prompts]` restates this repository's jj-colocated conventions (the
 #   machine layer's `[prompts] all` is a plain string field, not an array, so
 #   the highest-precedence file's value wins outright rather than appending;
@@ -35,27 +36,28 @@
 [merge]
 base = "main"
 
-# No `[verify]` section on purpose. This repository ships no CI to mirror:
-# `.github/workflows/` only has `apm-bump.yml` and `kata-apply.yml` (plus the
-# kata-apply/claude machinery), neither of which builds or checks the site,
-# and `deno.json` only defines `fmt`, `zenn` and `new` — no test, no lint.
+[vars]
+# Shared build cache for the verification commands. Override per machine with
+# MAGI_CACHE. `[vars]` is rendered per file, so it lives beside its consumer.
+cache = "{{ env.MAGI_CACHE | default(value='/tmp') }}"
+
+[verify]
+# No CI builds or checks the site (`.github/workflows/` has only
+# `apm-bump.yml` and `kata-apply.yml`), so this mirrors the one real build
+# path: `build.sh` runs `cargo build --release` on `tools/postprocess` for
+# Cloudflare Pages. Zola and Pagefind stay out — not Rust/bun/deno.
 #
-# `deno fmt` looked like the obvious candidate for a gate, since it is the one
-# formatting command this repo has, but it does not actually cover the thing
-# a gate here would need to check: `deno.json`'s `fmt.exclude` excludes
-# `content/`, which is where every article lives, so `deno fmt --check` never
-# looks at post formatting at all — only at the authoring scripts under
-# `scripts/`, `static/`, and similar. Gating on it would police code this
-# repo barely has, while waving articles through unchecked, which is not a
-# meaningful verification for a blog. Nothing else in the repo checks
-# anything close to "is this post well-formed."
+# `deno fmt --check` is not gated: no workflow or hook enforces it, and
+# `deno.json` excludes `content/`, so it would not check posts anyway.
 #
-# An empty `[verify]` gate is not a placeholder: magi skips the gate entirely
-# when it is empty (`src/graph.rs`, `if !self.state.gate.is_empty()`), and
-# that is the correct behavior for a repository with nothing to gate on. If
-# this repo ever grows a real CI workflow or a content-lint task, mirror it
-# here then — `verify.gate` should always be the exact command CI runs, per
-# AGENTS.md's pre-merge review section.
+# CARGO_TARGET_DIR is shared so candidate worktrees reuse one build.
+e2e = [
+  "CARGO_TARGET_DIR={{ vars.cache }}/blog-postprocess-target cargo test --locked --manifest-path tools/postprocess/Cargo.toml",
+]
+gate = [
+  "CARGO_TARGET_DIR={{ vars.cache }}/blog-postprocess-target cargo test --locked --manifest-path tools/postprocess/Cargo.toml",
+  "CARGO_TARGET_DIR={{ vars.cache }}/blog-postprocess-target cargo build --locked --release --manifest-path tools/postprocess/Cargo.toml",
+]
 
 [prompts]
 all = """
