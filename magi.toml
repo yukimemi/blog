@@ -16,12 +16,6 @@
 #   even though the machine layer happens to default to the same branch name,
 #   the same way `~/.config/magi/config.toml`'s own `[merge] base` comment
 #   describes doing this once for every jj-colocated checkout on the machine.
-# - `[merge] mode` — set to `"none"` here, which *diverges* from the
-#   machine-wide default of `"pr"`. This repository is a personal blog, not
-#   one of the software repos that default was chosen for: there is no CI to
-#   watch and no release pipeline waiting on the merge, so `magi review` runs
-#   the review + gate half of the graph and stops, leaving landing to the
-#   owner by hand.
 # - `[verify]` is intentionally absent — see the comment below.
 # - `[prompts]` restates this repository's jj-colocated conventions (the
 #   machine layer's `[prompts] all` is a plain string field, not an array, so
@@ -40,7 +34,6 @@
 
 [merge]
 base = "main"
-mode = "none"
 
 # No `[verify]` section on purpose. This repository ships no CI to mirror:
 # `.github/workflows/` only has `apm-bump.yml` and `kata-apply.yml` (plus the
