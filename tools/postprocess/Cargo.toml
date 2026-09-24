@@ -9,7 +9,7 @@ publish = false
 [dependencies]
 anyhow = "1"
 html-escape = "0.2"
-parking_lot = "0.12"
+parking_lot = "0.12.5"
 rayon = "1"
 regex = "1"
 serde = { version = "1", features = ["derive"] }
