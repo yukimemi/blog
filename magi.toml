@@ -45,10 +45,8 @@ cache = "{{ env.MAGI_CACHE | default(value='/tmp') }}"
 # No CI builds or checks the site (`.github/workflows/` has only
 # `apm-bump.yml` and `kata-apply.yml`), so this mirrors the one real build
 # path: `build.sh` runs `cargo build --release` on `tools/postprocess` for
-# Cloudflare Pages. Zola and Pagefind stay out — not Rust/bun/deno.
-#
-# `deno fmt --check` is not gated: no workflow or hook enforces it, and
-# `deno.json` excludes `content/`, so it would not check posts anyway.
+# Cloudflare Pages. Zola and Pagefind stay out of this gate because they
+# are external build tools, not code maintained in this repository.
 #
 # CARGO_TARGET_DIR is shared so candidate worktrees reuse one build.
 e2e = [
@@ -65,7 +63,7 @@ This repository uses jj (Jujutsu) with a colocated git repo. `git commit` \
 works in a candidate worktree and is what magi expects, but never run `jj` \
 commands and never touch the main working copy.
 
-This is a blog: the tree under review is Markdown articles and Zola/Deno \
-site-authoring plumbing, not application code. Judge and review it as \
+This is a blog: the tree under review is Markdown articles and Zola-based \
+static-site tooling, not application code. Judge and review it as \
 writing and static-site tooling, not as a service or library.
 """
