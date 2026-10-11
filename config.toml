@@ -1,6 +1,6 @@
 base_url = "https://yukimemi.pages.dev"
 title = "Yukimemi's Blog"
-description = "Thoughts, code, and life."
+description = "Vim / Neovim と Rust で作ったツールのことを書いています。"
 default_language = "ja"
 compile_sass = false
 build_search_index = false
